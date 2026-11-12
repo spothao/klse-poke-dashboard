@@ -1,20 +1,20 @@
 # KLSE Poke Dashboard
 
-A static, high-contrast e-ink dashboard for a Boox Poke 5 (6-inch, 1072×1448). It shows two KLSE paper-trading portfolios: MoneyLens and KLSE Screener / Yahoo.
+A static, high-contrast e-ink dashboard for a Boox Poke 5 (6-inch, 1072×1448). It is split into one-screen pages so nothing scrolls.
 
-Intended GitHub Pages URL: https://spothao.github.io/klse-poke-dashboard/
+Live site: https://spothao.github.io/klse-poke-dashboard/
 
-Pages is not enabled yet (the Actions token cannot create a Pages site). Enable it once:
+| Page | URL |
+| --- | --- |
+| Overview | https://spothao.github.io/klse-poke-dashboard/ |
+| MoneyLens holdings | https://spothao.github.io/klse-poke-dashboard/moneylens.html |
+| Screener holdings | https://spothao.github.io/klse-poke-dashboard/screener.html |
+| Watchlist (1/2) | https://spothao.github.io/klse-poke-dashboard/watchlist.html |
+| Watchlist (2/2) | https://spothao.github.io/klse-poke-dashboard/watchlist-2.html |
 
-1. Open https://github.com/spothao/klse-poke-dashboard/settings/pages
-2. Under **Build and deployment**, set **Source** to **GitHub Actions**
-3. Re-run the **Deploy GitHub Pages** workflow, or push any commit
+Each page has large Prev / Home / Next buttons, a Last updated line in MYT, and reloads every 15 minutes. No JavaScript is required. Tables that would overflow a Poke screen are split (for example `watchlist-2.html`).
 
-Until Pages is enabled, this public URL serves the same `index.html`:
-
-https://raw.githack.com/spothao/klse-poke-dashboard/main/index.html
-
-The page needs no JavaScript and reloads itself every 15 minutes. Prices come from Yahoo Finance (`CODE.KL`); if Yahoo is unavailable, the generator uses the ledger’s last close and marks it with `*`.
+Prices come from Yahoo Finance (`CODE.KL`); if Yahoo is unavailable, the generator uses the ledger’s last close and marks it with `*`.
 
 ## Rebuild
 
@@ -22,9 +22,15 @@ The page needs no JavaScript and reloads itself every 15 minutes. Prices come fr
 python3 build.py
 ```
 
-`build.py` reads `/workspace/papertrade/ledger.json` and `/workspace/papertrade-screener/ledger.json`, then writes `index.html`.
+`build.py` reads `/workspace/papertrade/ledger.json` and `/workspace/papertrade-screener/ledger.json`, then writes the HTML pages.
 
-To rebuild and push any change to `index.html`:
+To check that every page fits 360×480, 400×530, and 1072×1448 CSS pixels:
+
+```bash
+node measure_viewports.mjs index.html moneylens.html screener.html watchlist.html watchlist-2.html
+```
+
+To rebuild and push any change to the HTML pages:
 
 ```bash
 ./publish.sh

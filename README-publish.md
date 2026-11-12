@@ -4,7 +4,8 @@
 
 Repo: `spothao/klse-poke-dashboard`  
 Branch: `main`  
-Live site: https://spothao.github.io/klse-poke-dashboard/
+Live site: https://spothao.github.io/klse-poke-dashboard/  
+Screensaver (Termux): https://raw.githubusercontent.com/spothao/klse-poke-dashboard/main/screensaver.png
 
 ## 1. Rebuild
 
@@ -32,7 +33,29 @@ node measure_viewports.mjs index.html compare.html compare-2.html compare-3.html
 
 Omit a filename if that page was not generated. The script must print `FIT CHECK PASSED` for 360×480 and 400×530 (it also checks 1072×1448). If it fails, tighten the layout or split a table, rebuild, and measure again. Do not publish an overflowing page.
 
-## 3. Push with the GitHub MCP
+## 3. Copy the ledgers for the screensaver workflow
+
+The nightly routine copies the same two paper-trading ledgers into the repo so GitHub Actions can render `screensaver.png`:
+
+```bash
+mkdir -p /workspace/poke-dashboard/data
+cp /workspace/papertrade/ledger.json /workspace/poke-dashboard/data/moneylens-ledger.json
+cp /workspace/papertrade-screener/ledger.json /workspace/poke-dashboard/data/screener-ledger.json
+```
+
+Do not generate or push `screensaver.png` from this box. The **Deploy GitHub Pages** workflow (`.github/workflows/pages.yml`) runs `generate_screensaver.py` after checkout, deploys the PNG with the HTML pages, and commits `screensaver.png` back to `main` as `github-actions[bot]` only when the image changed, using `[skip ci]` so that commit does not retrigger the workflow.
+
+To test the script locally (optional):
+
+```bash
+# Uses data/*.json by default, or override paths for a box run:
+ML_LEDGER=/workspace/papertrade/ledger.json \
+  SC_LEDGER=/workspace/papertrade-screener/ledger.json \
+  OUTPUT=/tmp/screensaver.png \
+  python3 generate_screensaver.py
+```
+
+## 4. Push with the GitHub MCP
 
 Use the `user-GitHub-xai` MCP tool `push_files` (call `GetDynamicTools` for that namespace/tool first if the schema is not already loaded).
 
@@ -47,26 +70,29 @@ Each call needs:
 Rules:
 
 - A content value may be `$file:/absolute/path` (the whole value, no surrounding text). **At most four `$file:` arguments are allowed in one call.** If more than four files changed, make further `push_files` calls (each call is its own commit). Smaller files can be inlined as literal `content` to stay within the limit.
-- Push every changed HTML page. Also push `build.py`, `comparison.md`, `README.md`, or `README-publish.md` if those changed.
-- Do **not** push credentials, ledger files, `preview-*.png`, `fit-report.json`, or `__pycache__/`.
+- Push every changed HTML page, plus `data/moneylens-ledger.json` and `data/screener-ledger.json`.
+- Also push `build.py`, `generate_screensaver.py`, `comparison.md`, `README.md`, `README-publish.md`, or `.github/workflows/pages.yml` if those changed.
+- Do **not** push credentials, `preview-*.png`, `fit-report.json`, `__pycache__/`, or `screensaver.png` (the workflow writes the PNG).
 
 Example (first batch of pages):
 
 - `push_files` with `index.html`, `compare.html`, `compare-2.html`, `compare-3.html` as `$file:/workspace/poke-dashboard/…`
 - Then another `push_files` for `moneylens.html`, `screener.html`, `watchlist.html`, `watchlist-2.html`, and any updated `comparison.md` or `build.py`
+- In the same nightly run, push `data/moneylens-ledger.json` and `data/screener-ledger.json`
 
 Set `mcpDetails.description` to a short plain-language sentence about the push.
 
-## 4. Wait for GitHub Pages
+## 5. Wait for GitHub Pages and the screensaver
 
-The workflow `.github/workflows/pages.yml` deploys every `*.html` file from `main`. After the last push:
+The workflow `.github/workflows/pages.yml` deploys every `*.html` file and `screensaver.png` from `main`. After the last content push (not the later `[skip ci]` PNG commit):
 
 1. Wait about 60–90 seconds.
 2. Call `actions_list` on `user-GitHub-xai` with `method: list_workflow_runs`, `owner: spothao`, `repo: klse-poke-dashboard`.
 3. Confirm the latest **Deploy GitHub Pages** run for the new commit SHA has `status: completed` and `conclusion: success`.
 4. If it failed, call `actions_list` with `method: list_workflow_jobs` and `resource_id` set to the run id, then `get_job_logs` with `return_content: true` for the failed job id. Fix and push again.
+5. After a successful run, confirm a follow-up commit `Update screensaver.png [skip ci]` by `github-actions[bot]` when the image changed, and that it did **not** start another workflow run.
 
-## 5. Verify the live URLs
+## 6. Verify the live URLs
 
 Each of these must return HTTP 200 and the dashboard HTML (`text/html`, a “Last updated” line, Prev/Home/Next):
 
@@ -79,8 +105,13 @@ Each of these must return HTTP 200 and the dashboard HTML (`text/html`, a “Las
 - https://spothao.github.io/klse-poke-dashboard/watchlist.html
 - https://spothao.github.io/klse-poke-dashboard/watchlist-2.html
 
-Skip a URL only if that page was not generated. After a new deploy, allow a short cache delay and retry a 404 once.
+Also confirm the Termux image is a valid PNG (use a commit-SHA raw URL if the `main` CDN is cached):
+
+- https://raw.githubusercontent.com/spothao/klse-poke-dashboard/main/screensaver.png
+- https://spothao.github.io/klse-poke-dashboard/screensaver.png
+
+Skip an HTML URL only if that page was not generated. After a new deploy, allow a short cache delay and retry a 404 once.
 
 ## Local helper
 
-`./publish.sh` also rebuilds and, if this directory is a git repo, commits changed `*.html`. It will **not** finish a publish until `gh` or git credentials exist. Follow sections 3–5 above instead.
+`./publish.sh` also rebuilds and, if this directory is a git repo, commits changed `*.html`. It will **not** finish a publish until `gh` or git credentials exist. Follow sections 4–6 above instead.

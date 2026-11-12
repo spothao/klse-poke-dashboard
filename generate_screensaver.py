@@ -3,13 +3,23 @@
 Generate a black-on-white screensaver PNG for Boox Poke 5 (1072x1448).
 Reads the two ledger files and writes screensaver.png.
 
+Paths (optional env vars):
+  ML_LEDGER  MoneyLens ledger JSON (default: data/moneylens-ledger.json next to this script)
+  SC_LEDGER  Screener ledger JSON  (default: data/screener-ledger.json next to this script)
+  OUTPUT     Output PNG path       (default: screensaver.png next to this script)
+
 Usage:
   python3 generate_screensaver.py
+  ML_LEDGER=/workspace/papertrade/ledger.json \
+    SC_LEDGER=/workspace/papertrade-screener/ledger.json \
+    python3 generate_screensaver.py
 """
 
 import json
+import os
 from datetime import date, datetime, timedelta
 from pathlib import Path
+from zoneinfo import ZoneInfo
 
 try:
     from PIL import Image, ImageDraw, ImageFont
@@ -17,9 +27,18 @@ except ImportError:
     print("Pillow is required: pip install Pillow")
     raise
 
-ML_LEDGER = Path("/workspace/papertrade/ledger.json")
-SC_LEDGER = Path("/workspace/papertrade-screener/ledger.json")
-OUTPUT = Path(__file__).resolve().parent / "screensaver.png"
+_SCRIPT_DIR = Path(__file__).resolve().parent
+MYT = ZoneInfo("Asia/Kuala_Lumpur")
+
+
+def _path_from_env(name, default):
+    value = os.environ.get(name)
+    return Path(value) if value else Path(default)
+
+
+ML_LEDGER = _path_from_env("ML_LEDGER", _SCRIPT_DIR / "data" / "moneylens-ledger.json")
+SC_LEDGER = _path_from_env("SC_LEDGER", _SCRIPT_DIR / "data" / "screener-ledger.json")
+OUTPUT = _path_from_env("OUTPUT", _SCRIPT_DIR / "screensaver.png")
 
 WIDTH, HEIGHT = 1072, 1448
 BG = (255, 255, 255)
@@ -283,8 +302,11 @@ def main():
     y = 36
     title = "KLSE Paper Dashboard"
     as_of = max(ledger_as_of(ml), ledger_as_of(sc))
-    now = datetime.now()
-    date_text = f"{as_of.strftime('%-d %b')}  {now.strftime('%H:%M')}"
+    now = datetime.now(MYT)
+    date_text = (
+        f"Close {as_of.strftime('%-d %b')} · "
+        f"rendered {now.strftime('%-d %b %H:%M')} MYT"
+    )
     draw.text((margin, y), title, font=fonts["title"], fill=FG)
     date_w = draw.textlength(date_text, font=fonts["med"])
     title_w = draw.textlength(title, font=fonts["title"])

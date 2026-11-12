@@ -1,0 +1,2910 @@
+{
+ "start_date": "2026-10-14",
+ "weekly_budget_myr": 500,
+ "budget_rule": "RM1,000 credited each Monday through 2 Nov 2026; RM500 credited each Monday from 9 Nov 2026 onward (user change on 3 Nov 2026); unspent cash rolls over; any amount can be spent on any day",
+ "fees_note": "Brokerage, clearing and stamp duty ignored",
+ "cash_myr": 807.5,
+ "holdings": [
+  {
+   "code": "0302",
+   "name": "TOPMIX - Topmix Berhad",
+   "lots": 5,
+   "shares": 500,
+   "buy_date": "2026-10-14",
+   "buy_price": 0.35,
+   "cost": 175.0
+  },
+  {
+   "code": "5319",
+   "name": "MKHOP - MKH Oil Palm (East Kalimantan) Berhad",
+   "lots": 3,
+   "shares": 300,
+   "buy_date": "2026-10-14",
+   "buy_price": 0.635,
+   "cost": 190.5
+  },
+  {
+   "code": "5293",
+   "name": "AME - AME Elite Consortium Bhd",
+   "lots": 4,
+   "shares": 400,
+   "buy_date": "2026-10-19",
+   "buy_price": 1.295,
+   "cost": 518.0,
+   "avg_cost_note": "200@1.29 on 2026-10-19 + 100@1.30 on 2026-10-21 + 100@1.30 on 2026-10-26"
+  },
+  {
+   "code": "5049",
+   "name": "CVIEW - Country View Berhad",
+   "lots": 1,
+   "shares": 100,
+   "buy_date": "2026-10-26",
+   "buy_price": 2.66,
+   "cost": 266.0
+  },
+  {
+   "code": "7115",
+   "name": "SKBSHUT - SKB Shutters Corporation Bhd",
+   "lots": 3,
+   "shares": 300,
+   "buy_date": "2026-10-26",
+   "buy_price": 0.865,
+   "cost": 259.5,
+   "avg_cost_note": "200@0.86 on 2026-10-26 + 100@0.875 on 2026-10-27"
+  },
+  {
+   "code": "3255",
+   "name": "HEIM - Heineken Malaysia Berhad",
+   "lots": 1,
+   "shares": 100,
+   "buy_date": "2026-11-02",
+   "buy_price": 13.14,
+   "cost": 1314.0
+  },
+  {
+   "code": "5983",
+   "name": "MBMR - MBM Resources Berhad",
+   "lots": 1,
+   "shares": 100,
+   "buy_date": "2026-11-03",
+   "buy_price": 4.75,
+   "cost": 475.0
+  },
+  {
+   "code": "5280",
+   "name": "KIPREIT - KIP Real Estate Investment Trust",
+   "lots": 6,
+   "shares": 600,
+   "buy_date": "2026-11-10",
+   "buy_price": 0.855,
+   "cost": 513.0
+  }
+ ],
+ "history": [
+  {
+   "date": "2026-10-14",
+   "week_start": "2026-10-12",
+   "budget_credited": 1000,
+   "cash_before": 1000.0,
+   "trades": [
+    {
+     "side": "BUY",
+     "code": "0263",
+     "shares": 500,
+     "price": 0.65,
+     "value": 325.0
+    },
+    {
+     "side": "BUY",
+     "code": "0302",
+     "shares": 500,
+     "price": 0.35,
+     "value": 175.0
+    },
+    {
+     "side": "BUY",
+     "code": "5319",
+     "shares": 300,
+     "price": 0.635,
+     "value": 190.5
+    }
+   ],
+   "cash_after": 309.5,
+   "portfolio_market_value": 690.5,
+   "unrealised_pnl": 0.0,
+   "price_source": "klse.i3investor.com stock overview pages, fetched 17:48 MYT after close"
+  },
+  {
+   "date": "2026-10-15",
+   "week_start": "2026-10-12",
+   "budget_credited": 0,
+   "cash_before": 309.5,
+   "trades": [
+    {
+     "side": "BUY",
+     "code": "0263",
+     "shares": 200,
+     "price": 0.645,
+     "value": 129.0
+    }
+   ],
+   "cash_after": 180.5,
+   "closes": {
+    "0263": {
+     "price": 0.645,
+     "chg_pct": -0.77,
+     "volume": 338700
+    },
+    "0302": {
+     "price": 0.345,
+     "chg_pct": 0.0,
+     "volume": 262800
+    },
+    "5319": {
+     "price": 0.64,
+     "chg_pct": 0.79,
+     "volume": 98900
+    }
+   },
+   "holdings_mtm": {
+    "0263": {
+     "shares": 700,
+     "avg_cost": 0.6486,
+     "close": 0.645,
+     "mv": 451.5,
+     "cost": 454.0,
+     "unrealised": -2.5,
+     "unrealised_pct": -0.55,
+     "day_chg_pct": -0.77,
+     "day_pnl": -2.5
+    },
+    "0302": {
+     "shares": 500,
+     "avg_cost": 0.35,
+     "close": 0.345,
+     "mv": 172.5,
+     "cost": 175.0,
+     "unrealised": -2.5,
+     "unrealised_pct": -1.43,
+     "day_chg_pct": 0.0,
+     "day_pnl": 0.0
+    },
+    "5319": {
+     "shares": 300,
+     "avg_cost": 0.635,
+     "close": 0.64,
+     "mv": 192.0,
+     "cost": 190.5,
+     "unrealised": 1.5,
+     "unrealised_pct": 0.79,
+     "day_chg_pct": 0.79,
+     "day_pnl": 1.5
+    }
+   },
+   "portfolio_market_value": 816.0,
+   "cash": 180.5,
+   "portfolio_total": 996.5,
+   "invested_cost": 819.5,
+   "unrealised_pnl": -3.5,
+   "unrealised_pnl_pct_invested": -0.43,
+   "portfolio_vs_week_start_1000": -3.5,
+   "portfolio_vs_week_start_pct": -0.35,
+   "price_source": "klse.i3investor.com stock overview pages (BETA also checked on klsescreener.com), fetched after 17:00 MYT close on 2026-10-15; FBM KLCI from Yahoo Finance ^KLSE",
+   "moneylens_refresh": "11/10/2026",
+   "decision": "BUY 200 BETA @ 0.645; HOLD TOPMIX and MKHOP; keep RM180.50 cash"
+  },
+  {
+   "date": "2026-10-16",
+   "week_start": "2026-10-12",
+   "budget_credited": 0,
+   "cash_before": 180.5,
+   "trades": [
+    {
+     "side": "BUY",
+     "code": "0263",
+     "shares": 200,
+     "price": 0.66,
+     "value": 132.0
+    }
+   ],
+   "cash_after": 48.5,
+   "closes": {
+    "0263": {
+     "price": 0.66,
+     "chg_pct": 2.33,
+     "volume": 299600
+    },
+    "0302": {
+     "price": 0.35,
+     "chg_pct": 1.45,
+     "volume": 202600
+    },
+    "5319": {
+     "price": 0.635,
+     "chg_pct": -0.78,
+     "volume": 50500
+    }
+   },
+   "holdings_mtm": {
+    "0263": {
+     "shares": 900,
+     "avg_cost": 0.6511,
+     "close": 0.66,
+     "mv": 594.0,
+     "cost": 586.0,
+     "unrealised": 8.0,
+     "unrealised_pct": 1.37,
+     "day_chg_pct": 2.33,
+     "day_pnl": 10.5
+    },
+    "0302": {
+     "shares": 500,
+     "avg_cost": 0.35,
+     "close": 0.35,
+     "mv": 175.0,
+     "cost": 175.0,
+     "unrealised": 0.0,
+     "unrealised_pct": 0.0,
+     "day_chg_pct": 1.45,
+     "day_pnl": 2.5
+    },
+    "5319": {
+     "shares": 300,
+     "avg_cost": 0.635,
+     "close": 0.635,
+     "mv": 190.5,
+     "cost": 190.5,
+     "unrealised": 0.0,
+     "unrealised_pct": 0.0,
+     "day_chg_pct": -0.78,
+     "day_pnl": -1.5
+    }
+   },
+   "portfolio_market_value": 959.5,
+   "cash": 48.5,
+   "portfolio_total": 1008.0,
+   "invested_cost": 951.5,
+   "unrealised_pnl": 8.0,
+   "unrealised_pnl_pct_invested": 0.84,
+   "portfolio_vs_week_start_1000": 8.0,
+   "portfolio_vs_week_start_pct": 0.8,
+   "fbm_klci": {
+    "close": 1607.76,
+    "chg": -15.94,
+    "chg_pct": -0.98,
+    "source": "Business Today / Yahoo Finance ^KLSE"
+   },
+   "price_source": "klse.i3investor.com + klsescreener.com stock pages, cross-checked with Yahoo Finance 0263.KL/0302.KL/5319.KL; fetched after 17:00 MYT close on 2026-10-16",
+   "moneylens_refresh": "11/10/2026",
+   "decision": "BUY 200 BETA @ 0.66; HOLD TOPMIX and MKHOP; keep RM48.50 cash"
+  },
+  {
+   "date": "2026-10-19",
+   "week_start": "2026-10-19",
+   "budget_credited": 1000,
+   "cash_before": 1048.5,
+   "trades": [
+    {
+     "side": "BUY",
+     "code": "5141",
+     "shares": 300,
+     "price": 1.3,
+     "value": 390.0
+    },
+    {
+     "side": "BUY",
+     "code": "5293",
+     "shares": 200,
+     "price": 1.29,
+     "value": 258.0
+    }
+   ],
+   "cash_after": 400.5,
+   "closes": {
+    "0263": {
+     "price": 0.645,
+     "chg_pct": -2.27,
+     "volume": 247600
+    },
+    "0302": {
+     "price": 0.345,
+     "chg_pct": -1.43,
+     "volume": 50000
+    },
+    "5319": {
+     "price": 0.63,
+     "chg_pct": -0.79,
+     "volume": 28200
+    },
+    "5141": {
+     "price": 1.3,
+     "chg_pct": -1.52,
+     "volume": 2577200
+    },
+    "5293": {
+     "price": 1.29,
+     "chg_pct": 0.0,
+     "volume": 50700
+    }
+   },
+   "holdings_mtm": {
+    "0263": {
+     "shares": 900,
+     "avg_cost": 0.6511,
+     "close": 0.645,
+     "mv": 580.5,
+     "cost": 586.0,
+     "unrealised": -5.5,
+     "unrealised_pct": -0.94,
+     "day_chg_pct": -2.27,
+     "day_pnl": -13.5
+    },
+    "0302": {
+     "shares": 500,
+     "avg_cost": 0.35,
+     "close": 0.345,
+     "mv": 172.5,
+     "cost": 175.0,
+     "unrealised": -2.5,
+     "unrealised_pct": -1.43,
+     "day_chg_pct": -1.43,
+     "day_pnl": -2.5
+    },
+    "5319": {
+     "shares": 300,
+     "avg_cost": 0.635,
+     "close": 0.63,
+     "mv": 189.0,
+     "cost": 190.5,
+     "unrealised": -1.5,
+     "unrealised_pct": -0.79,
+     "day_chg_pct": -0.79,
+     "day_pnl": -1.5
+    },
+    "5141": {
+     "shares": 300,
+     "avg_cost": 1.3,
+     "close": 1.3,
+     "mv": 390.0,
+     "cost": 390.0,
+     "unrealised": 0.0,
+     "unrealised_pct": 0.0,
+     "day_chg_pct": null,
+     "day_pnl": 0.0
+    },
+    "5293": {
+     "shares": 200,
+     "avg_cost": 1.29,
+     "close": 1.29,
+     "mv": 258.0,
+     "cost": 258.0,
+     "unrealised": 0.0,
+     "unrealised_pct": 0.0,
+     "day_chg_pct": null,
+     "day_pnl": 0.0
+    }
+   },
+   "portfolio_market_value": 1590.0,
+   "cash": 400.5,
+   "portfolio_total": 1990.5,
+   "invested_cost": 1599.5,
+   "unrealised_pnl": -9.5,
+   "unrealised_pnl_pct_invested": -0.59,
+   "total_contributed": 2000,
+   "pnl_vs_contributed": -9.5,
+   "pnl_vs_contributed_pct": -0.47,
+   "day_pnl_overnight_holdings": -17.5,
+   "fbm_klci": {
+    "close": 1595.75,
+    "chg": -12.01,
+    "chg_pct": -0.75,
+    "source": "Yahoo Finance ^KLSE (WSJ 4:47pm MYT snapshot 1,595.03, day low 1,593.37 = 52-week low)"
+   },
+   "price_source": "KLSE Screener stock pages + Yahoo Finance .KL chart data, i3investor cross-check (i3 showed TOPMIX 0.34/25,000 vol, appears lagged; Screener and Yahoo agree 0.345/50,000); fetched ~17:35-17:40 MYT 19 Oct 2026",
+   "moneylens_refresh": "18/10/2026",
+   "decision": "BUY 300 DAYANG @1.30 and 200 AME @1.29; HOLD BETA, TOPMIX, MKHOP; keep RM400.50 cash"
+  },
+  {
+   "date": "2026-10-20",
+   "week_start": "2026-10-19",
+   "budget_credited": 0,
+   "cash_before": 400.5,
+   "trades": [],
+   "cash_after": 400.5,
+   "closes": {
+    "0263": {
+     "price": 0.64,
+     "chg_pct": -0.78,
+     "volume": 208400
+    },
+    "0302": {
+     "price": 0.34,
+     "chg_pct": -1.45,
+     "volume": 623000
+    },
+    "5319": {
+     "price": 0.63,
+     "chg_pct": 0.0,
+     "volume": 42100
+    },
+    "5141": {
+     "price": 1.28,
+     "chg_pct": -1.54,
+     "volume": 1441900
+    },
+    "5293": {
+     "price": 1.28,
+     "chg_pct": -0.78,
+     "volume": 637700
+    }
+   },
+   "holdings_mtm": {
+    "0263": {
+     "shares": 900,
+     "avg_cost": 0.6511,
+     "close": 0.64,
+     "mv": 576.0,
+     "cost": 586.0,
+     "unrealised": -10.0,
+     "unrealised_pct": -1.71,
+     "day_chg_pct": -0.78,
+     "day_pnl": -4.5
+    },
+    "0302": {
+     "shares": 500,
+     "avg_cost": 0.35,
+     "close": 0.34,
+     "mv": 170.0,
+     "cost": 175.0,
+     "unrealised": -5.0,
+     "unrealised_pct": -2.86,
+     "day_chg_pct": -1.45,
+     "day_pnl": -2.5
+    },
+    "5319": {
+     "shares": 300,
+     "avg_cost": 0.635,
+     "close": 0.63,
+     "mv": 189.0,
+     "cost": 190.5,
+     "unrealised": -1.5,
+     "unrealised_pct": -0.79,
+     "day_chg_pct": 0.0,
+     "day_pnl": 0.0
+    },
+    "5141": {
+     "shares": 300,
+     "avg_cost": 1.3,
+     "close": 1.28,
+     "mv": 384.0,
+     "cost": 390.0,
+     "unrealised": -6.0,
+     "unrealised_pct": -1.54,
+     "day_chg_pct": -1.54,
+     "day_pnl": -6.0
+    },
+    "5293": {
+     "shares": 200,
+     "avg_cost": 1.29,
+     "close": 1.28,
+     "mv": 256.0,
+     "cost": 258.0,
+     "unrealised": -2.0,
+     "unrealised_pct": -0.78,
+     "day_chg_pct": -0.78,
+     "day_pnl": -2.0
+    }
+   },
+   "portfolio_market_value": 1575.0,
+   "cash": 400.5,
+   "portfolio_total": 1975.5,
+   "invested_cost": 1599.5,
+   "unrealised_pnl": -24.5,
+   "unrealised_pnl_pct_invested": -1.53,
+   "total_contributed": 2000,
+   "pnl_vs_contributed": -24.5,
+   "pnl_vs_contributed_pct": -1.22,
+   "day_pnl_holdings": -15.0,
+   "fbm_klci": {
+    "close": 1599.58,
+    "chg": 3.83,
+    "chg_pct": 0.24,
+    "source": "The Star 20 Oct 2026 5:23pm; Yahoo Finance ^KLSE 1,599.58",
+    "breadth": "751 losers vs 331 gainers, 499 unchanged"
+   },
+   "price_source": "Yahoo Finance .KL daily chart data, cross-checked against KLSE Screener stock pages (prices and volumes match; Screener shows BETA change -0.020/-3.0% vs its own reference, but Yahoo and our 19 Oct ledger show prior close 0.645, so -0.005/-0.78% used). i3investor blocked by Cloudflare. Fetched ~17:40 MYT 20 Oct 2026",
+   "moneylens_refresh": "18/10/2026 (snapshot captured 19 Oct reused; site refreshes weekly Sunday night)",
+   "decision": "HOLD all five positions; no buys; keep RM400.50 cash"
+  },
+  {
+   "date": "2026-10-21",
+   "week_start": "2026-10-19",
+   "budget_credited": 0,
+   "cash_before": 400.5,
+   "trades": [
+    {
+     "side": "BUY",
+     "code": "5293",
+     "shares": 100,
+     "price": 1.3,
+     "value": 130.0
+    }
+   ],
+   "cash_after": 270.5,
+   "closes": {
+    "0263": {
+     "price": 0.645,
+     "chg_pct": 0.78,
+     "volume": 233600
+    },
+    "0302": {
+     "price": 0.34,
+     "chg_pct": 0.0,
+     "volume": 0
+    },
+    "5319": {
+     "price": 0.63,
+     "chg_pct": 0.0,
+     "volume": 15200
+    },
+    "5141": {
+     "price": 1.25,
+     "chg_pct": -2.34,
+     "volume": 1697900
+    },
+    "5293": {
+     "price": 1.3,
+     "chg_pct": 1.56,
+     "volume": 98800
+    }
+   },
+   "holdings_mtm_pre_trade": {
+    "0263": {
+     "shares": 900,
+     "avg_cost": 0.6511,
+     "close": 0.645,
+     "mv": 580.5,
+     "cost": 586.0,
+     "unrealised": -5.5,
+     "unrealised_pct": -0.94,
+     "day_chg_pct": 0.78,
+     "day_pnl": 4.5
+    },
+    "0302": {
+     "shares": 500,
+     "avg_cost": 0.35,
+     "close": 0.34,
+     "mv": 170.0,
+     "cost": 175.0,
+     "unrealised": -5.0,
+     "unrealised_pct": -2.86,
+     "day_chg_pct": 0.0,
+     "day_pnl": 0.0
+    },
+    "5319": {
+     "shares": 300,
+     "avg_cost": 0.635,
+     "close": 0.63,
+     "mv": 189.0,
+     "cost": 190.5,
+     "unrealised": -1.5,
+     "unrealised_pct": -0.79,
+     "day_chg_pct": 0.0,
+     "day_pnl": 0.0
+    },
+    "5141": {
+     "shares": 300,
+     "avg_cost": 1.3,
+     "close": 1.25,
+     "mv": 375.0,
+     "cost": 390.0,
+     "unrealised": -15.0,
+     "unrealised_pct": -3.85,
+     "day_chg_pct": -2.34,
+     "day_pnl": -9.0
+    },
+    "5293": {
+     "shares": 200,
+     "avg_cost": 1.29,
+     "close": 1.3,
+     "mv": 260.0,
+     "cost": 258.0,
+     "unrealised": 2.0,
+     "unrealised_pct": 0.78,
+     "day_chg_pct": 1.56,
+     "day_pnl": 4.0
+    }
+   },
+   "portfolio_market_value_post_trade": 1704.5,
+   "cash": 270.5,
+   "portfolio_total": 1975.0,
+   "invested_cost": 1729.5,
+   "unrealised_pnl": -25.0,
+   "unrealised_pnl_pct_invested": -1.56,
+   "total_contributed": 2000,
+   "pnl_vs_contributed": -25.0,
+   "pnl_vs_contributed_pct": -1.25,
+   "day_pnl_holdings": -0.5,
+   "fbm_klci": {
+    "close": 1602.27,
+    "chg": 2.69,
+    "chg_pct": 0.16,
+    "source": "FMT/Bernama 21 Oct 2026 17:28; Yahoo ^KLSE 1,602.27",
+    "breadth": "626 gainers vs 416 losers, 502 unchanged"
+   },
+   "price_source": "Yahoo Finance .KL daily chart data, cross-checked with KLSE Screener stock pages ~17:36 MYT 21 Oct 2026 (all match; TOPMIX untraded today, last 0.34)",
+   "moneylens_refresh": "18/10/2026 (19 Oct snapshot reused; next refresh Sunday night)",
+   "decision": "BUY 100 AME @1.30; HOLD BETA, TOPMIX, MKHOP, DAYANG; keep RM270.50 cash"
+  },
+  {
+   "date": "2026-10-22",
+   "week_start": "2026-10-19",
+   "budget_credited": 0,
+   "cash_before": 270.5,
+   "trades": [],
+   "cash_after": 270.5,
+   "closes": {
+    "0263": {
+     "price": 0.645,
+     "chg_pct": 0.0,
+     "volume": 114300
+    },
+    "0302": {
+     "price": 0.34,
+     "chg_pct": 0.0,
+     "volume": 207200
+    },
+    "5319": {
+     "price": 0.63,
+     "chg_pct": 0.0,
+     "volume": 35700
+    },
+    "5141": {
+     "price": 1.29,
+     "chg_pct": 3.2,
+     "volume": 1885800
+    },
+    "5293": {
+     "price": 1.31,
+     "chg_pct": 0.77,
+     "volume": 109700
+    }
+   },
+   "holdings_mtm": {
+    "0263": {
+     "shares": 900,
+     "avg_cost": 0.6511,
+     "close": 0.645,
+     "mv": 580.5,
+     "cost": 586.0,
+     "unrealised": -5.5,
+     "unrealised_pct": -0.94,
+     "day_chg_pct": 0.0,
+     "day_pnl": 0.0
+    },
+    "0302": {
+     "shares": 500,
+     "avg_cost": 0.35,
+     "close": 0.34,
+     "mv": 170.0,
+     "cost": 175.0,
+     "unrealised": -5.0,
+     "unrealised_pct": -2.86,
+     "day_chg_pct": 0.0,
+     "day_pnl": 0.0
+    },
+    "5319": {
+     "shares": 300,
+     "avg_cost": 0.635,
+     "close": 0.63,
+     "mv": 189.0,
+     "cost": 190.5,
+     "unrealised": -1.5,
+     "unrealised_pct": -0.79,
+     "day_chg_pct": 0.0,
+     "day_pnl": 0.0
+    },
+    "5141": {
+     "shares": 300,
+     "avg_cost": 1.3,
+     "close": 1.29,
+     "mv": 387.0,
+     "cost": 390.0,
+     "unrealised": -3.0,
+     "unrealised_pct": -0.77,
+     "day_chg_pct": 3.2,
+     "day_pnl": 12.0
+    },
+    "5293": {
+     "shares": 300,
+     "avg_cost": 1.2933,
+     "close": 1.31,
+     "mv": 393.0,
+     "cost": 388.0,
+     "unrealised": 5.0,
+     "unrealised_pct": 1.29,
+     "day_chg_pct": 0.77,
+     "day_pnl": 3.0
+    }
+   },
+   "portfolio_market_value": 1719.5,
+   "cash": 270.5,
+   "portfolio_total": 1990.0,
+   "invested_cost": 1729.5,
+   "unrealised_pnl": -10.0,
+   "unrealised_pnl_pct_invested": -0.58,
+   "total_contributed": 2000,
+   "pnl_vs_contributed": -10.0,
+   "pnl_vs_contributed_pct": -0.5,
+   "day_pnl_holdings": 15.0,
+   "fbm_klci": {
+    "close": 1608.14,
+    "chg": 5.87,
+    "chg_pct": 0.37,
+    "source": "The Star 22 Oct 2026 5:25pm",
+    "breadth": "681 losers vs 420 gainers, 501 unchanged; MSCI Asia ex-Japan -2.4%"
+   },
+   "price_source": "KLSE Screener stock pages, cross-checked with MalaysiaStock.biz (prices, changes and volumes match), fetched ~17:40-17:50 MYT 22 Oct 2026. Yahoo Finance rate-limited (HTTP 429) this run.",
+   "moneylens_refresh": "18/10/2026 (19 Oct snapshot reused; next refresh Sunday night 25 Oct)",
+   "notes": "Brent crude +~3% to ~US$112 (highest since May) on Middle East escalation lifted O&G names incl. DAYANG. MKHOP: Batu Kawan unit's MGO at RM0.6626 left public spread at 20.40%; Bursa granted extension to 7 Mar 2027 - thin liquidity risk.",
+   "decision": "HOLD all five positions; no trade; keep RM270.50 cash for Monday's RM1,000 credit and MoneyLens refresh"
+  },
+  {
+   "date": "2026-10-23",
+   "week_start": "2026-10-19",
+   "budget_credited": 0,
+   "cash_before": 270.5,
+   "trades": [],
+   "cash_after": 270.5,
+   "closes": {
+    "0263": {
+     "price": 0.645,
+     "chg_pct": 0.0,
+     "volume": 234200
+    },
+    "0302": {
+     "price": 0.34,
+     "chg_pct": 0.0,
+     "volume": 248700
+    },
+    "5319": {
+     "price": 0.63,
+     "chg_pct": 0.0,
+     "volume": 66500
+    },
+    "5141": {
+     "price": 1.32,
+     "chg_pct": 2.33,
+     "volume": 2688700
+    },
+    "5293": {
+     "price": 1.29,
+     "chg_pct": -1.53,
+     "volume": 283200
+    }
+   },
+   "holdings_mtm": {
+    "0263": {
+     "shares": 900,
+     "avg_cost": 0.6511,
+     "close": 0.645,
+     "mv": 580.5,
+     "cost": 586.0,
+     "unrealised": -5.5,
+     "unrealised_pct": -0.94,
+     "day_chg_pct": 0.0,
+     "day_pnl": 0.0
+    },
+    "0302": {
+     "shares": 500,
+     "avg_cost": 0.35,
+     "close": 0.34,
+     "mv": 170.0,
+     "cost": 175.0,
+     "unrealised": -5.0,
+     "unrealised_pct": -2.86,
+     "day_chg_pct": 0.0,
+     "day_pnl": 0.0
+    },
+    "5319": {
+     "shares": 300,
+     "avg_cost": 0.635,
+     "close": 0.63,
+     "mv": 189.0,
+     "cost": 190.5,
+     "unrealised": -1.5,
+     "unrealised_pct": -0.79,
+     "day_chg_pct": 0.0,
+     "day_pnl": 0.0
+    },
+    "5141": {
+     "shares": 300,
+     "avg_cost": 1.3,
+     "close": 1.32,
+     "mv": 396.0,
+     "cost": 390.0,
+     "unrealised": 6.0,
+     "unrealised_pct": 1.54,
+     "day_chg_pct": 2.33,
+     "day_pnl": 9.0
+    },
+    "5293": {
+     "shares": 300,
+     "avg_cost": 1.2933,
+     "close": 1.29,
+     "mv": 387.0,
+     "cost": 388.0,
+     "unrealised": -1.0,
+     "unrealised_pct": -0.26,
+     "day_chg_pct": -1.53,
+     "day_pnl": -6.0
+    }
+   },
+   "portfolio_market_value": 1722.5,
+   "cash": 270.5,
+   "portfolio_total": 1993.0,
+   "invested_cost": 1729.5,
+   "unrealised_pnl": -7.0,
+   "unrealised_pnl_pct_invested": -0.4,
+   "total_contributed": 2000,
+   "pnl_vs_contributed": -7.0,
+   "pnl_vs_contributed_pct": -0.35,
+   "day_pnl_holdings": 3.0,
+   "week_summary": {
+    "start_value_incl_credit": 2008.0,
+    "end_value": 1993.0,
+    "chg": -15.0
+   },
+   "fbm_klci": {
+    "close": 1611.56,
+    "chg": 3.42,
+    "chg_pct": 0.21,
+    "source": "The Star 23 Oct 2026 5:22pm; Yahoo ^KLSE 1,611.56",
+    "breadth": "528 gainers vs 529 losers, 532 unchanged; week +3.80 pts (+0.24%)"
+   },
+   "price_source": "KLSE Screener stock pages, cross-checked with Yahoo Finance .KL daily chart data (prices and volumes match), fetched ~17:40 MYT 23 Oct 2026",
+   "moneylens_refresh": "18/10/2026 (19 Oct snapshot reused; next refresh Sunday night 25 Oct)",
+   "notes": "Brent touched US$114.72 intraday (highest since 4 May, Reuters) on Houthi attacks on Saudi Arabia; lifted DAYANG to 1.32 (high 1.36) on 2.69m shares. AME slipped to 1.29 on its heaviest volume this week (283,200) with no company news found; still below MoneyLens accumulate ref 1.34. Carlsberg +36 sen led KLCI gainers.",
+   "decision": "HOLD all five positions; no trade; keep RM270.50 cash into Monday's RM1,000 credit and Sunday MoneyLens refresh"
+  },
+  {
+   "date": "2026-10-26",
+   "week_start": "2026-10-26",
+   "budget_credited": 1000,
+   "cash_before": 1270.5,
+   "trades": [
+    {
+     "side": "SELL",
+     "code": "5141",
+     "shares": 300,
+     "price": 1.38,
+     "value": 414.0,
+     "realised_pnl": 24.0,
+     "reason": "Dropped out of MoneyLens top 20 (~#21) after 25 Oct refresh; 'cyclical peak' + 'dividend cover weak' flags; took +6.15% gain after oil-driven spike to 1.38 (high 1.42) on 4.9m shares"
+    },
+    {
+     "side": "BUY",
+     "code": "5293",
+     "shares": 100,
+     "price": 1.3,
+     "value": 130.0
+    },
+    {
+     "side": "BUY",
+     "code": "5049",
+     "shares": 100,
+     "price": 2.66,
+     "value": 266.0
+    },
+    {
+     "side": "BUY",
+     "code": "7115",
+     "shares": 200,
+     "price": 0.86,
+     "value": 172.0
+    }
+   ],
+   "cash_after": 1116.5,
+   "closes": {
+    "0263": {
+     "price": 0.64,
+     "volume": 95500
+    },
+    "0302": {
+     "price": 0.335,
+     "volume": 2000
+    },
+    "5319": {
+     "price": 0.625,
+     "volume": 26100
+    },
+    "5141": {
+     "price": 1.38,
+     "volume": 4907600
+    },
+    "5293": {
+     "price": 1.3,
+     "volume": 254100
+    },
+    "5049": {
+     "price": 2.66,
+     "volume": 14700
+    },
+    "7115": {
+     "price": 0.86,
+     "volume": 114000
+    }
+   },
+   "day_pnl_overnight_holdings": {
+    "0263": -4.5,
+    "0302": -2.5,
+    "5319": -1.5,
+    "5141": 18.0,
+    "5293": 3.0
+   },
+   "day_pnl_total": 12.5,
+   "holdings_mtm": {
+    "0263": {
+     "shares": 900,
+     "avg_cost": 0.6511,
+     "close": 0.64,
+     "mv": 576.0,
+     "cost": 586.0,
+     "unrealised": -10.0,
+     "unrealised_pct": -1.71
+    },
+    "0302": {
+     "shares": 500,
+     "avg_cost": 0.35,
+     "close": 0.335,
+     "mv": 167.5,
+     "cost": 175.0,
+     "unrealised": -7.5,
+     "unrealised_pct": -4.29
+    },
+    "5319": {
+     "shares": 300,
+     "avg_cost": 0.635,
+     "close": 0.625,
+     "mv": 187.5,
+     "cost": 190.5,
+     "unrealised": -3.0,
+     "unrealised_pct": -1.57
+    },
+    "5293": {
+     "shares": 400,
+     "avg_cost": 1.295,
+     "close": 1.3,
+     "mv": 520.0,
+     "cost": 518.0,
+     "unrealised": 2.0,
+     "unrealised_pct": 0.39
+    },
+    "5049": {
+     "shares": 100,
+     "avg_cost": 2.66,
+     "close": 2.66,
+     "mv": 266.0,
+     "cost": 266.0,
+     "unrealised": 0.0,
+     "unrealised_pct": 0.0
+    },
+    "7115": {
+     "shares": 200,
+     "avg_cost": 0.86,
+     "close": 0.86,
+     "mv": 172.0,
+     "cost": 172.0,
+     "unrealised": 0.0,
+     "unrealised_pct": 0.0
+    }
+   },
+   "portfolio_market_value": 1889.0,
+   "cash": 1116.5,
+   "portfolio_total": 3005.5,
+   "invested_cost": 1907.5,
+   "unrealised_pnl": -18.5,
+   "realised_pnl_to_date": 24.0,
+   "total_contributed": 3000,
+   "pnl_vs_contributed": 5.5,
+   "pnl_vs_contributed_pct": 0.18,
+   "fbm_klci": {
+    "close": 1604.36,
+    "chg": -7.2,
+    "chg_pct": -0.45,
+    "source": "Yahoo Finance ^KLSE (Stooq showed 1,601.82, -9.74); midday 1,602.05 per The Star; profit-taking in banks/utilities, energy +1.55% on Brent ~US$114-116"
+   },
+   "price_source": "Yahoo Finance .KL daily chart data cross-checked with KLSE Screener stock pages (all match), fetched ~17:35-17:45 MYT 26 Oct 2026",
+   "moneylens_refresh": "25/10/2026",
+   "notes": "CTOS skipped despite newly entering accumulate band: Sept cyber breach, ~RM12m FY26 hit, EPF/KWAP/Aberdeen paring stakes. CVIEW fell 7% to 2.66 on only 14,700 shares with no announcement found (last ex-div 7 May).",
+   "decision": "SELL 300 DAYANG @1.38; BUY 100 AME @1.30, 100 CVIEW @2.66, 200 SKBSHUT @0.86"
+  },
+  {
+   "date": "2026-10-27",
+   "week_start": "2026-10-26",
+   "budget_credited": 0,
+   "cash_before": 1116.5,
+   "trades": [
+    {
+     "side": "BUY",
+     "code": "7115",
+     "shares": 100,
+     "price": 0.875,
+     "value": 87.5
+    }
+   ],
+   "cash_after": 1029.0,
+   "closes": {
+    "0263": {
+     "price": 0.66,
+     "chg_pct": 3.13,
+     "volume": 191300
+    },
+    "0302": {
+     "price": 0.335,
+     "chg_pct": 0.0,
+     "volume": 30200
+    },
+    "5319": {
+     "price": 0.63,
+     "chg_pct": 0.8,
+     "volume": 5000
+    },
+    "5293": {
+     "price": 1.3,
+     "chg_pct": 0.0,
+     "volume": 30300
+    },
+    "5049": {
+     "price": 2.68,
+     "chg_pct": 0.75,
+     "volume": 1000
+    },
+    "7115": {
+     "price": 0.875,
+     "chg_pct": 1.74,
+     "volume": 42300
+    }
+   },
+   "holdings_mtm": {
+    "0263": {
+     "shares": 900,
+     "avg_cost": 0.6511,
+     "close": 0.66,
+     "mv": 594.0,
+     "cost": 586.0,
+     "unrealised": 8.0,
+     "unrealised_pct": 1.37,
+     "day_chg_pct": 3.13,
+     "day_pnl": 18.0
+    },
+    "0302": {
+     "shares": 500,
+     "avg_cost": 0.35,
+     "close": 0.335,
+     "mv": 167.5,
+     "cost": 175.0,
+     "unrealised": -7.5,
+     "unrealised_pct": -4.29,
+     "day_chg_pct": 0.0,
+     "day_pnl": 0.0
+    },
+    "5319": {
+     "shares": 300,
+     "avg_cost": 0.635,
+     "close": 0.63,
+     "mv": 189.0,
+     "cost": 190.5,
+     "unrealised": -1.5,
+     "unrealised_pct": -0.79,
+     "day_chg_pct": 0.8,
+     "day_pnl": 1.5
+    },
+    "5293": {
+     "shares": 400,
+     "avg_cost": 1.295,
+     "close": 1.3,
+     "mv": 520.0,
+     "cost": 518.0,
+     "unrealised": 2.0,
+     "unrealised_pct": 0.39,
+     "day_chg_pct": 0.0,
+     "day_pnl": 0.0
+    },
+    "5049": {
+     "shares": 100,
+     "avg_cost": 2.66,
+     "close": 2.68,
+     "mv": 268.0,
+     "cost": 266.0,
+     "unrealised": 2.0,
+     "unrealised_pct": 0.75,
+     "day_chg_pct": 0.75,
+     "day_pnl": 2.0
+    },
+    "7115": {
+     "shares": 300,
+     "avg_cost": 0.865,
+     "close": 0.875,
+     "mv": 262.5,
+     "cost": 259.5,
+     "unrealised": 3.0,
+     "unrealised_pct": 1.16,
+     "day_chg_pct": 1.74,
+     "day_pnl": 3.0
+    }
+   },
+   "day_pnl_total": 24.5,
+   "portfolio_market_value": 2001.0,
+   "cash": 1029.0,
+   "portfolio_total": 3030.0,
+   "invested_cost": 1995.0,
+   "unrealised_pnl": 6.0,
+   "realised_pnl_to_date": 24.0,
+   "total_contributed": 3000,
+   "pnl_vs_contributed": 30.0,
+   "pnl_vs_contributed_pct": 1.0,
+   "fbm_klci": {
+    "close": 1611.85,
+    "chg": 7.49,
+    "chg_pct": 0.47,
+    "source": "Yahoo Finance ^KLSE 16:59 MYT; Bernama midday 1,608.54 (+4.18), gainers 585 vs losers 358; plantation index weaker, oil easing"
+   },
+   "price_source": "Yahoo Finance .KL daily chart data cross-checked with KLSE Screener stock pages (all match); CTOS also confirmed on Insage IR price ticker; fetched ~17:40 MYT 27 Oct 2026",
+   "moneylens_refresh": "25/10/2026 (26 Oct snapshot reused; next refresh Sunday night 1 Nov)",
+   "notes": "BETA +3.1% on 2x Monday volume, no announcement found. CTOS +12% to 0.42 on 32.3m shares (no fresh announcement found; rebound after KWAP selldown), now above MoneyLens accumulate ref 0.38. HEIM -3.8% to 12.74 on 1.94m shares (~6x usual) and CARLSBG -2.9% to 12.60, no news found. TAS -6% to 0.39 on thin 28,500 shares.",
+   "decision": "BUY 100 SKBSHUT @0.875; HOLD all others; keep RM1,029 cash so next Monday's credit funds a 100-share lot of CARLSBG or HEIM if still undervalued"
+  },
+  {
+   "date": "2026-10-28",
+   "week_start": "2026-10-26",
+   "budget_credited": 0,
+   "cash_before": 1029.0,
+   "trades": [],
+   "cash_after": 1029.0,
+   "closes": {
+    "0263": {
+     "price": 0.67,
+     "chg_pct": 1.52,
+     "volume": 363000
+    },
+    "0302": {
+     "price": 0.34,
+     "chg_pct": 1.49,
+     "volume": 257500
+    },
+    "5319": {
+     "price": 0.625,
+     "chg_pct": -0.79,
+     "volume": 9700
+    },
+    "5293": {
+     "price": 1.28,
+     "chg_pct": -1.54,
+     "volume": 1611800
+    },
+    "5049": {
+     "price": 2.72,
+     "chg_pct": 1.49,
+     "volume": 13900
+    },
+    "7115": {
+     "price": 0.875,
+     "chg_pct": 0.0,
+     "volume": 78700
+    }
+   },
+   "holdings_mtm": {
+    "0263": {
+     "shares": 900,
+     "avg_cost": 0.6511,
+     "close": 0.67,
+     "mv": 603.0,
+     "cost": 586.0,
+     "unrealised": 17.0,
+     "unrealised_pct": 2.9,
+     "day_chg_pct": 1.52,
+     "day_pnl": 9.0
+    },
+    "0302": {
+     "shares": 500,
+     "avg_cost": 0.35,
+     "close": 0.34,
+     "mv": 170.0,
+     "cost": 175.0,
+     "unrealised": -5.0,
+     "unrealised_pct": -2.86,
+     "day_chg_pct": 1.49,
+     "day_pnl": 2.5
+    },
+    "5319": {
+     "shares": 300,
+     "avg_cost": 0.635,
+     "close": 0.625,
+     "mv": 187.5,
+     "cost": 190.5,
+     "unrealised": -3.0,
+     "unrealised_pct": -1.57,
+     "day_chg_pct": -0.79,
+     "day_pnl": -1.5
+    },
+    "5293": {
+     "shares": 400,
+     "avg_cost": 1.295,
+     "close": 1.28,
+     "mv": 512.0,
+     "cost": 518.0,
+     "unrealised": -6.0,
+     "unrealised_pct": -1.16,
+     "day_chg_pct": -1.54,
+     "day_pnl": -8.0
+    },
+    "5049": {
+     "shares": 100,
+     "avg_cost": 2.66,
+     "close": 2.72,
+     "mv": 272.0,
+     "cost": 266.0,
+     "unrealised": 6.0,
+     "unrealised_pct": 2.26,
+     "day_chg_pct": 1.49,
+     "day_pnl": 4.0
+    },
+    "7115": {
+     "shares": 300,
+     "avg_cost": 0.865,
+     "close": 0.875,
+     "mv": 262.5,
+     "cost": 259.5,
+     "unrealised": 3.0,
+     "unrealised_pct": 1.16,
+     "day_chg_pct": 0.0,
+     "day_pnl": 0.0
+    }
+   },
+   "day_pnl_total": 6.0,
+   "portfolio_market_value": 2007.0,
+   "cash": 1029.0,
+   "portfolio_total": 3036.0,
+   "invested_cost": 1995.0,
+   "unrealised_pnl": 12.0,
+   "realised_pnl_to_date": 24.0,
+   "total_contributed": 3000,
+   "pnl_vs_contributed": 36.0,
+   "pnl_vs_contributed_pct": 1.2,
+   "fbm_klci": {
+    "close": 1613.87,
+    "chg": 2.02,
+    "chg_pct": 0.13,
+    "source": "Yahoo Finance ^KLSE 16:59 MYT; lunch 1,610.41 (-1.44) per The Star/KLSE Screener, defensive ahead of US Fed decision"
+   },
+   "price_source": "Yahoo Finance .KL daily chart data cross-checked with KLSE Screener stock pages (all match), fetched ~17:35 MYT 28 Oct 2026",
+   "moneylens_refresh": "25/10/2026 (26 Oct snapshot reused; next refresh Sunday night 1 Nov)",
+   "notes": "AME -1.5% to 1.28 on 1.61m shares (~6x usual), no announcement found; company has been buying back at 1.27-1.32 through Oct (126,500 on 26 Oct). BETA +1.5% to 0.67 on 363k, highest close since start. TOPMIX +1.5% on 257,500 (vs 30k). SKBSHUT filed Annual Report 2026 today. CARLSBG 12.78, HEIM 13.04 rebounded; both still > cash. CTOS gave back 7% to 0.39.",
+   "decision": "HOLD all six positions; no trade; keep RM1,029 cash for Monday CARLSBG/HEIM lot; watch AME 1.27-1.28 support"
+  },
+  {
+   "date": "2026-10-29",
+   "week_start": "2026-10-26",
+   "budget_credited": 0,
+   "cash_before": 1029.0,
+   "trades": [],
+   "cash_after": 1029.0,
+   "closes": {
+    "0263": {
+     "price": 0.66,
+     "chg_pct": -1.52,
+     "volume": 209800
+    },
+    "0302": {
+     "price": 0.34,
+     "chg_pct": 0.0,
+     "volume": 0
+    },
+    "5319": {
+     "price": 0.625,
+     "chg_pct": 0.0,
+     "volume": 28400
+    },
+    "5293": {
+     "price": 1.29,
+     "chg_pct": 0.78,
+     "volume": 101200
+    },
+    "5049": {
+     "price": 2.71,
+     "chg_pct": -0.37,
+     "volume": 1500
+    },
+    "7115": {
+     "price": 0.885,
+     "chg_pct": 1.14,
+     "volume": 124800
+    }
+   },
+   "holdings_mtm": {
+    "0263": {
+     "shares": 900,
+     "avg_cost": 0.6511,
+     "close": 0.66,
+     "mv": 594.0,
+     "cost": 586.0,
+     "unrealised": 8.0,
+     "unrealised_pct": 1.37,
+     "day_chg_pct": -1.52,
+     "day_pnl": -9.0
+    },
+    "0302": {
+     "shares": 500,
+     "avg_cost": 0.35,
+     "close": 0.34,
+     "mv": 170.0,
+     "cost": 175.0,
+     "unrealised": -5.0,
+     "unrealised_pct": -2.86,
+     "day_chg_pct": 0.0,
+     "day_pnl": 0.0
+    },
+    "5319": {
+     "shares": 300,
+     "avg_cost": 0.635,
+     "close": 0.625,
+     "mv": 187.5,
+     "cost": 190.5,
+     "unrealised": -3.0,
+     "unrealised_pct": -1.57,
+     "day_chg_pct": 0.0,
+     "day_pnl": 0.0
+    },
+    "5293": {
+     "shares": 400,
+     "avg_cost": 1.295,
+     "close": 1.29,
+     "mv": 516.0,
+     "cost": 518.0,
+     "unrealised": -2.0,
+     "unrealised_pct": -0.39,
+     "day_chg_pct": 0.78,
+     "day_pnl": 4.0
+    },
+    "5049": {
+     "shares": 100,
+     "avg_cost": 2.66,
+     "close": 2.71,
+     "mv": 271.0,
+     "cost": 266.0,
+     "unrealised": 5.0,
+     "unrealised_pct": 1.88,
+     "day_chg_pct": -0.37,
+     "day_pnl": -1.0
+    },
+    "7115": {
+     "shares": 300,
+     "avg_cost": 0.865,
+     "close": 0.885,
+     "mv": 265.5,
+     "cost": 259.5,
+     "unrealised": 6.0,
+     "unrealised_pct": 2.31,
+     "day_chg_pct": 1.14,
+     "day_pnl": 3.0
+    }
+   },
+   "day_pnl_total": -3.0,
+   "portfolio_market_value": 2004.0,
+   "cash": 1029.0,
+   "portfolio_total": 3033.0,
+   "invested_cost": 1995.0,
+   "unrealised_pnl": 9.0,
+   "realised_pnl_to_date": 24.0,
+   "total_contributed": 3000,
+   "pnl_vs_contributed": 33.0,
+   "pnl_vs_contributed_pct": 1.1,
+   "fbm_klci": {
+    "close": 1611.16,
+    "chg": -2.71,
+    "chg_pct": -0.17,
+    "source": "The Star 29 Oct 2026 5:22pm MYT + KLSE Screener markets page; intraday high 1,625.46; losers 574 vs gainers 443"
+   },
+   "price_source": "KLSE Screener stock pages fetched ~17:35-17:40 MYT 29 Oct 2026; BETA cross-checked on MalaysiaStock.Biz; Yahoo Finance rate-limited (HTTP 429) and i3investor blocked by Cloudflare today, so other holdings single-sourced",
+   "moneylens_refresh": "25/10/2026 (26 Oct snapshot reused; next refresh Sunday night 1 Nov)",
+   "notes": "CVIEW released Q3 FY26 (qtr to 31 Aug) at 5:01pm after close: revenue RM76.6m vs 79.0m, net profit RM15.58m vs 15.07m, EPS 15.58 sen, NAPS RM4.94; declared 2nd interim dividend 8 sen, ex 13 Nov, paid 7 Dec (RM8 on our 100 shares if held). AME bought back 44,500 shares at 1.27-1.28 on 29 Oct. TOPMIX untraded (0 volume). TAS -16.7% to 0.325 after Q results 28 Oct evening. CTOS +3.9% to 0.405 on 40.2m. CARLSBG 12.78 flat, HEIM 12.98 -0.5%.",
+   "decision": "HOLD all six; no trade; keep RM1,029 cash so Monday's RM1,000 credit funds a 100-share CARLSBG or HEIM lot; keep CVIEW through 13 Nov ex-date"
+  },
+  {
+   "date": "2026-10-30",
+   "week_start": "2026-10-26",
+   "budget_credited": 0,
+   "cash_before": 1029.0,
+   "trades": [],
+   "cash_after": 1029.0,
+   "closes": {
+    "0263": {
+     "price": 0.655,
+     "chg_pct": -0.76,
+     "volume": 103000
+    },
+    "0302": {
+     "price": 0.355,
+     "chg_pct": 4.41,
+     "volume": 6200
+    },
+    "5319": {
+     "price": 0.635,
+     "chg_pct": 1.6,
+     "volume": 13300
+    },
+    "5293": {
+     "price": 1.27,
+     "chg_pct": -1.55,
+     "volume": 196000
+    },
+    "5049": {
+     "price": 2.85,
+     "chg_pct": 5.17,
+     "volume": 17400
+    },
+    "7115": {
+     "price": 0.885,
+     "chg_pct": 0.0,
+     "volume": 84100
+    }
+   },
+   "holdings_mtm": {
+    "0263": {
+     "shares": 900,
+     "avg_cost": 0.6511,
+     "close": 0.655,
+     "mv": 589.5,
+     "cost": 586.0,
+     "unrealised": 3.5,
+     "unrealised_pct": 0.6,
+     "day_chg_pct": -0.76,
+     "day_pnl": -4.5
+    },
+    "0302": {
+     "shares": 500,
+     "avg_cost": 0.35,
+     "close": 0.355,
+     "mv": 177.5,
+     "cost": 175.0,
+     "unrealised": 2.5,
+     "unrealised_pct": 1.43,
+     "day_chg_pct": 4.41,
+     "day_pnl": 7.5
+    },
+    "5319": {
+     "shares": 300,
+     "avg_cost": 0.635,
+     "close": 0.635,
+     "mv": 190.5,
+     "cost": 190.5,
+     "unrealised": 0.0,
+     "unrealised_pct": 0.0,
+     "day_chg_pct": 1.6,
+     "day_pnl": 3.0
+    },
+    "5293": {
+     "shares": 400,
+     "avg_cost": 1.295,
+     "close": 1.27,
+     "mv": 508.0,
+     "cost": 518.0,
+     "unrealised": -10.0,
+     "unrealised_pct": -1.93,
+     "day_chg_pct": -1.55,
+     "day_pnl": -8.0
+    },
+    "5049": {
+     "shares": 100,
+     "avg_cost": 2.66,
+     "close": 2.85,
+     "mv": 285.0,
+     "cost": 266.0,
+     "unrealised": 19.0,
+     "unrealised_pct": 7.14,
+     "day_chg_pct": 5.17,
+     "day_pnl": 14.0
+    },
+    "7115": {
+     "shares": 300,
+     "avg_cost": 0.865,
+     "close": 0.885,
+     "mv": 265.5,
+     "cost": 259.5,
+     "unrealised": 6.0,
+     "unrealised_pct": 2.31,
+     "day_chg_pct": 0.0,
+     "day_pnl": 0.0
+    }
+   },
+   "day_pnl_total": 12.0,
+   "portfolio_market_value": 2016.0,
+   "cash": 1029.0,
+   "portfolio_total": 3045.0,
+   "invested_cost": 1995.0,
+   "unrealised_pnl": 21.0,
+   "realised_pnl_to_date": 24.0,
+   "total_contributed": 3000,
+   "pnl_vs_contributed": 45.0,
+   "pnl_vs_contributed_pct": 1.5,
+   "fbm_klci": {
+    "close": 1615.6,
+    "chg": 4.44,
+    "chg_pct": 0.28,
+    "source": "KLSE Screener markets page + Yahoo Finance ^KLSE history (both 1,615.60); Business Upturn reported 1,618.12 (+0.26%), unreconciled; The Star midday: rebound to end morning higher"
+   },
+   "price_source": "KLSE Screener stock pages fetched ~17:33-17:35 MYT 30 Oct 2026 after 5pm close; Yahoo Finance rate-limited (HTTP 429), so holdings single-sourced",
+   "moneylens_refresh": "25/10/2026 (26 Oct snapshot reused; next refresh Sunday night 1 Nov)",
+   "notes": "CVIEW +5.2% to 2.85 on 17,400 (vs 1,500 Thu) after Q3 FY26 results (net profit RM15.58m vs 15.07m) and 8 sen 2nd interim dividend (ex 13 Nov) released after Thursday close; book-closure notice 30 Oct. TOPMIX +4.4% on thin 6,200 shares. MKHOP +1.6% after monthly/quarterly production disclosures 29 Oct. AME -1.6% to 1.27 on 196,000 despite buybacks. BETA -0.8% on 103,000. SKBSHUT flat 0.885. Watchlist: CARLSBG 12.80 (+0.2%), HEIM 13.12 (+1.1%), CTOS 0.39 (-3.7%), ZETRIX 0.065 (-18.8% on 421m), ALLIANZ 19.48 (-0.8%).",
+   "decision": "HOLD all six; no trade; keep RM1,029 cash so Monday's RM1,000 credit (RM2,029) funds a 100-share HEIM (~RM1,312) or CARLSBG (~RM1,280) lot after the Sunday MoneyLens refresh; keep CVIEW through 13 Nov ex-date"
+  },
+  {
+   "date": "2026-11-02",
+   "week_start": "2026-11-02",
+   "budget_credited": 1000,
+   "cash_before": 2029.0,
+   "trades": [
+    {
+     "side": "SELL",
+     "code": "0263",
+     "shares": 900,
+     "price": 0.645,
+     "value": 580.5,
+     "realised_pnl": -5.5,
+     "reason": "Dropped out of MoneyLens top 20 in the 1 Nov refresh (was #3, score 196); closed -1.5% at 0.645 on 215,000 amid director closed-period dealing notice"
+    },
+    {
+     "side": "BUY",
+     "code": "3255",
+     "shares": 100,
+     "price": 13.14,
+     "value": 1314.0
+    }
+   ],
+   "cash_after": 1295.5,
+   "closes": {
+    "0263": {
+     "price": 0.645,
+     "chg_pct": -1.53,
+     "volume": 215000
+    },
+    "0302": {
+     "price": 0.34,
+     "chg_pct": -4.23,
+     "volume": 149900
+    },
+    "5319": {
+     "price": 0.62,
+     "chg_pct": -2.36,
+     "volume": 87700
+    },
+    "5293": {
+     "price": 1.26,
+     "chg_pct": -0.79,
+     "volume": 457700
+    },
+    "5049": {
+     "price": 2.88,
+     "chg_pct": 1.05,
+     "volume": 28700
+    },
+    "7115": {
+     "price": 0.88,
+     "chg_pct": -0.56,
+     "volume": 85500
+    },
+    "3255": {
+     "price": 13.14,
+     "chg_pct": 0.15,
+     "volume": 248000
+    }
+   },
+   "holdings_mtm_pre_trade": {
+    "0263": {
+     "shares": 900,
+     "avg_cost": 0.6511,
+     "close": 0.645,
+     "mv": 580.5,
+     "cost": 586.0,
+     "unrealised": -5.5,
+     "unrealised_pct": -0.94,
+     "day_chg_pct": -1.53,
+     "day_pnl": -9.0
+    },
+    "0302": {
+     "shares": 500,
+     "avg_cost": 0.35,
+     "close": 0.34,
+     "mv": 170.0,
+     "cost": 175.0,
+     "unrealised": -5.0,
+     "unrealised_pct": -2.86,
+     "day_chg_pct": -4.23,
+     "day_pnl": -7.5
+    },
+    "5319": {
+     "shares": 300,
+     "avg_cost": 0.635,
+     "close": 0.62,
+     "mv": 186.0,
+     "cost": 190.5,
+     "unrealised": -4.5,
+     "unrealised_pct": -2.36,
+     "day_chg_pct": -2.36,
+     "day_pnl": -4.5
+    },
+    "5293": {
+     "shares": 400,
+     "avg_cost": 1.295,
+     "close": 1.26,
+     "mv": 504.0,
+     "cost": 518.0,
+     "unrealised": -14.0,
+     "unrealised_pct": -2.7,
+     "day_chg_pct": -0.79,
+     "day_pnl": -4.0
+    },
+    "5049": {
+     "shares": 100,
+     "avg_cost": 2.66,
+     "close": 2.88,
+     "mv": 288.0,
+     "cost": 266.0,
+     "unrealised": 22.0,
+     "unrealised_pct": 8.27,
+     "day_chg_pct": 1.05,
+     "day_pnl": 3.0
+    },
+    "7115": {
+     "shares": 300,
+     "avg_cost": 0.865,
+     "close": 0.88,
+     "mv": 264.0,
+     "cost": 259.5,
+     "unrealised": 4.5,
+     "unrealised_pct": 1.73,
+     "day_chg_pct": -0.56,
+     "day_pnl": -1.5
+    }
+   },
+   "holdings_mtm": {
+    "0302": {
+     "shares": 500,
+     "avg_cost": 0.35,
+     "close": 0.34,
+     "mv": 170.0,
+     "cost": 175.0,
+     "unrealised": -5.0,
+     "unrealised_pct": -2.86,
+     "day_chg_pct": -4.23
+    },
+    "5319": {
+     "shares": 300,
+     "avg_cost": 0.635,
+     "close": 0.62,
+     "mv": 186.0,
+     "cost": 190.5,
+     "unrealised": -4.5,
+     "unrealised_pct": -2.36,
+     "day_chg_pct": -2.36
+    },
+    "5293": {
+     "shares": 400,
+     "avg_cost": 1.295,
+     "close": 1.26,
+     "mv": 504.0,
+     "cost": 518.0,
+     "unrealised": -14.0,
+     "unrealised_pct": -2.7,
+     "day_chg_pct": -0.79
+    },
+    "5049": {
+     "shares": 100,
+     "avg_cost": 2.66,
+     "close": 2.88,
+     "mv": 288.0,
+     "cost": 266.0,
+     "unrealised": 22.0,
+     "unrealised_pct": 8.27,
+     "day_chg_pct": 1.05
+    },
+    "7115": {
+     "shares": 300,
+     "avg_cost": 0.865,
+     "close": 0.88,
+     "mv": 264.0,
+     "cost": 259.5,
+     "unrealised": 4.5,
+     "unrealised_pct": 1.73,
+     "day_chg_pct": -0.56
+    },
+    "3255": {
+     "shares": 100,
+     "avg_cost": 13.14,
+     "close": 13.14,
+     "mv": 1314.0,
+     "cost": 1314.0,
+     "unrealised": 0.0,
+     "unrealised_pct": 0.0,
+     "day_chg_pct": 0.15
+    }
+   },
+   "day_pnl_total": -23.5,
+   "portfolio_market_value": 2726.0,
+   "cash": 1295.5,
+   "portfolio_total": 4021.5,
+   "invested_cost": 2723.0,
+   "unrealised_pnl": 3.0,
+   "realised_pnl_to_date": 18.5,
+   "total_contributed": 4000,
+   "pnl_vs_contributed": 21.5,
+   "pnl_vs_contributed_pct": 0.54,
+   "fbm_klci": {
+    "close": 1619.51,
+    "chg": 3.91,
+    "chg_pct": 0.24,
+    "source": "KLSE Screener markets page 1,619.51; Business Upturn reported 1,618.69 (+0.19%), unreconciled; The Star midday: KLCI up despite broad-based selling (723 losers vs 251 gainers)"
+   },
+   "price_source": "KLSE Screener stock pages fetched 17:34 MYT 2 Nov 2026 after close; changes reconcile with 30 Oct closes",
+   "moneylens_refresh": "01/11/2026 (snapshot captured 2 Nov)",
+   "notes": "BETA dropped out of top 20. AME announced 30 Oct evening 50:50 JV with UEM Sunrise for RM4bn GDV Gerbang Nusajaya industrial park (RM972.1m land; AME share of initial funding RM453.18m); stock -0.8% on 457,700 (2.6x 3M avg). TOPMIX -4.2% on 149,900 (vs 22,600 avg); after close announced RM1.85m disposal of Senai land. MKHOP -2.4% on 87,700. CVIEW +1.1% ahead of 13 Nov ex-date of 8 sen. SKBSHUT -0.6%. Watchlist: CARLSBG 12.58 (-1.7%), ALLIANZ 19.38, HLIND 16.20, DXN 0.465, REACHTEN 0.325, TAS 0.30 (-7.7%, out of top 20).",
+   "decision": "SELL BETA 900 @0.645 (out of top 20); BUY HEIM 100 @13.14 (top-20 #10, undervalued MOS 56.8%, DY 11.6%); hold rest; CARLSBG 100 next candidate when cash allows and to avoid doubling brewery exposure today"
+  },
+  {
+   "date": "2026-11-03",
+   "week_start": "2026-11-02",
+   "budget_credited": 0,
+   "cash_before": 1295.5,
+   "trades": [
+    {
+     "side": "BUY",
+     "code": "5983",
+     "shares": 100,
+     "price": 4.75,
+     "value": 475.0,
+     "reason": "MoneyLens top-20 (score 189), Undervalued MOS 31%, DY 7.5%, PE 5.3; diversifies away from brewers"
+    }
+   ],
+   "cash_after": 820.5,
+   "closes": {
+    "0302": {
+     "price": 0.34,
+     "chg_pct": 0.0,
+     "volume": 76000
+    },
+    "5319": {
+     "price": 0.62,
+     "chg_pct": 0.0,
+     "volume": 53200
+    },
+    "5293": {
+     "price": 1.24,
+     "chg_pct": -1.6,
+     "volume": 588700
+    },
+    "5049": {
+     "price": 2.9,
+     "chg_pct": 0.7,
+     "volume": 96600
+    },
+    "7115": {
+     "price": 0.86,
+     "chg_pct": -2.3,
+     "volume": 66900
+    },
+    "3255": {
+     "price": 13.26,
+     "chg_pct": 0.9,
+     "volume": 423300
+    },
+    "5983": {
+     "price": 4.75,
+     "chg_pct": -0.4,
+     "volume": 272800
+    }
+   },
+   "holdings_mtm": {
+    "0302": {
+     "shares": 500,
+     "avg_cost": 0.35,
+     "close": 0.34,
+     "mv": 170.0,
+     "cost": 175.0,
+     "unrealised": -5.0,
+     "unrealised_pct": -2.86,
+     "day_chg_pct": 0.0,
+     "day_pnl": 0.0
+    },
+    "5319": {
+     "shares": 300,
+     "avg_cost": 0.635,
+     "close": 0.62,
+     "mv": 186.0,
+     "cost": 190.5,
+     "unrealised": -4.5,
+     "unrealised_pct": -2.36,
+     "day_chg_pct": 0.0,
+     "day_pnl": 0.0
+    },
+    "5293": {
+     "shares": 400,
+     "avg_cost": 1.295,
+     "close": 1.24,
+     "mv": 496.0,
+     "cost": 518.0,
+     "unrealised": -22.0,
+     "unrealised_pct": -4.25,
+     "day_chg_pct": -1.59,
+     "day_pnl": -8.0
+    },
+    "5049": {
+     "shares": 100,
+     "avg_cost": 2.66,
+     "close": 2.9,
+     "mv": 290.0,
+     "cost": 266.0,
+     "unrealised": 24.0,
+     "unrealised_pct": 9.02,
+     "day_chg_pct": 0.69,
+     "day_pnl": 2.0
+    },
+    "7115": {
+     "shares": 300,
+     "avg_cost": 0.865,
+     "close": 0.86,
+     "mv": 258.0,
+     "cost": 259.5,
+     "unrealised": -1.5,
+     "unrealised_pct": -0.58,
+     "day_chg_pct": -2.27,
+     "day_pnl": -6.0
+    },
+    "3255": {
+     "shares": 100,
+     "avg_cost": 13.14,
+     "close": 13.26,
+     "mv": 1326.0,
+     "cost": 1314.0,
+     "unrealised": 12.0,
+     "unrealised_pct": 0.91,
+     "day_chg_pct": 0.91,
+     "day_pnl": 12.0
+    },
+    "5983": {
+     "shares": 100,
+     "avg_cost": 4.75,
+     "close": 4.75,
+     "mv": 475.0,
+     "cost": 475.0,
+     "unrealised": 0.0,
+     "unrealised_pct": 0.0,
+     "day_chg_pct": -0.42
+    }
+   },
+   "day_pnl_total": 0.0,
+   "portfolio_market_value": 3201.0,
+   "cash": 820.5,
+   "portfolio_total": 4021.5,
+   "invested_cost": 3198.0,
+   "unrealised_pnl": 3.0,
+   "realised_pnl_to_date": 18.5,
+   "total_contributed": 4000,
+   "pnl_vs_contributed": 21.5,
+   "pnl_vs_contributed_pct": 0.54,
+   "fbm_klci": {
+    "close": 1621.85,
+    "chg": 2.34,
+    "chg_pct": 0.14,
+    "source": "KLSE Screener markets page and Yahoo Finance ^KLSE history (both 1,621.85, +2.34)"
+   },
+   "price_source": "KLSE Screener stock pages fetched 17:35-17:36 MYT 3 Nov 2026 after close; changes reconcile with 2 Nov closes",
+   "moneylens_refresh": "01/11/2026 (2 Nov snapshot reused; next refresh Sunday night 8 Nov)",
+   "notes": "Quiet day: KLCI +0.14%. HEIM +0.9% to 13.26 on 423,300 (above 3M avg 146,600), CARLSBG +2.9% to 12.94 on 166,200 - brewers rebounded together, no new company announcement found. AME -1.6% to 1.24 on 588,700, continued selling after Gerbang Nusajaya JV (RM453m funding share). SKBSHUT -2.3% to 0.86 on 66,900, only AGM/annual report notices. CVIEW +0.7% to 2.90 ahead of 13 Nov ex-date. TOPMIX, MKHOP flat. Watchlist: ALLIANZ 19.42, CTOS 0.395 (21m shares), KIPREIT 0.865.",
+   "decision": "BUY MBMR 100 @4.75; hold all others; skip CARLSBG 100 (RM1,294) today because it would put ~64% of portfolio in two brewers and leave ~RM1.50 cash; reconsider after Monday credit and 8 Nov refresh, ahead of its 25 Nov results"
+  },
+  {
+   "date": "2026-11-04",
+   "week_start": "2026-11-02",
+   "budget_credited": 0,
+   "cash_before": 820.5,
+   "trades": [],
+   "cash_after": 820.5,
+   "closes": {
+    "0302": {
+     "price": 0.34,
+     "chg_pct": 0.0,
+     "volume": 141000
+    },
+    "5319": {
+     "price": 0.62,
+     "chg_pct": 0.0,
+     "volume": 10800
+    },
+    "5293": {
+     "price": 1.23,
+     "chg_pct": -0.8,
+     "volume": 443600
+    },
+    "5049": {
+     "price": 2.88,
+     "chg_pct": -0.7,
+     "volume": 3400
+    },
+    "7115": {
+     "price": 0.885,
+     "chg_pct": 2.9,
+     "volume": 31600
+    },
+    "3255": {
+     "price": 13.0,
+     "chg_pct": -2.0,
+     "volume": 256300
+    },
+    "5983": {
+     "price": 4.78,
+     "chg_pct": 0.6,
+     "volume": 249900
+    }
+   },
+   "holdings_mtm": {
+    "0302": {
+     "shares": 500,
+     "avg_cost": 0.35,
+     "close": 0.34,
+     "mv": 170.0,
+     "cost": 175.0,
+     "unrealised": -5.0,
+     "unrealised_pct": -2.86,
+     "day_chg_pct": 0.0,
+     "day_pnl": 0.0
+    },
+    "5319": {
+     "shares": 300,
+     "avg_cost": 0.635,
+     "close": 0.62,
+     "mv": 186.0,
+     "cost": 190.5,
+     "unrealised": -4.5,
+     "unrealised_pct": -2.36,
+     "day_chg_pct": 0.0,
+     "day_pnl": 0.0
+    },
+    "5293": {
+     "shares": 400,
+     "avg_cost": 1.295,
+     "close": 1.23,
+     "mv": 492.0,
+     "cost": 518.0,
+     "unrealised": -26.0,
+     "unrealised_pct": -5.02,
+     "day_chg_pct": -0.8,
+     "day_pnl": -4.0
+    },
+    "5049": {
+     "shares": 100,
+     "avg_cost": 2.66,
+     "close": 2.88,
+     "mv": 288.0,
+     "cost": 266.0,
+     "unrealised": 22.0,
+     "unrealised_pct": 8.27,
+     "day_chg_pct": -0.7,
+     "day_pnl": -2.0
+    },
+    "7115": {
+     "shares": 300,
+     "avg_cost": 0.865,
+     "close": 0.885,
+     "mv": 265.5,
+     "cost": 259.5,
+     "unrealised": 6.0,
+     "unrealised_pct": 2.31,
+     "day_chg_pct": 2.9,
+     "day_pnl": 7.5
+    },
+    "3255": {
+     "shares": 100,
+     "avg_cost": 13.14,
+     "close": 13.0,
+     "mv": 1300.0,
+     "cost": 1314.0,
+     "unrealised": -14.0,
+     "unrealised_pct": -1.07,
+     "day_chg_pct": -2.0,
+     "day_pnl": -26.0
+    },
+    "5983": {
+     "shares": 100,
+     "avg_cost": 4.75,
+     "close": 4.78,
+     "mv": 478.0,
+     "cost": 475.0,
+     "unrealised": 3.0,
+     "unrealised_pct": 0.63,
+     "day_chg_pct": 0.6,
+     "day_pnl": 3.0
+    }
+   },
+   "day_pnl_total": -21.5,
+   "portfolio_market_value": 3179.5,
+   "cash": 820.5,
+   "portfolio_total": 4000.0,
+   "invested_cost": 3198.0,
+   "unrealised_pnl": -18.5,
+   "realised_pnl_to_date": 18.5,
+   "total_contributed": 4000,
+   "pnl_vs_contributed": 0.0,
+   "pnl_vs_contributed_pct": 0.0,
+   "fbm_klci": {
+    "close": 1616.56,
+    "chg": -5.29,
+    "chg_pct": -0.33,
+    "source": "KLSE Screener markets page, Yahoo Finance ^KLSE and The Star (1,616.56, -5.29): KLCI snapped three-day winning streak on profit-taking"
+   },
+   "price_source": "KLSE Screener stock pages fetched 17:40 MYT 4 Nov 2026 after close; changes reconcile with 3 Nov closes",
+   "moneylens_refresh": "01/11/2026 (2 Nov snapshot reused; next refresh Sunday night 8 Nov)",
+   "notes": "KLCI -0.33% on profit-taking (The Star). HEIM -2.0% to 13.00 on 256,300, CARLSBG -1.6% to 12.74 (named among KLCI decliners by The Star), brewers gave back Tuesday's rebound, no company announcement. AME -0.8% to 1.23 on 443,600, still digesting Gerbang Nusajaya JV funding. SKBSHUT +2.9% to 0.885 on 31,600 (thin). MBMR +0.6% to 4.78. CVIEW -0.7% to 2.88 on only 3,400 (ex 8 sen 13 Nov). TOPMIX, MKHOP flat. Watchlist: ALLIANZ 19.52, CTOS 0.40 (13.66m shares), KIPREIT 0.86.",
+   "decision": "HOLD cash RM820.50, no trade; save for CARLSBG 100 (~RM1,274) after Monday 9 Nov RM500 credit and 8 Nov MoneyLens refresh, ahead of its 25 Nov results; small KIPREIT/CTOS buys would push that out"
+  },
+  {
+   "date": "2026-11-05",
+   "week_start": "2026-11-02",
+   "budget_credited": 0,
+   "cash_before": 820.5,
+   "trades": [],
+   "cash_after": 820.5,
+   "closes": {
+    "0302": {
+     "price": 0.355,
+     "chg_pct": 4.4,
+     "volume": 46000
+    },
+    "5319": {
+     "price": 0.62,
+     "chg_pct": 0.0,
+     "volume": 20600
+    },
+    "5293": {
+     "price": 1.25,
+     "chg_pct": 1.6,
+     "volume": 178500
+    },
+    "5049": {
+     "price": 2.88,
+     "chg_pct": 0.0,
+     "volume": 2300
+    },
+    "7115": {
+     "price": 0.885,
+     "chg_pct": 0.0,
+     "volume": 108100
+    },
+    "3255": {
+     "price": 13.06,
+     "chg_pct": 0.5,
+     "volume": 668200
+    },
+    "5983": {
+     "price": 4.77,
+     "chg_pct": -0.2,
+     "volume": 321900
+    }
+   },
+   "holdings_mtm": {
+    "0302": {
+     "shares": 500,
+     "avg_cost": 0.35,
+     "close": 0.355,
+     "mv": 177.5,
+     "cost": 175.0,
+     "unrealised": 2.5,
+     "unrealised_pct": 1.43,
+     "day_chg_pct": 4.4,
+     "day_pnl": 7.5
+    },
+    "5319": {
+     "shares": 300,
+     "avg_cost": 0.635,
+     "close": 0.62,
+     "mv": 186.0,
+     "cost": 190.5,
+     "unrealised": -4.5,
+     "unrealised_pct": -2.36,
+     "day_chg_pct": 0.0,
+     "day_pnl": 0.0
+    },
+    "5293": {
+     "shares": 400,
+     "avg_cost": 1.295,
+     "close": 1.25,
+     "mv": 500.0,
+     "cost": 518.0,
+     "unrealised": -18.0,
+     "unrealised_pct": -3.47,
+     "day_chg_pct": 1.6,
+     "day_pnl": 8.0
+    },
+    "5049": {
+     "shares": 100,
+     "avg_cost": 2.66,
+     "close": 2.88,
+     "mv": 288.0,
+     "cost": 266.0,
+     "unrealised": 22.0,
+     "unrealised_pct": 8.27,
+     "day_chg_pct": 0.0,
+     "day_pnl": 0.0
+    },
+    "7115": {
+     "shares": 300,
+     "avg_cost": 0.865,
+     "close": 0.885,
+     "mv": 265.5,
+     "cost": 259.5,
+     "unrealised": 6.0,
+     "unrealised_pct": 2.31,
+     "day_chg_pct": 0.0,
+     "day_pnl": 0.0
+    },
+    "3255": {
+     "shares": 100,
+     "avg_cost": 13.14,
+     "close": 13.06,
+     "mv": 1306.0,
+     "cost": 1314.0,
+     "unrealised": -8.0,
+     "unrealised_pct": -0.61,
+     "day_chg_pct": 0.5,
+     "day_pnl": 6.0
+    },
+    "5983": {
+     "shares": 100,
+     "avg_cost": 4.75,
+     "close": 4.77,
+     "mv": 477.0,
+     "cost": 475.0,
+     "unrealised": 2.0,
+     "unrealised_pct": 0.42,
+     "day_chg_pct": -0.2,
+     "day_pnl": -1.0
+    }
+   },
+   "day_pnl_total": 20.5,
+   "portfolio_market_value": 3200.0,
+   "cash": 820.5,
+   "portfolio_total": 4020.5,
+   "invested_cost": 3198.0,
+   "unrealised_pnl": 2.0,
+   "realised_pnl_to_date": 18.5,
+   "total_contributed": 4000,
+   "pnl_vs_contributed": 20.5,
+   "pnl_vs_contributed_pct": 0.51,
+   "fbm_klci": {
+    "close": 1635.86,
+    "chg": 19.3,
+    "chg_pct": 1.19,
+    "source": "KLSE Screener markets page, Yahoo Finance ^KLSE and FMT (1,635.86, +19.30): Wall Street gains, BNM held OPR at 2.75%, oil slump after US midterms; breadth negative 723 losers vs 497 gainers"
+   },
+   "price_source": "KLSE Screener stock pages fetched 17:39-17:40 MYT 5 Nov 2026 after close; changes reconcile with 4 Nov closes",
+   "moneylens_refresh": "01/11/2026 (2 Nov snapshot reused; next refresh Sunday night 8 Nov)",
+   "notes": "KLCI +1.19% led by banks, but breadth negative. HEIM +0.5% to 13.06 on 668,200 (heavy), CARLSBG -1.6% to 12.54 on 496,100 - brewers diverged, no announcement. TOPMIX +4.4% to 0.355 (thin 46,000) after completing RM1.85m Senai factory sale (2 Nov filing). AME +1.6% to 1.25 on 178,500, first up day after JV-funding selloff. MBMR -0.2% to 4.77. CVIEW, SKBSHUT, MKHOP flat (MKHOP despite oil slump). Watchlist: ALLIANZ 19.92 (+2.1%), CTOS 0.39 (15.5m shares), KIPREIT 0.865.",
+   "decision": "HOLD cash RM820.50; CARLSBG 100 now RM1,254, still unaffordable until Monday 9 Nov credit (cash then RM1,320.50); re-check after 8 Nov MoneyLens refresh"
+  },
+  {
+   "date": "2026-11-06",
+   "week_start": "2026-11-02",
+   "budget_credited": 0,
+   "cash_before": 820.5,
+   "trades": [],
+   "cash_after": 820.5,
+   "closes": {
+    "0302": {
+     "price": 0.34,
+     "chg_pct": -4.23,
+     "volume": 88000
+    },
+    "5319": {
+     "price": 0.62,
+     "chg_pct": 0.0,
+     "volume": 151400
+    },
+    "5293": {
+     "price": 1.25,
+     "chg_pct": 0.0,
+     "volume": 198500
+    },
+    "5049": {
+     "price": 2.79,
+     "chg_pct": -3.13,
+     "volume": 26900
+    },
+    "7115": {
+     "price": 0.88,
+     "chg_pct": -0.56,
+     "volume": 147900
+    },
+    "3255": {
+     "price": 13.1,
+     "chg_pct": 0.31,
+     "volume": 357400
+    },
+    "5983": {
+     "price": 4.75,
+     "chg_pct": -0.42,
+     "volume": 162500
+    }
+   },
+   "holdings_mtm": {
+    "0302": {
+     "shares": 500,
+     "avg_cost": 0.35,
+     "close": 0.34,
+     "mv": 170.0,
+     "cost": 175.0,
+     "unrealised": -5.0,
+     "unrealised_pct": -2.86,
+     "day_chg_pct": -4.23,
+     "day_pnl": -7.5
+    },
+    "5319": {
+     "shares": 300,
+     "avg_cost": 0.635,
+     "close": 0.62,
+     "mv": 186.0,
+     "cost": 190.5,
+     "unrealised": -4.5,
+     "unrealised_pct": -2.36,
+     "day_chg_pct": 0.0,
+     "day_pnl": 0.0
+    },
+    "5293": {
+     "shares": 400,
+     "avg_cost": 1.295,
+     "close": 1.25,
+     "mv": 500.0,
+     "cost": 518.0,
+     "unrealised": -18.0,
+     "unrealised_pct": -3.47,
+     "day_chg_pct": 0.0,
+     "day_pnl": 0.0
+    },
+    "5049": {
+     "shares": 100,
+     "avg_cost": 2.66,
+     "close": 2.79,
+     "mv": 279.0,
+     "cost": 266.0,
+     "unrealised": 13.0,
+     "unrealised_pct": 4.89,
+     "day_chg_pct": -3.13,
+     "day_pnl": -9.0
+    },
+    "7115": {
+     "shares": 300,
+     "avg_cost": 0.865,
+     "close": 0.88,
+     "mv": 264.0,
+     "cost": 259.5,
+     "unrealised": 4.5,
+     "unrealised_pct": 1.73,
+     "day_chg_pct": -0.56,
+     "day_pnl": -1.5
+    },
+    "3255": {
+     "shares": 100,
+     "avg_cost": 13.14,
+     "close": 13.1,
+     "mv": 1310.0,
+     "cost": 1314.0,
+     "unrealised": -4.0,
+     "unrealised_pct": -0.3,
+     "day_chg_pct": 0.31,
+     "day_pnl": 4.0
+    },
+    "5983": {
+     "shares": 100,
+     "avg_cost": 4.75,
+     "close": 4.75,
+     "mv": 475.0,
+     "cost": 475.0,
+     "unrealised": 0.0,
+     "unrealised_pct": 0.0,
+     "day_chg_pct": -0.42,
+     "day_pnl": -2.0
+    }
+   },
+   "day_pnl_total": -16.0,
+   "portfolio_market_value": 3184.0,
+   "cash": 820.5,
+   "portfolio_total": 4004.5,
+   "invested_cost": 3198.0,
+   "unrealised_pnl": -14.0,
+   "realised_pnl_to_date": 18.5,
+   "total_contributed": 4000,
+   "pnl_vs_contributed": 4.5,
+   "pnl_vs_contributed_pct": 0.11,
+   "week_summary": {
+    "start_value_incl_credit": 4021.5,
+    "end_value": 4004.5,
+    "chg": -17.0,
+    "note": "Week start marked at Mon 2 Nov post-trade total 4021.5; Fri close before Mon 9 Nov RM500 credit"
+   },
+   "fbm_klci": {
+    "close": 1616.58,
+    "chg": -19.28,
+    "chg_pct": -1.18,
+    "source": "Yahoo Finance ^KLSE + KLSE Screener markets (1,616.58) + Business Today: Wall Street rout spillover; FBM70 -1.92%; turnover 3.64b shares / RM3.5b"
+   },
+   "price_source": "KLSE Screener stock pages cross-checked with Yahoo Finance .KL daily chart data (all closes match), fetched ~17:40-17:42 MYT 6 Nov 2026 after close",
+   "moneylens_refresh": "01/11/2026 (2 Nov snapshot reused; session expired at sign-in wall this run; next refresh Sunday night 8 Nov)",
+   "moneylens_auth_needed": true,
+   "notes": "KLCI -1.18% as Wall Street overnight rout spilled into Asia (Business Today). TOPMIX -4.2% to 0.34 on 88,000 (gave back Thu rebound); still MoneyLens #9 undervalued MOS 16.8%. CVIEW -3.1% to 2.79 on 26,900 ahead of 13 Nov ex-date of 8 sen (~2.9% of price) \u2014 keep through ex. HEIM +0.3% to 13.10 on 357,400 held up vs market; CARLSBG +1.1% to 12.68 on 122,500. AME flat 1.25 on 198,500 after JV-funding selloff. SKBSHUT -0.6% to 0.88. MBMR -0.4% to 4.75. MKHOP flat 0.62 on 151,400. Watchlist: CARLSBG 12.68, ALLIANZ 19.66 (-1.3%), CTOS 0.385 (-1.3%, 7.1m), KIPREIT 0.86, ZETRIX 0.065 (+8.3% on 247m).",
+   "decision": "HOLD cash RM820.50; no trade. CARLSBG 100 needs RM1,268 \u2014 unaffordable until Monday 9 Nov RM500 credit (cash then RM1,320.50). Re-check after Sunday 8 Nov MoneyLens refresh. Keep CVIEW through 13 Nov ex-date."
+  },
+  {
+   "date": "2026-11-09",
+   "week_start": "2026-11-09",
+   "market_closed": true,
+   "holiday": "Bursa Malaysia closed Mon 9 Nov 2026 for Deepavali (observed; Deepavali fell on Sun 8 Nov). Trading resumes Tue 10 Nov. Sources: Bursa Malaysia holiday calendar, Phillip Capital closure notice.",
+   "budget_credited": 500,
+   "budget_note": "RM500 weekly credit (new rate from 9 Nov) applied today; do NOT credit again on Tue 10 Nov.",
+   "cash_before": 820.5,
+   "trades": [],
+   "cash_after": 1320.5,
+   "closes": {
+    "0302": {
+     "price": 0.34,
+     "chg_pct": -4.23,
+     "volume": 88000
+    },
+    "5319": {
+     "price": 0.62,
+     "chg_pct": 0.0,
+     "volume": 151400
+    },
+    "5293": {
+     "price": 1.25,
+     "chg_pct": 0.0,
+     "volume": 198500
+    },
+    "5049": {
+     "price": 2.79,
+     "chg_pct": -3.13,
+     "volume": 26900
+    },
+    "7115": {
+     "price": 0.88,
+     "chg_pct": -0.56,
+     "volume": 147900
+    },
+    "3255": {
+     "price": 13.1,
+     "chg_pct": 0.31,
+     "volume": 357400
+    },
+    "5983": {
+     "price": 4.75,
+     "chg_pct": -0.42,
+     "volume": 162500
+    }
+   },
+   "closes_note": "No session today; positions valued at last close Fri 6 Nov (Yahoo Finance .KL re-checked 9 Nov: no new bar)",
+   "portfolio_market_value": 3184.0,
+   "cash": 1320.5,
+   "portfolio_total": 4504.5,
+   "invested_cost": 3198.0,
+   "unrealised_pnl": -14.0,
+   "realised_pnl_to_date": 18.5,
+   "total_contributed": 4500,
+   "pnl_vs_contributed": 4.5,
+   "pnl_vs_contributed_pct": 0.1,
+   "day_pnl_total": 0.0,
+   "fbm_klci": {
+    "close": 1616.58,
+    "note": "unchanged, market closed"
+   },
+   "decision": "HOLD (market closed). Cash RM1,320.50 ready for Tue 10 Nov; CARLSBG 100 @ ~12.68 = RM1,268 is the lead candidate pending MoneyLens re-check. Keep CVIEW through 13 Nov ex-date.",
+   "moneylens_refresh": "Report scored from 08/11/2026 refresh; screener rows still show last-refreshed 01/11/2026 with 'Refresh failed today'. Session worked (no sign-in wall).",
+   "moneylens_auth_needed": false,
+   "moneylens_top20": "CARLSBG 198 (MOS 42.3%), AME 198 (23.7%), REACHTEN 198, ALLIANZ 196 (29.6%), HLIND 197, HUMEIND 195 (overvalued), AMEREIT 196, DXN 197, TOPMIX 191 (16.8%), HEIM 191 (56.8%), MKHOP 192 (13.9%), ZETRIX 190, CTOS 190 (24.8%), SKBSHUT 190 (27.6%), AUMAS 189 (overvalued), COLFORM 189 (overvalued), CVIEW 187 (55.0%), KIPREIT 188 (34.8%), MBMR 189 (31.0%), FOCUSP 186 (22.8%)"
+  },
+  {
+   "date": "2026-11-10",
+   "week_start": "2026-11-09",
+   "budget_credited": 0,
+   "budget_note": "RM500 already credited Mon 9 Nov (holiday); no credit today",
+   "cash_before": 1320.5,
+   "trades": [
+    {
+     "side": "BUY",
+     "code": "5280",
+     "name": "KIPREIT",
+     "shares": 600,
+     "price": 0.855,
+     "value": 513.0
+    }
+   ],
+   "cash_after": 807.5,
+   "closes": {
+    "0302": {
+     "price": 0.35,
+     "chg_pct": 2.94,
+     "volume": 29000
+    },
+    "5319": {
+     "price": 0.62,
+     "chg_pct": 0.0,
+     "volume": 179700
+    },
+    "5293": {
+     "price": 1.26,
+     "chg_pct": 0.8,
+     "volume": 58000
+    },
+    "5049": {
+     "price": 2.78,
+     "chg_pct": -0.36,
+     "volume": 29200
+    },
+    "7115": {
+     "price": 0.86,
+     "chg_pct": -2.27,
+     "volume": 72500
+    },
+    "3255": {
+     "price": 13.42,
+     "chg_pct": 2.44,
+     "volume": 428800
+    },
+    "5983": {
+     "price": 4.76,
+     "chg_pct": 0.21,
+     "volume": 45700
+    },
+    "5280": {
+     "price": 0.855,
+     "chg_pct": -0.58,
+     "volume": 739400
+    }
+   },
+   "holdings_mtm": {
+    "0302": {
+     "shares": 500,
+     "avg_cost": 0.35,
+     "close": 0.35,
+     "mv": 175.0,
+     "cost": 175.0,
+     "unrealised": 0.0,
+     "unrealised_pct": 0.0,
+     "day_chg_pct": 2.94,
+     "day_pnl": 5.0
+    },
+    "5319": {
+     "shares": 300,
+     "avg_cost": 0.635,
+     "close": 0.62,
+     "mv": 186.0,
+     "cost": 190.5,
+     "unrealised": -4.5,
+     "unrealised_pct": -2.36,
+     "day_chg_pct": 0.0,
+     "day_pnl": 0.0
+    },
+    "5293": {
+     "shares": 400,
+     "avg_cost": 1.295,
+     "close": 1.26,
+     "mv": 504.0,
+     "cost": 518.0,
+     "unrealised": -14.0,
+     "unrealised_pct": -2.7,
+     "day_chg_pct": 0.8,
+     "day_pnl": 4.0
+    },
+    "5049": {
+     "shares": 100,
+     "avg_cost": 2.66,
+     "close": 2.78,
+     "mv": 278.0,
+     "cost": 266.0,
+     "unrealised": 12.0,
+     "unrealised_pct": 4.51,
+     "day_chg_pct": -0.36,
+     "day_pnl": -1.0
+    },
+    "7115": {
+     "shares": 300,
+     "avg_cost": 0.865,
+     "close": 0.86,
+     "mv": 258.0,
+     "cost": 259.5,
+     "unrealised": -1.5,
+     "unrealised_pct": -0.58,
+     "day_chg_pct": -2.27,
+     "day_pnl": -6.0
+    },
+    "3255": {
+     "shares": 100,
+     "avg_cost": 13.14,
+     "close": 13.42,
+     "mv": 1342.0,
+     "cost": 1314.0,
+     "unrealised": 28.0,
+     "unrealised_pct": 2.13,
+     "day_chg_pct": 2.44,
+     "day_pnl": 32.0
+    },
+    "5983": {
+     "shares": 100,
+     "avg_cost": 4.75,
+     "close": 4.76,
+     "mv": 476.0,
+     "cost": 475.0,
+     "unrealised": 1.0,
+     "unrealised_pct": 0.21,
+     "day_chg_pct": 0.21,
+     "day_pnl": 1.0
+    },
+    "5280": {
+     "shares": 600,
+     "avg_cost": 0.855,
+     "close": 0.855,
+     "mv": 513.0,
+     "cost": 513.0,
+     "unrealised": 0.0,
+     "unrealised_pct": 0.0,
+     "day_chg_pct": -0.58,
+     "day_pnl": 0.0,
+     "note": "bought today at close"
+    }
+   },
+   "day_pnl_total": 35.0,
+   "portfolio_market_value": 3732.0,
+   "cash": 807.5,
+   "portfolio_total": 4539.5,
+   "invested_cost": 3711.0,
+   "unrealised_pnl": 21.0,
+   "realised_pnl_to_date": 18.5,
+   "total_contributed": 4500,
+   "pnl_vs_contributed": 39.5,
+   "pnl_vs_contributed_pct": 0.88,
+   "fbm_klci": {
+    "close": 1604.07,
+    "chg": -12.51,
+    "chg_pct": -0.77,
+    "source": "FMT/Bernama 10 Nov 2026 + Yahoo ^KLSE; banking and data-centre heavyweights; losers 746 vs gainers 395; turnover 2.79b units / RM2.77b"
+   },
+   "price_source": "Yahoo Finance .KL chart data cross-checked with KLSE Screener stock pages (all match), fetched ~17:45 MYT 10 Nov 2026 after close",
+   "moneylens_refresh": "Top 20 reused from 9 Nov check of the 8 Nov Sunday refresh (weekly data; no new refresh until Sun 15 Nov)",
+   "decision": "BUY 600 KIPREIT @ 0.855 (RM513). Deferred CARLSBG 100 @ 12.72 (RM1,272): would leave ~RM48 cash and put ~57% of portfolio in two brewers just before Q3 results, with Carlsberg Group's Q3 trading statement showing Asia volumes -6.7%. Revisit CARLSBG after its Q3 results; Mon 16 Nov credit brings cash to ~RM1,307.50.",
+   "notes": "HEIM +2.4% to 13.42 on 428,800 vs KLCI -0.77% (defensive rotation; Q3 results due soon). TOPMIX +2.9% to 0.35 (thin 29,000). AME +0.8% to 1.26. MBMR +0.2% to 4.76. MKHOP flat 0.62 (CPO -2.7% to RM4,258 per M+ Market Buzz). CVIEW -0.4% to 2.78 ahead of 13 Nov ex-date (8 sen). SKBSHUT -2.3% to 0.86 on 72,500, no announcement found. Watchlist: CARLSBG 12.72 (+0.3%), CTOS 0.43 (+11.7% on ~30m, no fresh announcement found; pioneer tax incentive expired 8 Nov and CCRIS suspension noted by analysts), ALLIANZ 19.90 (+1.2%)."
+  },
+  {
+   "date": "2026-11-11",
+   "week_start": "2026-11-09",
+   "budget_credited": 0,
+   "budget_note": "RM500 already credited Mon 9 Nov; no credit today",
+   "cash_before": 807.5,
+   "trades": [],
+   "cash_after": 807.5,
+   "closes": {
+    "0302": {
+     "price": 0.35,
+     "chg_pct": 0.0,
+     "volume": 340200
+    },
+    "5319": {
+     "price": 0.615,
+     "chg_pct": -0.81,
+     "volume": 222900
+    },
+    "5293": {
+     "price": 1.26,
+     "chg_pct": 0.0,
+     "volume": 15100
+    },
+    "5049": {
+     "price": 2.79,
+     "chg_pct": 0.36,
+     "volume": 62800
+    },
+    "7115": {
+     "price": 0.855,
+     "chg_pct": -0.58,
+     "volume": 73800
+    },
+    "3255": {
+     "price": 13.32,
+     "chg_pct": -0.75,
+     "volume": 196700
+    },
+    "5983": {
+     "price": 4.75,
+     "chg_pct": -0.21,
+     "volume": 188600
+    },
+    "5280": {
+     "price": 0.86,
+     "chg_pct": 0.58,
+     "volume": 428100
+    }
+   },
+   "holdings_mtm": {
+    "0302": {
+     "shares": 500,
+     "avg_cost": 0.35,
+     "close": 0.35,
+     "mv": 175.0,
+     "cost": 175.0,
+     "unrealised": 0.0,
+     "unrealised_pct": 0.0,
+     "day_chg_pct": 0.0,
+     "day_pnl": 0.0
+    },
+    "5319": {
+     "shares": 300,
+     "avg_cost": 0.635,
+     "close": 0.615,
+     "mv": 184.5,
+     "cost": 190.5,
+     "unrealised": -6.0,
+     "unrealised_pct": -3.15,
+     "day_chg_pct": -0.81,
+     "day_pnl": -1.5
+    },
+    "5293": {
+     "shares": 400,
+     "avg_cost": 1.295,
+     "close": 1.26,
+     "mv": 504.0,
+     "cost": 518.0,
+     "unrealised": -14.0,
+     "unrealised_pct": -2.7,
+     "day_chg_pct": 0.0,
+     "day_pnl": 0.0
+    },
+    "5049": {
+     "shares": 100,
+     "avg_cost": 2.66,
+     "close": 2.79,
+     "mv": 279.0,
+     "cost": 266.0,
+     "unrealised": 13.0,
+     "unrealised_pct": 4.89,
+     "day_chg_pct": 0.36,
+     "day_pnl": 1.0
+    },
+    "7115": {
+     "shares": 300,
+     "avg_cost": 0.865,
+     "close": 0.855,
+     "mv": 256.5,
+     "cost": 259.5,
+     "unrealised": -3.0,
+     "unrealised_pct": -1.16,
+     "day_chg_pct": -0.58,
+     "day_pnl": -1.5
+    },
+    "3255": {
+     "shares": 100,
+     "avg_cost": 13.14,
+     "close": 13.32,
+     "mv": 1332.0,
+     "cost": 1314.0,
+     "unrealised": 18.0,
+     "unrealised_pct": 1.37,
+     "day_chg_pct": -0.75,
+     "day_pnl": -10.0
+    },
+    "5983": {
+     "shares": 100,
+     "avg_cost": 4.75,
+     "close": 4.75,
+     "mv": 475.0,
+     "cost": 475.0,
+     "unrealised": 0.0,
+     "unrealised_pct": 0.0,
+     "day_chg_pct": -0.21,
+     "day_pnl": -1.0
+    },
+    "5280": {
+     "shares": 600,
+     "avg_cost": 0.855,
+     "close": 0.86,
+     "mv": 516.0,
+     "cost": 513.0,
+     "unrealised": 3.0,
+     "unrealised_pct": 0.58,
+     "day_chg_pct": 0.58,
+     "day_pnl": 3.0
+    }
+   },
+   "day_pnl_total": -10.0,
+   "portfolio_market_value": 3722.0,
+   "cash": 807.5,
+   "portfolio_total": 4529.5,
+   "invested_cost": 3711.0,
+   "unrealised_pnl": 11.0,
+   "realised_pnl_to_date": 18.5,
+   "total_contributed": 4500,
+   "pnl_vs_contributed": 29.5,
+   "pnl_vs_contributed_pct": 0.66,
+   "fbm_klci": {
+    "close": 1595.19,
+    "chg": -8.88,
+    "chg_pct": -0.55,
+    "source": "The Star/FMT (Bernama)/The Edge 11 Nov 2026 + Yahoo ^KLSE; third straight loss, below 1,600 on bank selling (PBBANK -3%); breadth positive ~686 gainers vs 427 losers; 2.90b units / RM2.33b"
+   },
+   "price_source": "Yahoo Finance .KL chart data cross-checked with KLSE Screener stock pages (all match), fetched ~17:50 MYT 11 Nov 2026 after close",
+   "moneylens_refresh": "Top 20 reused from 9 Nov check of the 8 Nov Sunday refresh (weekly; next refresh Sun 15 Nov)",
+   "decision": "HOLD, no trade. Cash RM807.50 kept: CARLSBG (12.84, RM1,284 a lot) and ALLIANZ (19.60) are out of reach until the Mon 16 Nov credit; CARLSBG still waits for its own Q3 results (est. ~25 Nov). HEIM Q3 out today (net profit -39% y/y to RM69.2m): hold and watch tomorrow's reaction. CVIEW held through 13 Nov ex-date (8 sen).",
+   "notes": "HEIM -0.7% to 13.32 on 196,700 as Q3 results filed (rev -18% to RM539.1m; inventory normalisation largely complete). MKHOP -0.8% to 0.615 on 222,900 despite CPO Jan futures +3% to ~RM4,387 on smaller-than-expected MPOB stock build. KIPREIT +0.6% to 0.86. CVIEW +0.4% to 2.79 into ex-date. TOPMIX flat 0.35 on 340,200 (big pickup from 29,000). AME flat 1.26 (thin 15,100). MBMR -0.2% to 4.75. SKBSHUT -0.6% to 0.855. Watchlist: CARLSBG 12.84 (+0.9%), ALLIANZ 19.60 (-1.5%), CTOS 0.425 (-1.2%, still avoid)."
+  },
+  {
+   "date": "2026-11-12",
+   "week_start": "2026-11-09",
+   "budget_credited": 0,
+   "budget_note": "RM500 already credited Mon 9 Nov; no credit today",
+   "cash_before": 807.5,
+   "trades": [],
+   "cash_after": 807.5,
+   "closes": {
+    "0302": {
+     "price": 0.35,
+     "chg_pct": 0.0,
+     "volume": 0
+    },
+    "5319": {
+     "price": 0.61,
+     "chg_pct": -0.81,
+     "volume": 118800
+    },
+    "5293": {
+     "price": 1.26,
+     "chg_pct": 0.0,
+     "volume": 49100
+    },
+    "5049": {
+     "price": 2.8,
+     "chg_pct": 0.36,
+     "volume": 2500
+    },
+    "7115": {
+     "price": 0.85,
+     "chg_pct": -0.58,
+     "volume": 54900
+    },
+    "3255": {
+     "price": 13.88,
+     "chg_pct": 4.2,
+     "volume": 1137700
+    },
+    "5983": {
+     "price": 4.73,
+     "chg_pct": -0.42,
+     "volume": 91300
+    },
+    "5280": {
+     "price": 0.86,
+     "chg_pct": 0.0,
+     "volume": 276800
+    }
+   },
+   "holdings_mtm": {
+    "0302": {
+     "shares": 500,
+     "avg_cost": 0.35,
+     "close": 0.35,
+     "mv": 175.0,
+     "cost": 175.0,
+     "unrealised": 0.0,
+     "unrealised_pct": 0.0,
+     "day_chg_pct": 0.0,
+     "day_pnl": 0.0,
+     "note": "untraded today (vol 0); last done 0.35"
+    },
+    "5319": {
+     "shares": 300,
+     "avg_cost": 0.635,
+     "close": 0.61,
+     "mv": 183.0,
+     "cost": 190.5,
+     "unrealised": -7.5,
+     "unrealised_pct": -3.94,
+     "day_chg_pct": -0.81,
+     "day_pnl": -1.5
+    },
+    "5293": {
+     "shares": 400,
+     "avg_cost": 1.295,
+     "close": 1.26,
+     "mv": 504.0,
+     "cost": 518.0,
+     "unrealised": -14.0,
+     "unrealised_pct": -2.7,
+     "day_chg_pct": 0.0,
+     "day_pnl": 0.0
+    },
+    "5049": {
+     "shares": 100,
+     "avg_cost": 2.66,
+     "close": 2.8,
+     "mv": 280.0,
+     "cost": 266.0,
+     "unrealised": 14.0,
+     "unrealised_pct": 5.26,
+     "day_chg_pct": 0.36,
+     "day_pnl": 1.0
+    },
+    "7115": {
+     "shares": 300,
+     "avg_cost": 0.865,
+     "close": 0.85,
+     "mv": 255.0,
+     "cost": 259.5,
+     "unrealised": -4.5,
+     "unrealised_pct": -1.73,
+     "day_chg_pct": -0.58,
+     "day_pnl": -1.5
+    },
+    "3255": {
+     "shares": 100,
+     "avg_cost": 13.14,
+     "close": 13.88,
+     "mv": 1388.0,
+     "cost": 1314.0,
+     "unrealised": 74.0,
+     "unrealised_pct": 5.63,
+     "day_chg_pct": 4.2,
+     "day_pnl": 56.0
+    },
+    "5983": {
+     "shares": 100,
+     "avg_cost": 4.75,
+     "close": 4.73,
+     "mv": 473.0,
+     "cost": 475.0,
+     "unrealised": -2.0,
+     "unrealised_pct": -0.42,
+     "day_chg_pct": -0.42,
+     "day_pnl": -2.0
+    },
+    "5280": {
+     "shares": 600,
+     "avg_cost": 0.855,
+     "close": 0.86,
+     "mv": 516.0,
+     "cost": 513.0,
+     "unrealised": 3.0,
+     "unrealised_pct": 0.58,
+     "day_chg_pct": 0.0,
+     "day_pnl": 0.0
+    }
+   },
+   "day_pnl_total": 52.0,
+   "portfolio_market_value": 3774.0,
+   "cash": 807.5,
+   "portfolio_total": 4581.5,
+   "invested_cost": 3711.0,
+   "unrealised_pnl": 63.0,
+   "realised_pnl_to_date": 18.5,
+   "total_contributed": 4500,
+   "pnl_vs_contributed": 81.5,
+   "pnl_vs_contributed_pct": 1.81,
+   "pending_entitlements": "CVIEW 8 sen x 100 = RM8.00 (ex 13 Nov; held at 12 Nov close, so entitled; credit on payment date)",
+   "fbm_klci": {
+    "close": 1585.96,
+    "chg": -9.23,
+    "chg_pct": -0.58,
+    "source": "FMT (Bernama)/The Star 12 Nov 2026 + Yahoo ^KLSE; 4th straight loss, -30.62 pts this week; losers 799 vs gainers 318; 3.06b units / RM2.56b; regional selloff"
+   },
+   "price_source": "Yahoo Finance .KL chart data cross-checked with KLSE Screener stock pages (all match), fetched ~17:45 MYT 12 Nov 2026 after close",
+   "moneylens_refresh": "Top 20 reused from 9 Nov check of the 8 Nov Sunday refresh (weekly; next refresh Sun 15 Nov)",
+   "decision": "HOLD, no trade. Cash RM807.50. HEIM +4.2% on analyst upgrades post-Q3 (CGS Add, RHB/TA Buy); no case to add a 2nd brewer exposure. CARLSBG 13.10 (+2.0%) now RM1,310/lot, just above the RM1,307.50 cash expected after Mon 16 Nov credit; still waiting for its Q3 (~25 Nov). CVIEW held through tomorrow's ex-date (8 sen).",
+   "notes": "HEIM +4.2% to 13.88 on 1,137,700 (5.8x prior day) after Q3 upgrades: CGS Add TP15.80, RHB Buy TP17.60, TA Buy TP19.10, HLG Buy TP23.95, UOBKH Buy TP21.80. MKHOP -0.8% to 0.61 despite CPO Jan +0.6% midday to ~RM4,436. TOPMIX untraded. AME flat 1.26. CVIEW +0.4% to 2.80 on 2,500 (cum-dividend last day). SKBSHUT -0.6% to 0.85. MBMR -0.4% to 4.73. KIPREIT flat 0.86. Watchlist: CARLSBG 13.10 (+2.0%, 272,300), ALLIANZ 19.46 (-0.7%), CTOS 0.43 (+1.2% on 10.3m, avoid), FOCUSP 0.485 flat."
+  }
+ ],
+ "last_updated": "2026-11-12",
+ "latest_portfolio_total": 4581.5
+}

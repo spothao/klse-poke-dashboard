@@ -1,2 +1,4 @@
 preview.png
+preview-*.png
 __pycache__/
+fit-report.json

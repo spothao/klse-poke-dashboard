@@ -364,6 +364,12 @@ def fmt_rm(value: float) -> str:
     return f"{value:,.2f}"
 
 
+def fmt_cost(value: float) -> str:
+    if abs(value - round(value)) < 0.001:
+        return f"{value:,.0f}"
+    return f"{value:,.2f}"
+
+
 def fmt_price(value: float) -> str:
     if value < 1:
         return f"{value:.3f}"
@@ -434,129 +440,15 @@ def portfolio_metrics(port: Portfolio, prices: dict[str, tuple[float, str]]) -> 
     }
 
 
-def render_portfolio(port: Portfolio, metrics: dict | None) -> str:
-    parts = [f'<section class="portfolio" id="{esc(port.key)}">']
-    parts.append(f"<h2>{esc(port.title)}</h2>")
-    if port.missing:
-        parts.append(f"<p class='missing'>Ledger not found at {esc(port.path)}.</p>")
-        parts.append("</section>")
-        return "\n".join(parts)
-    if port.error:
-        parts.append(f"<p class='missing'>Could not read ledger: {esc(port.error)}</p>")
-        parts.append("</section>")
-        return "\n".join(parts)
-    assert metrics is not None
-    asof = f" Ledger {esc(port.ledger_date)}." if port.ledger_date else ""
-    parts.append('<div class="stats">')
-    parts.append(
-        f'<div class="stat"><div class="label">Total value</div>'
-        f'<div class="value">RM{fmt_rm(metrics["total"])}</div></div>'
-    )
-    parts.append(
-        f'<div class="stat"><div class="label">Cash</div>'
-        f'<div class="value">RM{fmt_rm(port.cash)}</div></div>'
-    )
-    parts.append(
-        f'<div class="stat"><div class="label">Contributed</div>'
-        f'<div class="value">RM{fmt_rm(port.contributed)}</div></div>'
-    )
-    parts.append(
-        f'<div class="stat"><div class="label">P&amp;L</div>'
-        f'<div class="value">{fmt_pnl_rm(metrics["pnl"])}'
-        f'<span class="pct"> ({fmt_pct(metrics["pnl_pct"])})</span></div></div>'
-    )
-    parts.append("</div>")
-    parts.append("<table>")
-    parts.append(
-        "<thead><tr>"
-        "<th>Code</th><th>Name</th><th class='num'>Shares</th>"
-        "<th class='num'>Cost</th><th class='num'>Last close</th>"
-        "<th class='num'>P&amp;L %</th>"
-        "</tr></thead>"
-    )
-    parts.append("<tbody>")
-    if not metrics["rows"]:
-        parts.append("<tr><td colspan='6'>No holdings.</td></tr>")
-    for row in metrics["rows"]:
-        close_txt = "\u2014"
-        if row["close"] is not None:
-            close_txt = fmt_price(row["close"])
-            if row["source"] != "yahoo":
-                close_txt += "*"
-        pnl_txt = "\u2014" if row["pnl_pct"] is None else fmt_pct(row["pnl_pct"])
-        parts.append(
-            "<tr>"
-            f"<td>{esc(row['code'])}</td>"
-            f"<td>{esc(row['name'])}</td>"
-            f"<td class='num'>{row['shares']:,}</td>"
-            f"<td class='num'>{fmt_rm(row['cost'])}</td>"
-            f"<td class='num'>{esc(close_txt)}</td>"
-            f"<td class='num'>{pnl_txt}</td>"
-            "</tr>"
-        )
-    parts.append("</tbody></table>")
-    if any(r["source"] != "yahoo" and r["close"] is not None for r in metrics["rows"]):
-        parts.append(f"<p class='note'>* Ledger last close used (Yahoo unavailable).{asof}</p>")
-    elif asof:
-        parts.append(f"<p class='note'>{asof.strip()}</p>")
-    parts.append("</section>")
-    return "\n".join(parts)
 
+# ---------------------------------------------------------------------------
+# Multi-page, no-scroll layout for a Boox Poke 5
+# ---------------------------------------------------------------------------
 
-def render_watchlist(ports: list[tuple[Portfolio, dict | None]], prices: dict[str, tuple[float, str]]) -> str:
-    combined: dict[str, dict] = {}
-    for port, metrics in ports:
-        if not metrics:
-            continue
-        for row in metrics["rows"]:
-            code = row["code"]
-            entry = combined.setdefault(
-                code,
-                {
-                    "code": code,
-                    "name": row["name"],
-                    "close": row["close"],
-                    "source": row["source"],
-                    "portfolios": [],
-                },
-            )
-            if port.title not in entry["portfolios"]:
-                entry["portfolios"].append(port.title)
-            if not entry["name"] and row["name"]:
-                entry["name"] = row["name"]
-    parts = ['<section class="watchlist" id="watchlist">', "<h2>Watchlist</h2>"]
-    parts.append("<table>")
-    parts.append(
-        "<thead><tr>"
-        "<th>Code</th><th>Name</th><th class='num'>Last close</th>"
-        "<th>Source</th><th>Held in</th>"
-        "</tr></thead><tbody>"
-    )
-    if not combined:
-        parts.append("<tr><td colspan='5'>No holdings to list.</td></tr>")
-    for code in sorted(combined, key=lambda c: (combined[c]["name"] or c, c)):
-        row = combined[code]
-        close_txt = "\u2014" if row["close"] is None else fmt_price(row["close"])
-        if row["source"] == "yahoo":
-            src = "Yahoo"
-        elif row["source"] == "ledger":
-            src = "Ledger*"
-            close_txt += "*"
-        else:
-            src = "Missing"
-        parts.append(
-            "<tr>"
-            f"<td>{esc(row['code'])}</td>"
-            f"<td>{esc(row['name'])}</td>"
-            f"<td class='num'>{esc(close_txt)}</td>"
-            f"<td>{esc(src)}</td>"
-            f"<td>{esc(', '.join(row['portfolios']))}</td>"
-            "</tr>"
-        )
-    parts.append("</tbody></table>")
-    parts.append("</section>")
-    return "\n".join(parts)
-
+# Tightest CSS viewport first. Layout uses 100vh/100vw so it also fills 1072x1448.
+VIEWPORTS = ((360, 480), (400, 530), (1072, 1448))
+DEFAULT_ROWS_PER_PAGE = 12
+MIN_ROWS_PER_PAGE = 4
 
 CSS = """
 :root { color-scheme: only light; }
@@ -564,132 +456,530 @@ CSS = """
 html, body {
   margin: 0;
   padding: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
   background: #fff;
   color: #000;
 }
 body {
   font-family: Arial, Helvetica, "Noto Sans", "DejaVu Sans", sans-serif;
-  font-size: 22px;
-  line-height: 1.35;
-  padding: 18px 22px 36px;
-  max-width: 1072px;
+  font-size: clamp(16px, 4.3vmin, 42px);
+  line-height: 1.2;
   font-variant-numeric: tabular-nums;
 }
-h1 {
-  font-size: 36px;
-  line-height: 1.15;
-  margin: 0 0 6px;
-  font-weight: 700;
-  letter-spacing: 0.01em;
+.page {
+  width: 100vw;
+  height: 100vh;
+  max-width: 100vw;
+  max-height: 100vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  padding: 0.4em 0.45em 0.3em;
 }
-h2 {
-  font-size: 28px;
-  line-height: 1.2;
-  margin: 0 0 12px;
-  padding: 0 0 8px;
-  border-bottom: 3px solid #000;
+header, footer, .jump { flex: 0 0 auto; }
+main {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+h1 {
+  font-size: 1.22em;
+  line-height: 1.1;
+  margin: 0;
   font-weight: 700;
 }
 .updated {
-  font-size: 20px;
-  margin: 0 0 22px;
+  font-size: 1em;
+  margin: 0.12em 0 0.15em;
 }
-.sub {
-  font-size: 18px;
-  margin: 4px 0 0;
-}
-section.portfolio, section.watchlist {
-  margin: 0 0 28px;
-  padding: 0 0 8px;
-  border-bottom: 3px solid #000;
-}
-.stats {
-  display: block;
-  margin: 0 0 14px;
-}
-.stat {
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  gap: 16px;
-  border-bottom: 2px solid #000;
-  padding: 7px 0;
-}
-.stat .label {
-  font-size: 20px;
-  font-weight: 700;
-}
-.stat .value {
-  font-size: 28px;
-  font-weight: 700;
-  text-align: right;
-}
-.stat .pct { font-size: 22px; font-weight: 700; }
-table {
+.subpage { font-size: 1em; font-weight: 700; margin: 0 0 0.15em; }
+.compare {
   width: 100%;
   border-collapse: collapse;
-  margin: 8px 0 10px;
-  font-size: 20px;
+  table-layout: fixed;
+  margin: 0 0 0.3em;
+  flex: 0 0 auto;
 }
-th, td {
+.compare th, .compare td {
   border: 2px solid #000;
-  padding: 8px 8px;
-  text-align: left;
-  vertical-align: top;
-}
-th {
+  padding: 0.22em 0.25em;
+  text-align: right;
   font-weight: 700;
+  vertical-align: middle;
+}
+.compare th:first-child, .compare td:first-child {
+  text-align: left;
+  font-weight: 700;
+  width: 28%;
+}
+.compare thead th { text-align: center; }
+.ahead {
+  border: 3px solid #000;
+  font-weight: 700;
+  text-align: center;
+  padding: 0.3em 0.35em;
+  margin: 0 0 0.35em;
+  flex: 0 0 auto;
+}
+.jump {
+  display: flex;
+  flex-direction: column;
+  gap: 0.28em;
+  margin: 0 0 0.3em;
+}
+.jump a, nav.bar a, nav.bar span {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: max(48px, 11vmin);
+  border: 3px solid #000;
+  color: #000;
+  text-decoration: none;
+  font-weight: 700;
+  text-align: center;
+  padding: 0.15em 0.3em;
   background: #fff;
 }
-td.num, th.num { text-align: right; white-space: nowrap; }
-.note, .missing, .footnote {
-  font-size: 18px;
-  margin: 8px 0 12px;
+nav.bar {
+  display: flex;
+  gap: 0.28em;
+  margin-top: auto;
+  padding-top: 0.25em;
+}
+nav.bar a, nav.bar span { flex: 1; }
+nav.bar .home { font-weight: 800; }
+table.grid {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+  font-size: 1em;
+}
+table.grid th, table.grid td {
+  border: 2px solid #000;
+  padding: 0.12em 0.1em;
+  text-align: left;
+  vertical-align: middle;
+  overflow: hidden;
+  white-space: nowrap;
+}
+table.grid th { font-weight: 700; }
+table.grid .num { text-align: right; }
+table.grid .c-code { width: 14%; }
+table.grid .c-name { width: 24%; }
+table.grid .c-shs { width: 11%; }
+table.grid .c-cost { width: 17%; }
+table.grid .c-close { width: 16%; }
+table.grid .c-pnl { width: 18%; }
+table.grid.watch .c-code { width: 18%; }
+table.grid.watch .c-name { width: 32%; }
+table.grid.watch .c-close { width: 22%; }
+table.grid.watch .c-held { width: 28%; }
+.note, .missing {
+  font-size: 1em;
+  margin: 0.2em 0 0;
+  flex: 0 0 auto;
 }
 .missing { font-weight: 700; }
-.footnote { margin-top: 0; }
 """
 
 
-def render_page(updated: datetime, sections: list[str]) -> str:
-    stamp = updated.strftime("%a %-d %b %Y, %-I:%M %p MYT")
-    # %-d / %-I are POSIX; keep a portable fallback.
+def format_stamp(updated: datetime) -> str:
     try:
-        stamp = updated.strftime("%a %-d %b %Y, %-I:%M %p") + " MYT"
+        return updated.strftime("%a %-d %b %Y, %-I:%M %p") + " MYT"
     except ValueError:
-        stamp = updated.strftime("%a %d %b %Y, %I:%M %p").replace(" 0", " ") + " MYT"
-    body = "\n".join(sections)
+        return updated.strftime("%a %d %b %Y, %I:%M %p").replace("  0", " ").replace(" 0", " ") + " MYT"
+
+
+def close_text(row: dict) -> str:
+    if row.get("close") is None:
+        return "\u2014"
+    text = fmt_price(row["close"])
+    if row.get("source") != "yahoo":
+        text += "*"
+    return text
+
+
+def chunk(rows: list, size: int) -> list[list]:
+    if not rows:
+        return [[]]
+    size = max(1, size)
+    return [rows[i : i + size] for i in range(0, len(rows), size)]
+
+
+def filenames_for(stem: str, count: int) -> list[str]:
+    if count <= 1:
+        return [f"{stem}.html"]
+    return [f"{stem}.html"] + [f"{stem}-{i}.html" for i in range(2, count + 1)]
+
+
+def render_bar(prev_href: str, next_href: str) -> str:
+    return (
+        '<nav class="bar" aria-label="Page">'
+        f'<a href="{esc(prev_href)}">Prev</a>'
+        '<a class="home" href="index.html">Home</a>'
+        f'<a href="{esc(next_href)}">Next</a>'
+        "</nav>"
+    )
+
+
+def render_shell(title: str, stamp: str, main: str, prev_href: str, next_href: str) -> str:
     return f"""<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=1072">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta http-equiv="refresh" content="900">
   <meta name="color-scheme" content="light only">
-  <title>KLSE Paper Dashboard</title>
+  <title>{esc(title)}</title>
   <style>
 {CSS}
   </style>
 </head>
 <body>
-  <header>
-    <h1>KLSE Paper Dashboard</h1>
-    <p class="updated">Last updated: {esc(stamp)}</p>
-    <p class="sub">Paper trading only. Two ledgers, same contributed cash.</p>
-  </header>
-  {body}
-  <p class="footnote">Closes from Yahoo Finance (CODE.KL). A price marked * is the ledger last close because Yahoo was unavailable. Page reloads every 15 minutes.</p>
+  <div class="page">
+    <header>
+      <h1>{esc(title)}</h1>
+      <p class="updated">Last updated: {esc(stamp)}</p>
+    </header>
+    <main>
+{main}
+    </main>
+    {render_bar(prev_href, next_href)}
+  </div>
 </body>
 </html>
 """
+
+
+def render_index(moneylens: Portfolio, m: dict | None, screener: Portfolio, s: dict | None, stamp: str, prev_href: str, next_href: str) -> str:
+    def cell(metrics: dict | None, port: Portfolio, key: str) -> str:
+        if port.missing:
+            return "Missing"
+        if port.error or not metrics:
+            return "Error"
+        if key == "total":
+            return "RM" + fmt_rm(metrics["total"])
+        if key == "cash":
+            return "RM" + fmt_rm(port.cash)
+        if key == "contributed":
+            return "RM" + fmt_rm(port.contributed)
+        if key == "pnl":
+            return fmt_pnl_rm(metrics["pnl"])
+        if key == "pnl_pct":
+            return fmt_pct(metrics["pnl_pct"])
+        return "\u2014"
+
+    rows = [
+        ("Value", "total"),
+        ("Cash", "cash"),
+        ("Contributed", "contributed"),
+        ("P&amp;L", "pnl"),
+        ("P&amp;L %", "pnl_pct"),
+    ]
+    body = ['<table class="compare">',
+            "<thead><tr><th></th><th>MoneyLens</th><th>Screener</th></tr></thead>",
+            "<tbody>"]
+    for label, key in rows:
+        body.append(
+            f"<tr><td>{label}</td>"
+            f"<td>{esc(cell(m, moneylens, key)) if key != 'pnl' and label != 'P&amp;L' else cell(m, moneylens, key)}</td>"
+            f"<td>{esc(cell(s, screener, key)) if key != 'pnl' and label != 'P&amp;L' else cell(s, screener, key)}</td></tr>"
+        )
+    # The above esc logic is messy because fmt_pnl_rm/fmt_pct have unicode minus, no HTML specials except we should still esc.
+    # Rebuild cleanly below if needed — actually fmt values can be escaped always. I'll fix in a cleaner loop after writing... 
+    body.append("</tbody></table>")
+
+    ahead = "Cannot compare portfolios."
+    if m and s and not moneylens.missing and not screener.missing:
+        diff = s["total"] - m["total"]
+        if abs(diff) < 0.005:
+            ahead = "The two portfolios are tied."
+        elif diff > 0:
+            ahead = f"Screener is ahead by {fmt_pnl_rm(diff).lstrip('+')}."
+        else:
+            ahead = f"MoneyLens is ahead by {fmt_pnl_rm(-diff).lstrip('+')}."
+    body.append(f'<p class="ahead">{esc(ahead)}</p>')
+    body.append('<div class="jump">')
+    body.append('<a href="moneylens.html">MoneyLens holdings</a>')
+    body.append('<a href="screener.html">Screener holdings</a>')
+    body.append('<a href="watchlist.html">Watchlist</a>')
+    body.append("</div>")
+    return render_shell("KLSE Paper Dashboard", stamp, "\n".join(body), prev_href, next_href)
+
+
+def holdings_table(rows: list[dict], empty_msg: str = "No holdings.") -> str:
+    parts = ['<table class="grid">',
+             "<colgroup>"
+             '<col class="c-code"><col class="c-name"><col class="c-shs">'
+             '<col class="c-cost"><col class="c-close"><col class="c-pnl">'
+             "</colgroup>",
+             "<thead><tr>"
+             "<th>Code</th><th>Name</th><th class='num'>Shs</th>"
+             "<th class='num'>Cost</th><th class='num'>Close</th>"
+             "<th class='num'>P/L</th>"
+             "</tr></thead><tbody>"]
+    if not rows:
+        parts.append(f"<tr><td colspan='6'>{esc(empty_msg)}</td></tr>")
+    for row in rows:
+        pnl_txt = "\u2014" if row.get("pnl_pct") is None else fmt_pct(row["pnl_pct"])
+        parts.append(
+            "<tr>"
+            f"<td>{esc(row['code'])}</td>"
+            f"<td>{esc(row['name'])}</td>"
+            f"<td class='num'>{int(row['shares']):,}</td>"
+            f"<td class='num'>{fmt_cost(row['cost'])}</td>"
+            f"<td class='num'>{esc(close_text(row))}</td>"
+            f"<td class='num'>{pnl_txt}</td>"
+            "</tr>"
+        )
+    parts.append("</tbody></table>")
+    return "\n".join(parts)
+
+
+def watchlist_table(rows: list[dict]) -> str:
+    parts = ['<table class="grid watch">',
+             "<colgroup>"
+             '<col class="c-code"><col class="c-name"><col class="c-close"><col class="c-held">'
+             "</colgroup>",
+             "<thead><tr>"
+             "<th>Code</th><th>Name</th><th class='num'>Close</th><th>Held in</th>"
+             "</tr></thead><tbody>"]
+    if not rows:
+        parts.append("<tr><td colspan='4'>No holdings to list.</td></tr>")
+    for row in rows:
+        parts.append(
+            "<tr>"
+            f"<td>{esc(row['code'])}</td>"
+            f"<td>{esc(row['name'])}</td>"
+            f"<td class='num'>{esc(close_text(row))}</td>"
+            f"<td>{esc(row['held'])}</td>"
+            "</tr>"
+        )
+    parts.append("</tbody></table>")
+    return "\n".join(parts)
+
+
+def footnote(rows: list[dict], ledger_date: str | None = None) -> str:
+    asof = f" Ledger {ledger_date}." if ledger_date else ""
+    if any(r.get("source") != "yahoo" and r.get("close") is not None for r in rows):
+        return f'<p class="note">* Ledger close (Yahoo unavailable).{esc(asof)}</p>'
+    if asof:
+        return f'<p class="note">{esc(asof.strip())}</p>'
+    return ""
+
+
+def combine_watchlist(ports: list[tuple[Portfolio, dict | None]]) -> list[dict]:
+    combined: dict[str, dict] = {}
+    labels = {"moneylens": "MoneyLens", "screener": "Screener"}
+    for port, metrics in ports:
+        if not metrics:
+            continue
+        label = labels.get(port.key, port.title)
+        for row in metrics["rows"]:
+            entry = combined.setdefault(
+                row["code"],
+                {
+                    "code": row["code"],
+                    "name": row["name"],
+                    "close": row["close"],
+                    "source": row["source"],
+                    "held_in": [],
+                },
+            )
+            if label not in entry["held_in"]:
+                entry["held_in"].append(label)
+            if not entry["name"] and row["name"]:
+                entry["name"] = row["name"]
+    rows = []
+    for code in sorted(combined, key=lambda c: (combined[c]["name"] or c, c)):
+        item = combined[code]
+        held = item["held_in"]
+        if len(held) > 1:
+            held_txt = "Both"
+        else:
+            held_txt = held[0] if held else "\u2014"
+        rows.append({**item, "held": held_txt})
+    return rows
+
+
+def build_page_list(
+    moneylens: Portfolio,
+    m_metrics: dict | None,
+    screener: Portfolio,
+    s_metrics: dict | None,
+    watch_rows: list[dict],
+    stamp: str,
+    rows_per_page: int,
+) -> list[dict]:
+    pages: list[dict] = []
+
+    def add_table_pages(stem: str, title: str, rows: list[dict], kind: str, note_html: str, empty: str) -> None:
+        chunks = chunk(rows, rows_per_page)
+        names = filenames_for(stem, len(chunks))
+        total = len(chunks)
+        for i, (name, part) in enumerate(zip(names, chunks), start=1):
+            heading = title if total == 1 else f"{title} ({i}/{total})"
+            table = watchlist_table(part) if kind == "watch" else holdings_table(part, empty)
+            main = f"{table}\n{note_html}"
+            pages.append({"filename": name, "title": heading, "main": main, "kind": kind})
+
+    pages.append({"filename": "index.html", "title": "KLSE Paper Dashboard", "kind": "index"})
+
+    m_rows = (m_metrics or {}).get("rows") or []
+    s_rows = (s_metrics or {}).get("rows") or []
+    m_note = footnote(m_rows, moneylens.ledger_date)
+    s_note = footnote(s_rows, screener.ledger_date)
+    w_note = footnote(watch_rows)
+
+    if moneylens.missing:
+        pages.append({
+            "filename": "moneylens.html",
+            "title": "MoneyLens holdings",
+            "main": f'<p class="missing">Ledger not found at {esc(moneylens.path)}.</p>',
+            "kind": "holdings",
+        })
+    elif moneylens.error:
+        pages.append({
+            "filename": "moneylens.html",
+            "title": "MoneyLens holdings",
+            "main": f'<p class="missing">Could not read ledger: {esc(moneylens.error)}</p>',
+            "kind": "holdings",
+        })
+    else:
+        add_table_pages("moneylens", "MoneyLens holdings", m_rows, "holdings", m_note, "No holdings.")
+
+    if screener.missing:
+        pages.append({
+            "filename": "screener.html",
+            "title": "Screener holdings",
+            "main": f'<p class="missing">Ledger not found at {esc(screener.path)}.</p>',
+            "kind": "holdings",
+        })
+    elif screener.error:
+        pages.append({
+            "filename": "screener.html",
+            "title": "Screener holdings",
+            "main": f'<p class="missing">Could not read ledger: {esc(screener.error)}</p>',
+            "kind": "holdings",
+        })
+    else:
+        add_table_pages("screener", "Screener holdings", s_rows, "holdings", s_note, "No holdings.")
+
+    add_table_pages("watchlist", "Watchlist", watch_rows, "watch", w_note, "No holdings to list.")
+
+    # Fill index and prev/next, then render HTML
+    n = len(pages)
+    rendered: list[dict] = []
+    for i, page in enumerate(pages):
+        prev_href = pages[(i - 1) % n]["filename"]
+        next_href = pages[(i + 1) % n]["filename"]
+        if page["kind"] == "index":
+            html_out = render_index(moneylens, m_metrics, screener, s_metrics, stamp, prev_href, next_href)
+        else:
+            html_out = render_shell(page["title"], stamp, page["main"], prev_href, next_href)
+        rendered.append({"filename": page["filename"], "html": html_out, "kind": page["kind"]})
+    return rendered
+
+
+# Fix render_index table cells to always escape — replace the messy version.
+def render_index(moneylens: Portfolio, m: dict | None, screener: Portfolio, s: dict | None, stamp: str, prev_href: str, next_href: str) -> str:
+    def cell(metrics: dict | None, port: Portfolio, key: str) -> str:
+        if port.missing:
+            return "Missing"
+        if port.error or not metrics:
+            return "Error"
+        if key == "total":
+            return "RM" + fmt_rm(metrics["total"])
+        if key == "cash":
+            return "RM" + fmt_rm(port.cash)
+        if key == "contributed":
+            return "RM" + fmt_rm(port.contributed)
+        if key == "pnl":
+            return fmt_pnl_rm(metrics["pnl"])
+        if key == "pnl_pct":
+            return fmt_pct(metrics["pnl_pct"])
+        return "\u2014"
+
+    body = [
+        '<table class="compare">',
+        "<thead><tr><th></th><th>MoneyLens</th><th>Screener</th></tr></thead>",
+        "<tbody>",
+    ]
+    for label, key in (
+        ("Value", "total"),
+        ("Cash", "cash"),
+        ("Contributed", "contributed"),
+        ("P&amp;L", "pnl"),
+        ("P&amp;L %", "pnl_pct"),
+    ):
+        body.append(
+            f"<tr><td>{label}</td>"
+            f"<td>{esc(cell(m, moneylens, key))}</td>"
+            f"<td>{esc(cell(s, screener, key))}</td></tr>"
+        )
+    body.append("</tbody></table>")
+
+    ahead = "Cannot compare portfolios."
+    if m and s and not moneylens.missing and not screener.missing:
+        diff = s["total"] - m["total"]
+        if abs(diff) < 0.005:
+            ahead = "The two portfolios are tied."
+        elif diff > 0:
+            ahead = f"Screener is ahead by {fmt_pnl_rm(diff).lstrip('+')}."
+        else:
+            ahead = f"MoneyLens is ahead by {fmt_pnl_rm(-diff).lstrip('+')}."
+    body.append(f'<p class="ahead">{esc(ahead)}</p>')
+    body.append('<div class="jump">')
+    body.append('<a href="moneylens.html">MoneyLens holdings</a>')
+    body.append('<a href="screener.html">Screener holdings</a>')
+    body.append('<a href="watchlist.html">Watchlist</a>')
+    body.append("</div>")
+    return render_shell("KLSE Paper Dashboard", stamp, "\n".join(body), prev_href, next_href)
+
+
+def write_pages(pages: list[dict], out_dir: Path) -> list[Path]:
+    # Remove previously generated site pages so stale splits do not linger.
+    keep = {p["filename"] for p in pages}
+    for existing in out_dir.glob("*.html"):
+        if existing.name not in keep:
+            existing.unlink()
+    written = []
+    for page in pages:
+        path = out_dir / page["filename"]
+        path.write_text(page["html"], encoding="utf-8")
+        written.append(path)
+        print(f"Wrote {path}")
+    return written
+
+
+def generated_html_files(out_dir: Path) -> list[Path]:
+    names = []
+    for name in ("index.html", "moneylens.html", "screener.html", "watchlist.html"):
+        path = out_dir / name
+        if path.is_file():
+            names.append(path)
+    for path in sorted(out_dir.glob("moneylens-*.html")) + sorted(out_dir.glob("screener-*.html")) + sorted(out_dir.glob("watchlist-*.html")):
+        if path not in names:
+            names.append(path)
+    return names
 
 
 def main() -> int:
     moneylens = load_moneylens(MONEYLENS_LEDGER)
     screener = load_screener(SCREENER_LEDGER)
     all_holdings = list(moneylens.holdings) + list(screener.holdings)
-    print(f"Loaded MoneyLens: missing={moneylens.missing} holdings={len(moneylens.holdings)} cash={moneylens.cash} contrib={moneylens.contributed}")
-    print(f"Loaded Screener: missing={screener.missing} holdings={len(screener.holdings)} cash={screener.cash} contrib={screener.contributed}")
+    print(
+        f"Loaded MoneyLens: missing={moneylens.missing} holdings={len(moneylens.holdings)} "
+        f"cash={moneylens.cash} contrib={moneylens.contributed}"
+    )
+    print(
+        f"Loaded Screener: missing={screener.missing} holdings={len(screener.holdings)} "
+        f"cash={screener.cash} contrib={screener.contributed}"
+    )
 
     prices: dict[str, tuple[float, str]] = {}
     if all_holdings:
@@ -703,19 +993,19 @@ def main() -> int:
 
     m_metrics = None if (moneylens.missing or moneylens.error) else portfolio_metrics(moneylens, prices)
     s_metrics = None if (screener.missing or screener.error) else portfolio_metrics(screener, prices)
-
+    watch_rows = combine_watchlist([(moneylens, m_metrics), (screener, s_metrics)])
     updated = datetime.now(MYT)
-    sections = [
-        render_portfolio(moneylens, m_metrics),
-        render_portfolio(screener, s_metrics),
-        render_watchlist([(moneylens, m_metrics), (screener, s_metrics)], prices),
-    ]
-    OUTPUT.write_text(render_page(updated, sections), encoding="utf-8")
-    print(f"Wrote {OUTPUT}")
+    stamp = format_stamp(updated)
+
+    rows_per_page = DEFAULT_ROWS_PER_PAGE
+    pages = build_page_list(moneylens, m_metrics, screener, s_metrics, watch_rows, stamp, rows_per_page)
+    write_pages(pages, ROOT)
+
     if m_metrics:
         print(f"MoneyLens total RM{m_metrics['total']:.2f} P&L {m_metrics['pnl']:+.2f} ({m_metrics['pnl_pct']:+.2f}%)")
     if s_metrics:
         print(f"Screener total RM{s_metrics['total']:.2f} P&L {s_metrics['pnl']:+.2f} ({s_metrics['pnl_pct']:+.2f}%)")
+    print(f"Pages: {', '.join(p['filename'] for p in pages)}")
     return 0
 
 

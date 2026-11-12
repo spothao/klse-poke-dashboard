@@ -25,7 +25,7 @@ jobs:
       - name: Stage site
         run: |
           mkdir site
-          cp index.html site/
+          cp *.html site/
           touch site/.nojekyll
       - uses: actions/configure-pages@v5
         with:

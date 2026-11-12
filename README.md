@@ -14,6 +14,7 @@ Live site: https://spothao.github.io/klse-poke-dashboard/
 | Screener holdings | https://spothao.github.io/klse-poke-dashboard/screener.html |
 | Watchlist (1/2) | https://spothao.github.io/klse-poke-dashboard/watchlist.html |
 | Watchlist (2/2) | https://spothao.github.io/klse-poke-dashboard/watchlist-2.html |
+| **Screensaver image** | https://spothao.github.io/klse-poke-dashboard/screensaver.png |
 
 Each page has large Prev / Home / Next buttons, a Last updated line in MYT, and reloads every 15 minutes. No JavaScript is required. Tables that would overflow a Poke screen are split (for example `watchlist-2.html`).
 
@@ -23,9 +24,17 @@ Prices come from Yahoo Finance (`CODE.KL`); if Yahoo is unavailable, the generat
 
 ```bash
 python3 build.py
+python3 generate_screensaver.py   # produces screensaver.png (requires Pillow)
 ```
 
 `build.py` reads `/workspace/papertrade/ledger.json`, `/workspace/papertrade-screener/ledger.json`, and `comparison.md` if present, then writes the HTML pages.
+
+`generate_screensaver.py` produces a black-on-white `screensaver.png` suitable for the Poke 5. Termux can download it with:
+
+```bash
+curl -L -o /sdcard/Pictures/screensaver.png \
+  https://raw.githubusercontent.com/spothao/klse-poke-dashboard/main/screensaver.png
+```
 
 To check that every page fits 360×480, 400×530, and 1072×1448 CSS pixels:
 

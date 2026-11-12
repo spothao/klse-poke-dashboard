@@ -1115,23 +1115,20 @@ def render_compare_pages(
         f"<tr><td>Worst</td><td>{esc(holding_label(m_worst))}</td>"
         f"<td>{esc(holding_label(s_worst))}</td></tr>"
     )
+    table.append("</tbody></table>")
+    page1_main = "\n".join(table)
     latest = _parse_day(moneylens.ledger_date) or _parse_day(screener.ledger_date)
     monday = (latest - timedelta(days=latest.weekday())) if latest else None
     m_trades = week_trades(moneylens, monday) if monday else []
     s_trades = week_trades(screener, monday) if monday else []
-    table.append(
-        "<tr><td>This week</td>"
-        f"<td class='wrap'>{esc(format_week_trades_cell(m_trades))}</td>"
-        f"<td class='wrap'>{esc(format_week_trades_cell(s_trades))}</td></tr>"
-    )
-    table.append("</tbody></table>")
-    page1_main = "\n".join(table)
+    page2_main = '<p class="section-title">This week</p>\n' + render_trades_table(m_trades, s_trades)
     summary = load_weekly_summary(COMPARISON_MD)
-    page2_main = render_weekly_summary(summary)
+    page3_main = render_weekly_summary(summary)
 
     return [
-        {"filename": "compare.html", "title": "Comparison (1/2)", "main": page1_main, "kind": "compare"},
-        {"filename": "compare-2.html", "title": "Comparison (2/2)", "main": page2_main, "kind": "compare"},
+        {"filename": "compare.html", "title": "Comparison (1/3)", "main": page1_main, "kind": "compare"},
+        {"filename": "compare-2.html", "title": "Comparison (2/3)", "main": page2_main, "kind": "compare"},
+        {"filename": "compare-3.html", "title": "Comparison (3/3)", "main": page3_main, "kind": "compare"},
     ]
 
 

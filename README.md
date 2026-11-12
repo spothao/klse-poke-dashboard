@@ -7,8 +7,9 @@ Live site: https://spothao.github.io/klse-poke-dashboard/
 | Page | URL |
 | --- | --- |
 | Overview | https://spothao.github.io/klse-poke-dashboard/ |
-| Comparison (1/2) | https://spothao.github.io/klse-poke-dashboard/compare.html |
-| Comparison (2/2) | https://spothao.github.io/klse-poke-dashboard/compare-2.html |
+| Comparison (1/3) | https://spothao.github.io/klse-poke-dashboard/compare.html |
+| Comparison (2/3) | https://spothao.github.io/klse-poke-dashboard/compare-2.html |
+| Comparison (3/3) | https://spothao.github.io/klse-poke-dashboard/compare-3.html |
 | MoneyLens holdings | https://spothao.github.io/klse-poke-dashboard/moneylens.html |
 | Screener holdings | https://spothao.github.io/klse-poke-dashboard/screener.html |
 | Watchlist (1/2) | https://spothao.github.io/klse-poke-dashboard/watchlist.html |
@@ -29,7 +30,7 @@ python3 build.py
 To check that every page fits 360×480, 400×530, and 1072×1448 CSS pixels:
 
 ```bash
-node measure_viewports.mjs index.html compare.html compare-2.html moneylens.html screener.html watchlist.html watchlist-2.html
+node measure_viewports.mjs index.html compare.html compare-2.html compare-3.html moneylens.html screener.html watchlist.html watchlist-2.html
 ```
 
 To rebuild and push any change to the HTML pages:

@@ -19,7 +19,7 @@ This reads:
 - `/workspace/papertrade-screener/ledger.json` (Screener)
 - `/workspace/poke-dashboard/comparison.md` (optional weekly summary)
 
-and writes the HTML pages: `index.html`, `compare.html`, `compare-2.html` (if needed), `moneylens.html`, `screener.html`, `watchlist.html`, `watchlist-2.html` (and any further splits).
+and writes the HTML pages: `index.html`, `compare.html`, `compare-2.html`, `compare-3.html` (if needed), `moneylens.html`, `screener.html`, `watchlist.html`, `watchlist-2.html` (and any further splits).
 
 If `comparison.md` is missing, the weekly-summary page shows “Weekly summary arrives Fri after close.” To refresh the Friday write-up, edit `comparison.md` first (date in a `# …` heading, then plain paragraphs), then rerun `build.py`.
 
@@ -27,7 +27,7 @@ If `comparison.md` is missing, the weekly-summary page shows “Weekly summary a
 
 ```bash
 cd /workspace/poke-dashboard
-node measure_viewports.mjs index.html compare.html compare-2.html moneylens.html screener.html watchlist.html watchlist-2.html
+node measure_viewports.mjs index.html compare.html compare-2.html compare-3.html moneylens.html screener.html watchlist.html watchlist-2.html
 ```
 
 Omit a filename if that page was not generated. The script must print `FIT CHECK PASSED` for 360×480 and 400×530 (it also checks 1072×1448). If it fails, tighten the layout or split a table, rebuild, and measure again. Do not publish an overflowing page.
@@ -52,8 +52,8 @@ Rules:
 
 Example (first batch of pages):
 
-- `push_files` with `index.html`, `compare.html`, `compare-2.html`, `moneylens.html` as `$file:/workspace/poke-dashboard/…`
-- Then another `push_files` for `screener.html`, `watchlist.html`, `watchlist-2.html`, and any updated `comparison.md` or `build.py`
+- `push_files` with `index.html`, `compare.html`, `compare-2.html`, `compare-3.html` as `$file:/workspace/poke-dashboard/…`
+- Then another `push_files` for `moneylens.html`, `screener.html`, `watchlist.html`, `watchlist-2.html`, and any updated `comparison.md` or `build.py`
 
 Set `mcpDetails.description` to a short plain-language sentence about the push.
 
@@ -73,6 +73,7 @@ Each of these must return HTTP 200 and the dashboard HTML (`text/html`, a “Las
 - https://spothao.github.io/klse-poke-dashboard/
 - https://spothao.github.io/klse-poke-dashboard/compare.html
 - https://spothao.github.io/klse-poke-dashboard/compare-2.html
+- https://spothao.github.io/klse-poke-dashboard/compare-3.html
 - https://spothao.github.io/klse-poke-dashboard/moneylens.html
 - https://spothao.github.io/klse-poke-dashboard/screener.html
 - https://spothao.github.io/klse-poke-dashboard/watchlist.html

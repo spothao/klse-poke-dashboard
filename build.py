@@ -11,7 +11,7 @@ import urllib.error
 import urllib.parse
 import urllib.request
 from dataclasses import dataclass, field
-from datetime import datetime
+from datetime import date, datetime, timedelta
 from pathlib import Path
 from typing import Iterable
 from zoneinfo import ZoneInfo
@@ -21,6 +21,7 @@ MYT = ZoneInfo("Asia/Kuala_Lumpur")
 ROOT = Path(__file__).resolve().parent
 MONEYLENS_LEDGER = Path("/workspace/papertrade/ledger.json")
 SCREENER_LEDGER = Path("/workspace/papertrade-screener/ledger.json")
+COMPARISON_MD = ROOT / "comparison.md"
 OUTPUT = ROOT / "index.html"
 
 YAHOO_UA = (
@@ -52,6 +53,9 @@ class Portfolio:
     contributed: float = 0.0
     holdings: list[Holding] = field(default_factory=list)
     ledger_date: str | None = None
+    snapshots: list[dict] = field(default_factory=list)
+    trades: list[dict] = field(default_factory=list)
+    credits: dict[str, float] = field(default_factory=dict)
 
 
 def short_name(name: str, code: str) -> str:
@@ -137,6 +141,49 @@ def load_moneylens(path: Path) -> Portfolio:
                 ledger_close=closes.get(code),
             )
         )
+    running_contrib = 0.0
+    for day in history:
+        if not isinstance(day, dict):
+            continue
+        running_contrib += float(day.get("budget_credited") or 0)
+        contrib = day.get("total_contributed")
+        contrib = float(contrib) if contrib is not None else running_contrib
+        total = day.get("portfolio_total")
+        if total is None:
+            total = (day.get("cash") or day.get("cash_after") or 0) + (
+                day.get("portfolio_market_value") or 0
+            )
+        cash = day.get("cash")
+        if cash is None:
+            cash = day.get("cash_after") or 0
+        day_date = str(day.get("date") or "")
+        port.snapshots.append(
+            {
+                "date": day_date,
+                "total": float(total or 0),
+                "cash": float(cash or 0),
+                "contributed": contrib,
+                "credited": float(day.get("budget_credited") or 0),
+            }
+        )
+        if day.get("budget_credited"):
+            port.credits[day_date] = float(day["budget_credited"])
+        for tr in day.get("trades") or []:
+            if not isinstance(tr, dict):
+                continue
+            code = str(tr.get("code") or "").strip()
+            port.trades.append(
+                {
+                    "date": day_date,
+                    "side": str(tr.get("side") or "").upper(),
+                    "code": code,
+                    "name": short_name(str(tr.get("name") or ""), code),
+                    "shares": int(tr.get("shares") or 0),
+                    "price": float(tr.get("price") or 0),
+                    "value": float(tr.get("value") or tr.get("amount") or 0),
+                }
+            )
+    _fill_trade_names(port)
     return port
 
 
@@ -191,7 +238,160 @@ def load_screener(path: Path) -> Portfolio:
                 ledger_close=closes.get(code),
             )
         )
+    raw_credits = data.get("credits") or {}
+    if isinstance(raw_credits, dict):
+        port.credits = {str(k): float(v) for k, v in raw_credits.items()}
+    for day in daily:
+        if not isinstance(day, dict):
+            continue
+        day_date = str(day.get("date") or "")
+        port.snapshots.append(
+            {
+                "date": day_date,
+                "total": float(day.get("portfolio_value") or 0),
+                "cash": float(day.get("cash") or 0),
+                "contributed": float(day.get("contributed") or port.contributed or 0),
+                "credited": float(port.credits.get(day_date) or 0),
+            }
+        )
+    for tr in data.get("trades") or []:
+        if not isinstance(tr, dict):
+            continue
+        code = str(tr.get("code") or "").strip()
+        port.trades.append(
+            {
+                "date": str(tr.get("date") or ""),
+                "side": str(tr.get("side") or "").upper(),
+                "code": code,
+                "name": short_name(str(tr.get("name") or ""), code),
+                "shares": int(tr.get("shares") or 0),
+                "price": float(tr.get("price") or 0),
+                "value": float(tr.get("value") or tr.get("amount") or 0),
+            }
+        )
+    _fill_trade_names(port)
     return port
+
+
+def _fill_trade_names(port: Portfolio) -> None:
+    names = {h.code: h.name for h in port.holdings}
+    for tr in port.trades:
+        if (not tr.get("name") or tr["name"] == tr.get("code")) and tr.get("code") in names:
+            tr["name"] = names[tr["code"]]
+
+
+def _parse_day(value: object) -> date | None:
+    if value is None or value == "":
+        return None
+    try:
+        return date.fromisoformat(str(value)[:10])
+    except ValueError:
+        return None
+
+
+def previous_friday(latest: date) -> date:
+    """Friday strictly before the latest valuation date (week-on-week if latest is a Friday)."""
+    days = (latest.weekday() - 4) % 7
+    if days == 0:
+        days = 7
+    return latest - timedelta(days=days)
+
+
+def snapshot_on_or_before(port: Portfolio, target: date) -> dict | None:
+    found = None
+    for snap in port.snapshots:
+        day = _parse_day(snap.get("date"))
+        if day is not None and day <= target:
+            found = snap
+    return found
+
+
+def credits_after(port: Portfolio, after: date) -> float:
+    total = 0.0
+    if port.credits:
+        for key, amt in port.credits.items():
+            day = _parse_day(key)
+            if day is not None and day > after:
+                total += float(amt)
+        return total
+    for snap in port.snapshots:
+        day = _parse_day(snap.get("date"))
+        if day is not None and day > after:
+            total += float(snap.get("credited") or 0)
+    return total
+
+
+def week_trades(port: Portfolio, week_start: date) -> list[dict]:
+    out = []
+    for tr in port.trades:
+        day = _parse_day(tr.get("date"))
+        if day is not None and day >= week_start:
+            out.append(tr)
+    return out
+
+
+def best_worst(rows: list[dict]) -> tuple[dict | None, dict | None]:
+    ranked = [r for r in rows if r.get("pnl_pct") is not None]
+    if not ranked:
+        return None, None
+    return max(ranked, key=lambda r: r["pnl_pct"]), min(ranked, key=lambda r: r["pnl_pct"])
+
+
+def format_day_label(day: date) -> str:
+    return f"{day.day} {day.strftime('%b')}"
+
+
+def holding_label(row: dict | None) -> str:
+    if not row:
+        return "—"
+    return f"{row['name']} {fmt_pct(row['pnl_pct'])}"
+
+
+def since_friday_cell(port: Portfolio, metrics: dict | None) -> tuple[str, str]:
+    """Return (cell text, footnote fragment about the baseline date)."""
+    if port.missing or port.error or not metrics or not port.snapshots:
+        return "—", ""
+    latest = _parse_day(port.ledger_date) or _parse_day(port.snapshots[-1]["date"])
+    if latest is None:
+        return "—", ""
+    friday = previous_friday(latest)
+    snap = snapshot_on_or_before(port, friday)
+    used_start = False
+    if snap is None:
+        snap = port.snapshots[0]
+        used_start = True
+    baseline = _parse_day(snap.get("date"))
+    delta = metrics["total"] - float(snap["total"])
+    if baseline is not None and not used_start:
+        credited = credits_after(port, friday)
+        delta -= credited
+        label = format_day_label(friday)
+        return fmt_pnl_rm(delta), label
+    label = format_day_label(baseline) if baseline else "start"
+    return fmt_pnl_rm(delta), f"start {label}" if baseline else "start"
+
+
+def load_weekly_summary(path: Path) -> dict | None:
+    if not path.is_file():
+        return None
+    text = path.read_text(encoding="utf-8").strip()
+    if not text:
+        return None
+    date_label = None
+    paragraphs: list[str] = []
+    for block in text.split("\n\n"):
+        block = block.strip()
+        if not block:
+            continue
+        lines = block.splitlines()
+        if date_label is None and lines[0].startswith("#"):
+            date_label = lines[0].lstrip("#").strip()
+            rest = "\n".join(lines[1:]).strip()
+            if rest:
+                paragraphs.append(rest)
+            continue
+        paragraphs.append(block)
+    return {"date": date_label, "paragraphs": paragraphs}
 
 
 def symbol_candidates(code: str, name: str) -> list[str]:
@@ -526,8 +726,8 @@ h1 {
   flex: 0 0 auto;
 }
 .jump {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
   gap: 0.28em;
   margin: 0 0 0.3em;
 }
@@ -584,6 +784,33 @@ table.grid.watch .c-held { width: 28%; }
   flex: 0 0 auto;
 }
 .missing { font-weight: 700; }
+.section-title {
+  font-size: 1.05em;
+  font-weight: 700;
+  margin: 0 0 0.2em;
+  padding: 0 0 0.08em;
+  border-bottom: 2px solid #000;
+}
+.trades {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 0 0 0.35em;
+  table-layout: fixed;
+}
+.trades th, .trades td {
+  border: 2px solid #000;
+  padding: 0.12em 0.12em;
+  text-align: left;
+  vertical-align: middle;
+  overflow: hidden;
+  white-space: nowrap;
+}
+.trades .num { text-align: right; }
+.summary p {
+  margin: 0 0 0.3em;
+  line-height: 1.25;
+}
+.compare td.wrap, .compare th.wrap { white-space: normal; }
 """
 
 
@@ -653,62 +880,6 @@ def render_shell(title: str, stamp: str, main: str, prev_href: str, next_href: s
 </body>
 </html>
 """
-
-
-def render_index(moneylens: Portfolio, m: dict | None, screener: Portfolio, s: dict | None, stamp: str, prev_href: str, next_href: str) -> str:
-    def cell(metrics: dict | None, port: Portfolio, key: str) -> str:
-        if port.missing:
-            return "Missing"
-        if port.error or not metrics:
-            return "Error"
-        if key == "total":
-            return "RM" + fmt_rm(metrics["total"])
-        if key == "cash":
-            return "RM" + fmt_rm(port.cash)
-        if key == "contributed":
-            return "RM" + fmt_rm(port.contributed)
-        if key == "pnl":
-            return fmt_pnl_rm(metrics["pnl"])
-        if key == "pnl_pct":
-            return fmt_pct(metrics["pnl_pct"])
-        return "\u2014"
-
-    rows = [
-        ("Value", "total"),
-        ("Cash", "cash"),
-        ("Contributed", "contributed"),
-        ("P&amp;L", "pnl"),
-        ("P&amp;L %", "pnl_pct"),
-    ]
-    body = ['<table class="compare">',
-            "<thead><tr><th></th><th>MoneyLens</th><th>Screener</th></tr></thead>",
-            "<tbody>"]
-    for label, key in rows:
-        body.append(
-            f"<tr><td>{label}</td>"
-            f"<td>{esc(cell(m, moneylens, key)) if key != 'pnl' and label != 'P&amp;L' else cell(m, moneylens, key)}</td>"
-            f"<td>{esc(cell(s, screener, key)) if key != 'pnl' and label != 'P&amp;L' else cell(s, screener, key)}</td></tr>"
-        )
-    # The above esc logic is messy because fmt_pnl_rm/fmt_pct have unicode minus, no HTML specials except we should still esc.
-    # Rebuild cleanly below if needed — actually fmt values can be escaped always. I'll fix in a cleaner loop after writing... 
-    body.append("</tbody></table>")
-
-    ahead = "Cannot compare portfolios."
-    if m and s and not moneylens.missing and not screener.missing:
-        diff = s["total"] - m["total"]
-        if abs(diff) < 0.005:
-            ahead = "The two portfolios are tied."
-        elif diff > 0:
-            ahead = f"Screener is ahead by {fmt_pnl_rm(diff).lstrip('+')}."
-        else:
-            ahead = f"MoneyLens is ahead by {fmt_pnl_rm(-diff).lstrip('+')}."
-    body.append(f'<p class="ahead">{esc(ahead)}</p>')
-    body.append('<div class="jump">')
-    body.append('<a href="moneylens.html">MoneyLens holdings</a>')
-    body.append('<a href="screener.html">Screener holdings</a>')
-    body.append('<a href="watchlist.html">Watchlist</a>')
-    body.append("</div>")
-    return render_shell("KLSE Paper Dashboard", stamp, "\n".join(body), prev_href, next_href)
 
 
 def holdings_table(rows: list[dict], empty_msg: str = "No holdings.") -> str:
@@ -806,6 +977,164 @@ def combine_watchlist(ports: list[tuple[Portfolio, dict | None]]) -> list[dict]:
     return rows
 
 
+
+def format_week_trades_cell(trades: list[dict]) -> str:
+    if not trades:
+        return "None"
+    parts = []
+    for tr in trades:
+        day = _parse_day(tr.get("date"))
+        when = format_day_label(day) if day else ""
+        name = tr.get("name") or tr.get("code") or ""
+        bit = f"{tr.get('side') or ''} {int(tr['shares']):,} {name} @ {fmt_price(tr['price'])}".strip()
+        if when:
+            bit = f"{when} {bit}"
+        parts.append(bit)
+    return "; ".join(parts)
+
+
+def render_trades_table(m_trades: list[dict], s_trades: list[dict]) -> str:
+    parts = [
+        '<table class="trades">',
+        "<thead><tr><th>Book</th><th>Date</th><th>Side</th><th>Trade</th></tr></thead>",
+        "<tbody>",
+    ]
+    any_row = False
+    for book, trades in (("ML", m_trades), ("Scr", s_trades)):
+        for tr in trades:
+            any_row = True
+            day = _parse_day(tr.get("date"))
+            when = format_day_label(day) if day else (tr.get("date") or "—")
+            name = tr.get("name") or tr.get("code") or ""
+            detail = f"{name} {int(tr['shares']):,} @ {fmt_price(tr['price'])}"
+            parts.append(
+                "<tr>"
+                f"<td>{esc(book)}</td>"
+                f"<td>{esc(when)}</td>"
+                f"<td>{esc(tr.get('side') or '')}</td>"
+                f"<td>{esc(detail)}</td>"
+                "</tr>"
+            )
+    if not any_row:
+        parts.append("<tr><td colspan='4'>No trades this week.</td></tr>")
+    parts.append("</tbody></table>")
+    return "\n".join(parts)
+
+
+def render_weekly_summary(summary: dict | None) -> str:
+    parts = []
+    if not summary:
+        parts.append('<p class="section-title">Weekly summary</p>')
+        parts.append("<p>Weekly summary arrives Fri after close.</p>")
+        return "\n".join(parts)
+    heading = "Weekly summary"
+    if summary.get("date"):
+        heading += f" \u2014 {summary['date']}"
+    parts.append(f'<p class="section-title">{esc(heading)}</p>')
+    parts.append('<div class="summary">')
+    for para in summary.get("paragraphs") or []:
+        parts.append(f"<p>{esc(para)}</p>")
+    if not summary.get("paragraphs"):
+        parts.append("<p>Weekly summary arrives Fri after close.</p>")
+    parts.append("</div>")
+    return "\n".join(parts)
+
+
+def render_compare_pages(
+    moneylens: Portfolio,
+    m_metrics: dict | None,
+    screener: Portfolio,
+    s_metrics: dict | None,
+    stamp: str,
+) -> list[dict]:
+    m_rows = (m_metrics or {}).get("rows") or []
+    s_rows = (s_metrics or {}).get("rows") or []
+    m_best, m_worst = best_worst(m_rows)
+    s_best, s_worst = best_worst(s_rows)
+    m_since, m_label = since_friday_cell(moneylens, m_metrics)
+    s_since, s_label = since_friday_cell(screener, s_metrics)
+    # Prefer a shared Friday label when both use the same baseline.
+    since_label = "Since Fri"
+    note = ""
+    labels = {x for x in (m_label, s_label) if x}
+    if len(labels) == 1:
+        only = next(iter(labels))
+        if only.startswith("start"):
+            since_label = "Since start"
+            note = f'<p class="note">Change since {esc(only)} (no Friday close in the ledger).</p>'
+        else:
+            since_label = f"Since {esc(only)}"
+            note = ""
+    elif labels:
+        since_label = "Since Fri / start"
+        note = '<p class="note">Change since last Friday\'s close where available, otherwise since the first ledger day, after new cash credited.</p>'
+
+    def metric_cell(metrics, port, key):
+        if port.missing:
+            return "Missing"
+        if port.error or not metrics:
+            return "Error"
+        if key == "total":
+            return "RM" + fmt_rm(metrics["total"])
+        if key == "cash":
+            return "RM" + fmt_rm(port.cash)
+        if key == "contributed":
+            return "RM" + fmt_rm(port.contributed)
+        if key == "pnl":
+            return fmt_pnl_rm(metrics["pnl"])
+        if key == "pnl_pct":
+            return fmt_pct(metrics["pnl_pct"])
+        return "\u2014"
+
+    table = [
+        '<table class="compare">',
+        "<thead><tr><th></th><th>MoneyLens</th><th>Screener</th></tr></thead>",
+        "<tbody>",
+    ]
+    for label, key in (
+        ("Contributed", "contributed"),
+        ("Value", "total"),
+        ("Cash", "cash"),
+        ("P&amp;L", "pnl"),
+        ("P&amp;L %", "pnl_pct"),
+    ):
+        table.append(
+            f"<tr><td>{label}</td>"
+            f"<td>{esc(metric_cell(m_metrics, moneylens, key))}</td>"
+            f"<td>{esc(metric_cell(s_metrics, screener, key))}</td></tr>"
+        )
+    table.append(
+        f"<tr><td class='wrap'>{since_label}</td>"
+        f"<td>{esc(m_since)}</td><td>{esc(s_since)}</td></tr>"
+    )
+    table.append(
+        f"<tr><td>Best</td><td>{esc(holding_label(m_best))}</td>"
+        f"<td>{esc(holding_label(s_best))}</td></tr>"
+    )
+    table.append(
+        f"<tr><td>Worst</td><td>{esc(holding_label(m_worst))}</td>"
+        f"<td>{esc(holding_label(s_worst))}</td></tr>"
+    )
+    latest = _parse_day(moneylens.ledger_date) or _parse_day(screener.ledger_date)
+    monday = (latest - timedelta(days=latest.weekday())) if latest else None
+    m_trades = week_trades(moneylens, monday) if monday else []
+    s_trades = week_trades(screener, monday) if monday else []
+    table.append(
+        "<tr><td>This week</td>"
+        f"<td class='wrap'>{esc(format_week_trades_cell(m_trades))}</td>"
+        f"<td class='wrap'>{esc(format_week_trades_cell(s_trades))}</td></tr>"
+    )
+    table.append("</tbody></table>")
+    page1_main = "\n".join(table)
+    summary = load_weekly_summary(COMPARISON_MD)
+    page2_main = render_weekly_summary(summary)
+
+    return [
+        {"filename": "compare.html", "title": "Comparison (1/2)", "main": page1_main, "kind": "compare"},
+        {"filename": "compare-2.html", "title": "Comparison (2/2)", "main": page2_main, "kind": "compare"},
+    ]
+
+
 def build_page_list(
     moneylens: Portfolio,
     m_metrics: dict | None,
@@ -828,6 +1157,7 @@ def build_page_list(
             pages.append({"filename": name, "title": heading, "main": main, "kind": kind})
 
     pages.append({"filename": "index.html", "title": "KLSE Paper Dashboard", "kind": "index"})
+    pages.extend(render_compare_pages(moneylens, m_metrics, screener, s_metrics, stamp))
 
     m_rows = (m_metrics or {}).get("rows") or []
     s_rows = (s_metrics or {}).get("rows") or []
@@ -934,6 +1264,7 @@ def render_index(moneylens: Portfolio, m: dict | None, screener: Portfolio, s: d
             ahead = f"MoneyLens is ahead by {fmt_pnl_rm(-diff).lstrip('+')}."
     body.append(f'<p class="ahead">{esc(ahead)}</p>')
     body.append('<div class="jump">')
+    body.append('<a href="compare.html">Comparison</a>')
     body.append('<a href="moneylens.html">MoneyLens holdings</a>')
     body.append('<a href="screener.html">Screener holdings</a>')
     body.append('<a href="watchlist.html">Watchlist</a>')
@@ -958,11 +1289,16 @@ def write_pages(pages: list[dict], out_dir: Path) -> list[Path]:
 
 def generated_html_files(out_dir: Path) -> list[Path]:
     names = []
-    for name in ("index.html", "moneylens.html", "screener.html", "watchlist.html"):
+    for name in ("index.html", "compare.html", "moneylens.html", "screener.html", "watchlist.html"):
         path = out_dir / name
         if path.is_file():
             names.append(path)
-    for path in sorted(out_dir.glob("moneylens-*.html")) + sorted(out_dir.glob("screener-*.html")) + sorted(out_dir.glob("watchlist-*.html")):
+    for path in (
+        sorted(out_dir.glob("compare-*.html"))
+        + sorted(out_dir.glob("moneylens-*.html"))
+        + sorted(out_dir.glob("screener-*.html"))
+        + sorted(out_dir.glob("watchlist-*.html"))
+    ):
         if path not in names:
             names.append(path)
     return names

@@ -13,7 +13,7 @@ if [[ ! -d "$ROOT/.git" ]]; then
   exit 0
 fi
 
-git add -- *.html
+git add -- *.html comparison.md
 
 if git diff --cached --quiet; then
   echo "No dashboard changes to publish."

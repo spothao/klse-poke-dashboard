@@ -7,6 +7,8 @@ Live site: https://spothao.github.io/klse-poke-dashboard/
 | Page | URL |
 | --- | --- |
 | Overview | https://spothao.github.io/klse-poke-dashboard/ |
+| Comparison (1/2) | https://spothao.github.io/klse-poke-dashboard/compare.html |
+| Comparison (2/2) | https://spothao.github.io/klse-poke-dashboard/compare-2.html |
 | MoneyLens holdings | https://spothao.github.io/klse-poke-dashboard/moneylens.html |
 | Screener holdings | https://spothao.github.io/klse-poke-dashboard/screener.html |
 | Watchlist (1/2) | https://spothao.github.io/klse-poke-dashboard/watchlist.html |
@@ -22,12 +24,12 @@ Prices come from Yahoo Finance (`CODE.KL`); if Yahoo is unavailable, the generat
 python3 build.py
 ```
 
-`build.py` reads `/workspace/papertrade/ledger.json` and `/workspace/papertrade-screener/ledger.json`, then writes the HTML pages.
+`build.py` reads `/workspace/papertrade/ledger.json`, `/workspace/papertrade-screener/ledger.json`, and `comparison.md` if present, then writes the HTML pages.
 
 To check that every page fits 360×480, 400×530, and 1072×1448 CSS pixels:
 
 ```bash
-node measure_viewports.mjs index.html moneylens.html screener.html watchlist.html watchlist-2.html
+node measure_viewports.mjs index.html compare.html compare-2.html moneylens.html screener.html watchlist.html watchlist-2.html
 ```
 
 To rebuild and push any change to the HTML pages:
@@ -37,3 +39,7 @@ To rebuild and push any change to the HTML pages:
 ```
 
 Do not commit credentials or ledger files.
+
+`comparison.md` holds the Friday weekly write-up (plain paragraphs under a date heading). `build.py` renders it on the comparison summary page.
+
+To publish after a rebuild when `gh` is not logged in, follow [README-publish.md](README-publish.md).

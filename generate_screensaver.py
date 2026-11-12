@@ -8,7 +8,7 @@ Usage:
 """
 
 import json
-from datetime import datetime
+from datetime import date, datetime, timedelta
 from pathlib import Path
 
 try:
@@ -19,12 +19,17 @@ except ImportError:
 
 ML_LEDGER = Path("/workspace/papertrade/ledger.json")
 SC_LEDGER = Path("/workspace/papertrade-screener/ledger.json")
-OUTPUT = Path("screensaver.png")
+OUTPUT = Path(__file__).resolve().parent / "screensaver.png"
 
 WIDTH, HEIGHT = 1072, 1448
 BG = (255, 255, 255)
 FG = (0, 0, 0)
 GRAY = (80, 80, 80)
+
+# Contribution rule used only if the ledger has no contributed total.
+RULE_START = date(2026, 10, 14)
+RULE_RATE_CHANGE = date(2026, 11, 9)  # RM1,000/week before this Monday, RM500 from this date
+
 
 def load_ledger(path: Path):
     if not path.exists():
@@ -32,10 +37,12 @@ def load_ledger(path: Path):
     with open(path) as f:
         return json.load(f)
 
+
 def fmt_rm(val):
     if val is None:
         return "-"
     return f"RM {float(val):,.2f}"
+
 
 def fmt_pct(val):
     if val is None:
@@ -43,37 +50,224 @@ def fmt_pct(val):
     sign = "+" if val >= 0 else ""
     return f"{sign}{val:.2f}%"
 
+
+def _as_date(value):
+    if not value:
+        return None
+    if isinstance(value, date) and not isinstance(value, datetime):
+        return value
+    text = str(value)[:10]
+    try:
+        return date.fromisoformat(text)
+    except ValueError:
+        return None
+
+
+def ledger_as_of(ledger):
+    if not ledger:
+        return date.today()
+    for key in ("last_updated",):
+        d = _as_date(ledger.get(key))
+        if d:
+            return d
+    history = ledger.get("history") or []
+    if history:
+        d = _as_date(history[-1].get("date"))
+        if d:
+            return d
+    daily = ledger.get("daily") or []
+    if daily:
+        d = _as_date(daily[-1].get("date"))
+        if d:
+            return d
+    return date.today()
+
+
+def contributed_from_rule(ledger=None, as_of=None):
+    """RM1,000 credited on the start date, then each following Monday;
+    RM1,000 per credit before 9 Nov 2026, RM500 from 9 Nov onward."""
+    start = RULE_START
+    if ledger and ledger.get("start_date"):
+        parsed = _as_date(ledger.get("start_date"))
+        if parsed:
+            start = parsed
+    as_of = as_of or ledger_as_of(ledger)
+    if as_of < start:
+        return 0.0
+
+    def amount(day):
+        return 500.0 if day >= RULE_RATE_CHANGE else 1000.0
+
+    total = amount(start)
+    days_until_monday = (7 - start.weekday()) % 7
+    monday = start + timedelta(days=7 if days_until_monday == 0 else days_until_monday)
+    while monday <= as_of:
+        total += amount(monday)
+        monday += timedelta(days=7)
+    return float(total)
+
+
 def get_portfolio_value(ledger):
     if not ledger:
-        return 0
-    # MoneyLens style
-    if "latest_portfolio_total" in ledger:
-        return ledger["latest_portfolio_total"]
-    # Screener style
+        return 0.0
+    if "latest_portfolio_total" in ledger and ledger["latest_portfolio_total"] is not None:
+        return float(ledger["latest_portfolio_total"])
     if "daily" in ledger and ledger["daily"]:
-        return ledger["daily"][-1].get("portfolio_value", 0)
-    return ledger.get("portfolio_total", 0)
+        return float(ledger["daily"][-1].get("portfolio_value") or 0)
+    history = ledger.get("history") or []
+    if history:
+        last = history[-1]
+        for key in ("portfolio_total", "portfolio_market_value"):
+            if last.get(key) is not None:
+                return float(last[key])
+    return float(ledger.get("portfolio_total") or 0)
+
 
 def get_contributed(ledger):
     if not ledger:
-        return 0
-    return ledger.get("total_contributed") or ledger.get("contributed") or 0
+        return 0.0
+    if ledger.get("total_contributed"):
+        return float(ledger["total_contributed"])
+    if ledger.get("contributed"):
+        return float(ledger["contributed"])
+    daily = ledger.get("daily") or []
+    if daily and daily[-1].get("contributed"):
+        return float(daily[-1]["contributed"])
+    history = ledger.get("history") or []
+    for entry in reversed(history):
+        if entry.get("total_contributed"):
+            return float(entry["total_contributed"])
+    credited = sum(float(entry.get("budget_credited") or 0) for entry in history)
+    if credited:
+        return float(credited)
+    credits = ledger.get("credits")
+    if isinstance(credits, dict) and credits:
+        return float(sum(float(v) for v in credits.values()))
+    return contributed_from_rule(ledger)
+
 
 def get_cash(ledger):
     if not ledger:
-        return 0
-    return ledger.get("cash_myr") or ledger.get("cash") or 0
+        return 0.0
+    if ledger.get("cash_myr") is not None:
+        return float(ledger["cash_myr"])
+    if ledger.get("cash") is not None:
+        return float(ledger["cash"])
+    history = ledger.get("history") or []
+    if history and history[-1].get("cash") is not None:
+        return float(history[-1]["cash"])
+    daily = ledger.get("daily") or []
+    if daily and daily[-1].get("cash") is not None:
+        return float(daily[-1]["cash"])
+    return 0.0
+
+
+def get_latest_closes(ledger):
+    """Map stock code -> close price. MoneyLens stores {code: {price}}, Screener stores {code: float}."""
+    if not ledger:
+        return {}
+    raw = None
+    history = ledger.get("history") or []
+    if history and history[-1].get("closes"):
+        raw = history[-1]["closes"]
+    elif ledger.get("daily") and ledger["daily"][-1].get("closes"):
+        raw = ledger["daily"][-1]["closes"]
+    if not isinstance(raw, dict):
+        return {}
+    out = {}
+    for code, value in raw.items():
+        if isinstance(value, dict):
+            price = value.get("price")
+            if price is None:
+                price = value.get("close")
+            if price is not None:
+                out[str(code)] = float(price)
+        elif value is not None:
+            out[str(code)] = float(value)
+    return out
+
 
 def get_holdings(ledger):
     if not ledger:
         return []
     h = ledger.get("holdings", {})
     if isinstance(h, dict):
-        # Screener: dict keyed by code
-        return list(h.values())[:6]
+        rows = []
+        for code, item in h.items():
+            rec = dict(item) if isinstance(item, dict) else {"value": item}
+            rec.setdefault("code", str(code))
+            rows.append(rec)
+        return rows
     if isinstance(h, list):
-        return h[:6]
+        return list(h)
     return []
+
+
+def holding_avg_cost(h):
+    if h.get("avg_cost") not in (None, "", 0, 0.0):
+        return float(h["avg_cost"])
+    if h.get("buy_price") not in (None, ""):
+        return float(h["buy_price"])
+    shares = float(h.get("shares") or 0)
+    cost = h.get("cost")
+    if shares and cost not in (None, ""):
+        return float(cost) / shares
+    return 0.0
+
+
+def holding_close(h, closes):
+    code = str(h.get("code") or "")
+    if code and closes and code in closes:
+        return float(closes[code])
+    for key in ("close", "price"):
+        if h.get(key) not in (None, ""):
+            return float(h[key])
+    return 0.0
+
+
+def display_name(h):
+    name = str(h.get("name") or "").strip()
+    if " - " in name:
+        name = name.split(" - ", 1)[0].strip()
+    return name or str(h.get("code") or "?")
+
+
+def pnl_pct(value, contributed):
+    if not contributed:
+        return 0.0
+    return (value - contributed) / contributed * 100.0
+
+
+def fit_text(draw, text, font, max_width):
+    if max_width <= 0:
+        return ""
+    if draw.textlength(text, font=font) <= max_width:
+        return text
+    ell = "…"
+    if draw.textlength(ell, font=font) > max_width:
+        return ""
+    lo, hi = 0, len(text)
+    while lo < hi:
+        mid = (lo + hi + 1) // 2
+        if draw.textlength(text[:mid] + ell, font=font) <= max_width:
+            lo = mid
+        else:
+            hi = mid - 1
+    return text[:lo] + ell
+
+
+def load_fonts():
+    try:
+        return {
+            "title": ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf", 48),
+            "big": ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf", 40),
+            "med": ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf", 28),
+            "sm": ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf", 22),
+        }
+    except Exception:
+        fallback = ImageFont.load_default()
+        return {"title": fallback, "big": fallback, "med": fallback, "sm": fallback}
+
 
 def main():
     ml = load_ledger(ML_LEDGER)
@@ -81,80 +275,138 @@ def main():
 
     img = Image.new("RGB", (WIDTH, HEIGHT), BG)
     draw = ImageDraw.Draw(img)
+    fonts = load_fonts()
 
-    try:
-        font_title = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf", 48)
-        font_big = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf", 40)
-        font_med = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf", 28)
-        font_sm = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf", 22)
-    except Exception:
-        font_title = font_big = font_med = font_sm = ImageFont.load_default()
+    margin = 40
+    right = WIDTH - margin
 
-    y = 40
-    draw.text((40, y), "KLSE Paper Dashboard", font=font_title, fill=FG)
-    now = datetime.now().strftime("%d %b %H:%M")
-    draw.text((WIDTH - 300, y + 8), now, font=font_med, fill=GRAY)
-    y += 80
+    y = 36
+    title = "KLSE Paper Dashboard"
+    as_of = max(ledger_as_of(ml), ledger_as_of(sc))
+    now = datetime.now()
+    date_text = f"{as_of.strftime('%-d %b')}  {now.strftime('%H:%M')}"
+    draw.text((margin, y), title, font=fonts["title"], fill=FG)
+    date_w = draw.textlength(date_text, font=fonts["med"])
+    title_w = draw.textlength(title, font=fonts["title"])
+    date_x = right - date_w
+    if date_x < margin + title_w + 16:
+        # Not enough room on the title row; put the date underneath on the right.
+        draw.text((date_x, y + 56), date_text, font=fonts["med"], fill=GRAY)
+        y += 96
+    else:
+        draw.text((date_x, y + 12), date_text, font=fonts["med"], fill=GRAY)
+        y += 76
 
     ml_val = get_portfolio_value(ml)
     sc_val = get_portfolio_value(sc)
     total_val = ml_val + sc_val
-
     ml_contrib = get_contributed(ml)
     sc_contrib = get_contributed(sc)
     total_contrib = ml_contrib + sc_contrib
     total_pnl = total_val - total_contrib
-    pnl_pct = (total_pnl / total_contrib * 100) if total_contrib else 0
+    total_pnl_p = pnl_pct(total_val, total_contrib)
+    ml_cash = get_cash(ml)
+    sc_cash = get_cash(sc)
+    cash = ml_cash + sc_cash
 
-    cash = get_cash(ml) + get_cash(sc)
+    def draw_stat(x, y0, label, value, font=fonts["big"]):
+        draw.text((x, y0), label, font=fonts["sm"], fill=GRAY)
+        draw.text((x, y0 + 28), value, font=font, fill=FG)
 
-    draw.text((40, y), "TOTAL VALUE", font=font_sm, fill=GRAY)
-    draw.text((40, y + 30), fmt_rm(total_val), font=font_big, fill=FG)
-    y += 100
-
-    draw.text((40, y), "TOTAL P&L", font=font_sm, fill=GRAY)
-    pnl_text = f"{fmt_rm(total_pnl)}   {fmt_pct(pnl_pct)}"
-    draw.text((40, y + 30), pnl_text, font=font_big, fill=FG)
-    y += 100
-
-    draw.text((40, y), "CASH", font=font_sm, fill=GRAY)
-    draw.text((40, y + 30), fmt_rm(cash), font=font_med, fill=FG)
+    mid_x = WIDTH // 2
+    draw_stat(margin, y, "TOTAL VALUE", fmt_rm(total_val))
+    draw_stat(mid_x, y, "TOTAL P&L", f"{fmt_rm(total_pnl)}   {fmt_pct(total_pnl_p)}")
     y += 90
+    draw_stat(margin, y, "CASH", fmt_rm(cash), font=fonts["med"])
+    y += 72
 
-    draw.line([(40, y), (WIDTH - 40, y)], fill=FG, width=2)
-    y += 30
+    draw.line([(margin, y), (right, y)], fill=FG, width=2)
+    y += 24
 
-    def draw_portfolio(x, title, val, contrib, cash_l):
+    def draw_portfolio(x, col_right, title, val, contrib, cash_l):
         pnl = val - contrib
-        pnl_p = (pnl / contrib * 100) if contrib else 0
-        draw.text((x, y), title, font=font_med, fill=FG)
-        draw.text((x, y + 45), f"Value  {fmt_rm(val)}", font=font_sm, fill=FG)
-        draw.text((x, y + 80), f"P&L    {fmt_rm(pnl)}  {fmt_pct(pnl_p)}", font=font_sm, fill=FG)
-        draw.text((x, y + 115), f"Cash   {fmt_rm(cash_l)}", font=font_sm, fill=FG)
+        pnl_p = pnl_pct(val, contrib)
+        draw.text((x, y), title, font=fonts["med"], fill=FG)
+        lines = [
+            f"Value  {fmt_rm(val)}",
+            f"P&L    {fmt_rm(pnl)}  {fmt_pct(pnl_p)}",
+            f"Cash   {fmt_rm(cash_l)}",
+        ]
+        yy = y + 42
+        for line in lines:
+            draw.text((x, yy), fit_text(draw, line, fonts["sm"], col_right - x), font=fonts["sm"], fill=FG)
+            yy += 34
 
-    col_w = (WIDTH - 100) // 2
-    draw_portfolio(40, "MoneyLens", ml_val, ml_contrib, get_cash(ml))
-    draw_portfolio(40 + col_w + 20, "Screener", sc_val, sc_contrib, get_cash(sc))
-    y += 180
+    gap = 40
+    col_w = (WIDTH - 2 * margin - gap) // 2
+    draw_portfolio(margin, margin + col_w, "MoneyLens", ml_val, ml_contrib, ml_cash)
+    draw_portfolio(margin + col_w + gap, right, "Screener", sc_val, sc_contrib, sc_cash)
+    y += 160
 
-    draw.line([(40, y), (WIDTH - 40, y)], fill=FG, width=2)
-    y += 30
-    draw.text((40, y), "HOLDINGS", font=font_med, fill=FG)
-    y += 50
+    draw.line([(margin, y), (right, y)], fill=FG, width=2)
+    y += 22
 
-    holdings = get_holdings(ml) + get_holdings(sc)
-    for i, h in enumerate(holdings[:6]):
-        name = h.get("name") or h.get("code") or "?"
-        close = float(h.get("close") or h.get("price") or 0)
-        avg = float(h.get("avg_cost") or h.get("avg") or close)
-        pct = ((close - avg) / avg * 100) if avg else 0
-        line = f"{name:<12} {fmt_pct(pct)}"
-        x = 40 if i % 2 == 0 else WIDTH // 2
-        yy = y + (i // 2) * 42
-        draw.text((x, yy), line, font=font_sm, fill=FG)
+    def draw_holdings_group(title, holdings, closes):
+        nonlocal y
+        draw.text((margin, y), title, font=fonts["med"], fill=FG)
+        y += 40
+        close_col_w = 120
+        pct_col_w = 130
+        pct_x = right
+        close_x = right - pct_col_w
+        name_max = close_x - close_col_w - margin - 8
+        for h in holdings:
+            name = fit_text(draw, display_name(h), fonts["sm"], name_max)
+            close = holding_close(h, closes)
+            avg = holding_avg_cost(h)
+            pct = ((close - avg) / avg * 100) if avg else 0.0
+            close_text = f"{close:,.3f}" if close else "-"
+            pct_text = fmt_pct(pct)
+            close_w = draw.textlength(close_text, font=fonts["sm"])
+            pct_w = draw.textlength(pct_text, font=fonts["sm"])
+            draw.text((margin, y), name, font=fonts["sm"], fill=FG)
+            draw.text((close_x - close_w, y), close_text, font=fonts["sm"], fill=FG)
+            draw.text((pct_x - pct_w, y), pct_text, font=fonts["sm"], fill=FG)
+            y += 36
+
+    ml_holdings = get_holdings(ml)
+    sc_holdings = get_holdings(sc)
+    ml_closes = get_latest_closes(ml)
+    sc_closes = get_latest_closes(sc)
+
+    # Keep a little bottom margin; tighten row height if needed.
+    groups = [("MONEYLENS", ml_holdings, ml_closes), ("SCREENER", sc_holdings, sc_closes)]
+    rows = sum(len(h) for _, h, _ in groups) + len(groups)
+    remaining = HEIGHT - 28 - y
+    if rows and remaining / rows < 36:
+        # Should still fit at 36px; if not, the loop uses 36 and we clip visually later.
+        pass
+
+    draw_holdings_group("MONEYLENS", ml_holdings, ml_closes)
+    y += 10
+    draw_holdings_group("SCREENER", sc_holdings, sc_closes)
 
     img.save(OUTPUT, "PNG")
     print(f"Saved {OUTPUT} ({WIDTH}x{HEIGHT})")
+    print(
+        f"MoneyLens  value={ml_val:.2f} contrib={ml_contrib:.2f} "
+        f"pnl={ml_val - ml_contrib:.2f} ({pnl_pct(ml_val, ml_contrib):.2f}%) cash={ml_cash:.2f}"
+    )
+    print(
+        f"Screener   value={sc_val:.2f} contrib={sc_contrib:.2f} "
+        f"pnl={sc_val - sc_contrib:.2f} ({pnl_pct(sc_val, sc_contrib):.2f}%) cash={sc_cash:.2f}"
+    )
+    print(
+        f"Total      value={total_val:.2f} contrib={total_contrib:.2f} "
+        f"pnl={total_pnl:.2f} ({total_pnl_p:.2f}%) cash={cash:.2f}"
+    )
+    for label, holdings, closes in (("ML", ml_holdings, ml_closes), ("SC", sc_holdings, sc_closes)):
+        for h in holdings:
+            close = holding_close(h, closes)
+            avg = holding_avg_cost(h)
+            pct = ((close - avg) / avg * 100) if avg else 0.0
+            print(f"  {label} {display_name(h):12} close={close:.4f} avg={avg:.4f} {fmt_pct(pct)}")
+
 
 if __name__ == "__main__":
     main()

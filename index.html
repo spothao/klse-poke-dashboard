@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=1072">
+  <meta http-equiv="refresh" content="900">
+  <meta name="color-scheme" content="light only">
+  <title>KLSE Paper Dashboard</title>
+  <style>
+
+:root { color-scheme: only light; }
+* { box-sizing: border-box; }
+html, body {
+  margin: 0;
+  padding: 0;
+  background: #fff;
+  color: #000;
+}
+body {
+  font-family: Arial, Helvetica, "Noto Sans", "DejaVu Sans", sans-serif;
+  font-size: 22px;
+  line-height: 1.35;
+  padding: 18px 22px 36px;
+  max-width: 1072px;
+  font-variant-numeric: tabular-nums;
+}
+h1 {
+  font-size: 36px;
+  line-height: 1.15;
+  margin: 0 0 6px;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+}
+h2 {
+  font-size: 28px;
+  line-height: 1.2;
+  margin: 0 0 12px;
+  padding: 0 0 8px;
+  border-bottom: 3px solid #000;
+  font-weight: 700;
+}
+.updated {
+  font-size: 20px;
+  margin: 0 0 22px;
+}
+.sub {
+  font-size: 18px;
+  margin: 4px 0 0;
+}
+section.portfolio, section.watchlist {
+  margin: 0 0 28px;
+  padding: 0 0 8px;
+  border-bottom: 3px solid #000;
+}
+.stats {
+  display: block;
+  margin: 0 0 14px;
+}
+.stat {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 16px;
+  border-bottom: 2px solid #000;
+  padding: 7px 0;
+}
+.stat .label {
+  font-size: 20px;
+  font-weight: 700;
+}
+.stat .value {
+  font-size: 28px;
+  font-weight: 700;
+  text-align: right;
+}
+.stat .pct { font-size: 22px; font-weight: 700; }
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 8px 0 10px;
+  font-size: 20px;
+}
+th, td {
+  border: 2px solid #000;
+  padding: 8px 8px;
+  text-align: left;
+  vertical-align: top;
+}
+th {
+  font-weight: 700;
+  background: #fff;
+}
+td.num, th.num { text-align: right; white-space: nowrap; }
+.note, .missing, .footnote {
+  font-size: 18px;
+  margin: 8px 0 12px;
+}
+.missing { font-weight: 700; }
+.footnote { margin-top: 0; }
+
+  </style>
+</head>
+<body>
+  <header>
+    <h1>KLSE Paper Dashboard</h1>
+    <p class="updated">Last updated: Thu 12 Nov 2026, 10:12 AM MYT</p>
+    <p class="sub">Paper trading only. Two ledgers, same contributed cash.</p>
+  </header>
+  <section class="portfolio" id="moneylens">
+<h2>MoneyLens</h2>
+<div class="stats">
+<div class="stat"><div class="label">Total value</div><div class="value">RM4,529.50</div></div>
+<div class="stat"><div class="label">Cash</div><div class="value">RM807.50</div></div>
+<div class="stat"><div class="label">Contributed</div><div class="value">RM4,500.00</div></div>
+<div class="stat"><div class="label">P&amp;L</div><div class="value">+RM29.50<span class="pct"> (+0.66%)</span></div></div>
+</div>
+<table>
+<thead><tr><th>Code</th><th>Name</th><th class='num'>Shares</th><th class='num'>Cost</th><th class='num'>Last close</th><th class='num'>P&amp;L %</th></tr></thead>
+<tbody>
+<tr><td>0302</td><td>TOPMIX</td><td class='num'>500</td><td class='num'>175.00</td><td class='num'>0.350*</td><td class='num'>0.00%</td></tr>
+<tr><td>5319</td><td>MKHOP</td><td class='num'>300</td><td class='num'>190.50</td><td class='num'>0.615*</td><td class='num'>−3.15%</td></tr>
+<tr><td>5293</td><td>AME</td><td class='num'>400</td><td class='num'>518.00</td><td class='num'>1.26*</td><td class='num'>−2.70%</td></tr>
+<tr><td>5049</td><td>CVIEW</td><td class='num'>100</td><td class='num'>266.00</td><td class='num'>2.79*</td><td class='num'>+4.89%</td></tr>
+<tr><td>7115</td><td>SKBSHUT</td><td class='num'>300</td><td class='num'>259.50</td><td class='num'>0.855*</td><td class='num'>−1.16%</td></tr>
+<tr><td>3255</td><td>HEIM</td><td class='num'>100</td><td class='num'>1,314.00</td><td class='num'>13.32*</td><td class='num'>+1.37%</td></tr>
+<tr><td>5983</td><td>MBMR</td><td class='num'>100</td><td class='num'>475.00</td><td class='num'>4.75*</td><td class='num'>0.00%</td></tr>
+<tr><td>5280</td><td>KIPREIT</td><td class='num'>600</td><td class='num'>513.00</td><td class='num'>0.860*</td><td class='num'>+0.58%</td></tr>
+</tbody></table>
+<p class='note'>* Ledger last close used (Yahoo unavailable). Ledger 2026-11-11.</p>
+</section>
+<section class="portfolio" id="screener">
+<h2>KLSE Screener / Yahoo</h2>
+<div class="stats">
+<div class="stat"><div class="label">Total value</div><div class="value">RM4,594.00</div></div>
+<div class="stat"><div class="label">Cash</div><div class="value">RM143.00</div></div>
+<div class="stat"><div class="label">Contributed</div><div class="value">RM4,500.00</div></div>
+<div class="stat"><div class="label">P&amp;L</div><div class="value">+RM94.00<span class="pct"> (+2.09%)</span></div></div>
+</div>
+<table>
+<thead><tr><th>Code</th><th>Name</th><th class='num'>Shares</th><th class='num'>Cost</th><th class='num'>Last close</th><th class='num'>P&amp;L %</th></tr></thead>
+<tbody>
+<tr><td>1066</td><td>RHBBANK</td><td class='num'>100</td><td class='num'>733.00</td><td class='num'>7.54*</td><td class='num'>+2.86%</td></tr>
+<tr><td>4197</td><td>SIME</td><td class='num'>100</td><td class='num'>246.00</td><td class='num'>2.47*</td><td class='num'>+0.41%</td></tr>
+<tr><td>1015</td><td>AMBANK</td><td class='num'>100</td><td class='num'>619.00</td><td class='num'>6.68*</td><td class='num'>+7.92%</td></tr>
+<tr><td>5296</td><td>MRDIY</td><td class='num'>100</td><td class='num'>117.00</td><td class='num'>1.10*</td><td class='num'>−5.98%</td></tr>
+<tr><td>3794</td><td>MCEMENT</td><td class='num'>100</td><td class='num'>517.00</td><td class='num'>5.41*</td><td class='num'>+4.64%</td></tr>
+<tr><td>5176</td><td>SUNREIT</td><td class='num'>100</td><td class='num'>204.00</td><td class='num'>2.01*</td><td class='num'>−1.47%</td></tr>
+<tr><td>1961</td><td>IOICORP</td><td class='num'>100</td><td class='num'>445.00</td><td class='num'>4.39*</td><td class='num'>−1.35%</td></tr>
+<tr><td>5285</td><td>SDG</td><td class='num'>100</td><td class='num'>584.00</td><td class='num'>5.99*</td><td class='num'>+2.57%</td></tr>
+<tr><td>6012</td><td>MAXIS</td><td class='num'>100</td><td class='num'>361.00</td><td class='num'>3.57*</td><td class='num'>−1.11%</td></tr>
+<tr><td>5209</td><td>GASMSIA</td><td class='num'>100</td><td class='num'>532.00</td><td class='num'>5.35*</td><td class='num'>+0.56%</td></tr>
+</tbody></table>
+<p class='note'>* Ledger last close used (Yahoo unavailable). Ledger 2026-11-11.</p>
+</section>
+<section class="watchlist" id="watchlist">
+<h2>Watchlist</h2>
+<table>
+<thead><tr><th>Code</th><th>Name</th><th class='num'>Last close</th><th>Source</th><th>Held in</th></tr></thead><tbody>
+<tr><td>1015</td><td>AMBANK</td><td class='num'>6.68*</td><td>Ledger*</td><td>KLSE Screener / Yahoo</td></tr>
+<tr><td>5293</td><td>AME</td><td class='num'>1.26*</td><td>Ledger*</td><td>MoneyLens</td></tr>
+<tr><td>5049</td><td>CVIEW</td><td class='num'>2.79*</td><td>Ledger*</td><td>MoneyLens</td></tr>
+<tr><td>5209</td><td>GASMSIA</td><td class='num'>5.35*</td><td>Ledger*</td><td>KLSE Screener / Yahoo</td></tr>
+<tr><td>3255</td><td>HEIM</td><td class='num'>13.32*</td><td>Ledger*</td><td>MoneyLens</td></tr>
+<tr><td>1961</td><td>IOICORP</td><td class='num'>4.39*</td><td>Ledger*</td><td>KLSE Screener / Yahoo</td></tr>
+<tr><td>5280</td><td>KIPREIT</td><td class='num'>0.860*</td><td>Ledger*</td><td>MoneyLens</td></tr>
+<tr><td>6012</td><td>MAXIS</td><td class='num'>3.57*</td><td>Ledger*</td><td>KLSE Screener / Yahoo</td></tr>
+<tr><td>5983</td><td>MBMR</td><td class='num'>4.75*</td><td>Ledger*</td><td>MoneyLens</td></tr>
+<tr><td>3794</td><td>MCEMENT</td><td class='num'>5.41*</td><td>Ledger*</td><td>KLSE Screener / Yahoo</td></tr>
+<tr><td>5319</td><td>MKHOP</td><td class='num'>0.615*</td><td>Ledger*</td><td>MoneyLens</td></tr>
+<tr><td>5296</td><td>MRDIY</td><td class='num'>1.10*</td><td>Ledger*</td><td>KLSE Screener / Yahoo</td></tr>
+<tr><td>1066</td><td>RHBBANK</td><td class='num'>7.54*</td><td>Ledger*</td><td>KLSE Screener / Yahoo</td></tr>
+<tr><td>5285</td><td>SDG</td><td class='num'>5.99*</td><td>Ledger*</td><td>KLSE Screener / Yahoo</td></tr>
+<tr><td>4197</td><td>SIME</td><td class='num'>2.47*</td><td>Ledger*</td><td>KLSE Screener / Yahoo</td></tr>
+<tr><td>7115</td><td>SKBSHUT</td><td class='num'>0.855*</td><td>Ledger*</td><td>MoneyLens</td></tr>
+<tr><td>5176</td><td>SUNREIT</td><td class='num'>2.01*</td><td>Ledger*</td><td>KLSE Screener / Yahoo</td></tr>
+<tr><td>0302</td><td>TOPMIX</td><td class='num'>0.350*</td><td>Ledger*</td><td>MoneyLens</td></tr>
+</tbody></table>
+</section>
+  <p class="footnote">Closes from Yahoo Finance (CODE.KL). A price marked * is the ledger last close because Yahoo was unavailable. Page reloads every 15 minutes.</p>
+</body>
+</html>

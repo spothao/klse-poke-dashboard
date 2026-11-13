@@ -1,18 +1,18 @@
 #!/usr/bin/env python3
 """
 Generate a black-on-white screensaver PNG for Boox Poke 5 (1072x1448).
-Reads the two ledger files and writes screensaver.png.
+Reads the two paper-trading ledger files and writes screensaver.png.
 
-Paths (optional env vars):
-  ML_LEDGER  MoneyLens ledger JSON (default: data/moneylens-ledger.json next to this script)
-  SC_LEDGER  Screener ledger JSON  (default: data/screener-ledger.json next to this script)
+In production this runs inside spothao/moneylens's "Paper ledgers" workflow,
+with the ledgers exported from the MoneyLens database (export_paper_ledger).
+
+Env vars:
+  ML_LEDGER  MoneyLens ledger JSON (required)
+  SC_LEDGER  Screener ledger JSON  (required)
   OUTPUT     Output PNG path       (default: screensaver.png next to this script)
 
 Usage:
-  python3 generate_screensaver.py
-  ML_LEDGER=/workspace/papertrade/ledger.json \
-    SC_LEDGER=/workspace/papertrade-screener/ledger.json \
-    python3 generate_screensaver.py
+  ML_LEDGER=moneylens.json SC_LEDGER=screener.json python3 generate_screensaver.py
 """
 
 import json
@@ -31,13 +31,17 @@ _SCRIPT_DIR = Path(__file__).resolve().parent
 MYT = ZoneInfo("Asia/Kuala_Lumpur")
 
 
-def _path_from_env(name, default):
+def _path_from_env(name, default=None):
     value = os.environ.get(name)
-    return Path(value) if value else Path(default)
+    if value:
+        return Path(value)
+    if default is None:
+        raise SystemExit(f"{name} is required: path to that bot's ledger JSON")
+    return Path(default)
 
 
-ML_LEDGER = _path_from_env("ML_LEDGER", _SCRIPT_DIR / "data" / "moneylens-ledger.json")
-SC_LEDGER = _path_from_env("SC_LEDGER", _SCRIPT_DIR / "data" / "screener-ledger.json")
+ML_LEDGER = _path_from_env("ML_LEDGER")
+SC_LEDGER = _path_from_env("SC_LEDGER")
 OUTPUT = _path_from_env("OUTPUT", _SCRIPT_DIR / "screensaver.png")
 
 WIDTH, HEIGHT = 1072, 1448
@@ -51,8 +55,9 @@ RULE_RATE_CHANGE = date(2026, 11, 9)  # RM1,000/week before this Monday, RM500 f
 
 
 def load_ledger(path: Path):
+    # A missing ledger used to render an empty half-screen and push it; fail instead.
     if not path.exists():
-        return None
+        raise SystemExit(f"Ledger not found: {path}")
     with open(path) as f:
         return json.load(f)
 

@@ -642,6 +642,29 @@
    "notes": [
     "SELL MRDIY on stop-loss (1.05 <= 1.053). BUY CDB 100 @2.45 with freed cash; no second affordable eligible name (cash RM3)."
    ]
+  },
+  {
+   "date": "2026-11-13",
+   "cash": 3.0,
+   "holdings_value": 4602.0,
+   "portfolio_value": 4605.0,
+   "contributed": 4500,
+   "klci": 1582.59,
+   "closes": {
+    "1066": 7.73,
+    "4197": 2.48,
+    "1015": 6.68,
+    "3794": 5.3,
+    "5176": 2.01,
+    "1961": 4.41,
+    "5285": 6.04,
+    "6012": 3.56,
+    "5209": 5.35,
+    "6947": 2.46
+   },
+   "notes": [
+    "No trade. Stop-loss check: none at/below 90% of avg cost (closest SUNREIT 2.01 vs 1.836 trigger). Cash RM3 is below the cheapest lot (SUNREIT RM201), so no buy. Next RM500 credit Mon 16 Nov, with the weekly top-20 refresh."
+   ]
   }
  ],
  "weekly_top20": {
@@ -2189,6 +2212,19 @@
    "6012": "-0.8% to RM3.54 on 1.2m shares, drifting with the market. No specific catalyst found.",
    "5209": "Flat at RM5.35, though volume jumped to 1.69m (vs 0.26m Wed). No specific catalyst found.",
    "6947": "Bought today at RM2.45 (-4.7% on the day, 2.8m shares; 52w low 2.41). No fresh announcement found; known overhangs: prepaid SIM-registration rules and spectrum costs (CIMB cut FY26-28 forecasts 1-4%, kept Buy TP RM3.65; The Star 3 Nov). 3Q results ~18-19 Nov."
+  },
+  "2026-11-13": {
+   "market": "FBM KLCI -3.37 pts (-0.21%) to 1,582.59, a fresh 14-month low and fifth straight loss; >2% weekly loss, led by continued selling in data-centre-linked names (Gamuda ~-3%) amid AI/Nvidia jitters (The Edge, KLSE Screener 13 Nov). Analysts flagged banks at near-trough valuations with ~6% yields (AmInvestment, The Edge 13 Nov). CPO futures range-bound Friday after a 3.95% weekly gain to midday (Reuters via Business Recorder 13 Nov).",
+   "1066": "+2.7% to RM7.73 (KLSE Screener confirms; day range 7.47-7.73, closing at the high) on 13.8m shares (~1.3x 3m avg). Trading near RM7.50 through midday, the jump came late in the session. No company announcement found; TA Research kept forecasts but cut TP to RM8.34 from RM8.76, expecting subdued 3Q on NIM compression (The Star 13 Nov); AmInvestment called bank valuations hard to ignore (The Edge 13 Nov).",
+   "1015": "+1.4% to RM6.68 on light volume (1.7m), rebounding with RHB in late trade (it was ~RM6.58 at midday per isaham). No specific catalyst found.",
+   "4197": "-0.8% to RM2.48 on heavy volume again (16.4m vs 25.2m Thu). Only filing: EGM on 12 Nov approved its long-term incentive plan (ESGS/ESOS) and the CEO allocation, ~84.5% in favour (KLSE Screener). No other catalyst found for the volume.",
+   "3794": "-1.5% to RM5.30 (KLSE Screener confirms; low 5.24) on thin volume (0.31m vs 0.42m 3m avg). No specific catalyst found; data-centre/construction-linked selling weighed on the sector (The Edge 13 Nov).",
+   "5176": "-0.5% to RM2.01 on 4.9m shares, giving back part of Thursday's gain after RHB's upgrade. No specific catalyst found.",
+   "1961": "-2.2% to RM4.41 on 7.4m shares, profit-taking after Thursday's +2.7%; CPO futures were range-bound Friday (Business Recorder 13 Nov). No company news found.",
+   "5285": "-1.8% to RM6.04 (KLSE Screener confirms) on 9.1m shares, same planter profit-taking as IOI.",
+   "6012": "+0.6% to RM3.56 on light volume (0.73m). No specific catalyst found; ex-dividend 4.5 sen on 27 Nov.",
+   "5209": "Flat at RM5.35 on 2.6m shares (vs 1.7m Thu, rising volume three days running). No specific catalyst found.",
+   "6947": "+0.4% to RM2.46 on 2.9m shares. Only news: CelcomDigi launched prepaid StreamMORE passes from RM1 (The Star 13 Nov), not price-moving. 3Q results ~18-19 Nov."
   }
  }
 }

@@ -2903,8 +2903,173 @@
    "moneylens_refresh": "Top 20 reused from 9 Nov check of the 8 Nov Sunday refresh (weekly; next refresh Sun 15 Nov)",
    "decision": "HOLD, no trade. Cash RM807.50. HEIM +4.2% on analyst upgrades post-Q3 (CGS Add, RHB/TA Buy); no case to add a 2nd brewer exposure. CARLSBG 13.10 (+2.0%) now RM1,310/lot, just above the RM1,307.50 cash expected after Mon 16 Nov credit; still waiting for its Q3 (~25 Nov). CVIEW held through tomorrow's ex-date (8 sen).",
    "notes": "HEIM +4.2% to 13.88 on 1,137,700 (5.8x prior day) after Q3 upgrades: CGS Add TP15.80, RHB Buy TP17.60, TA Buy TP19.10, HLG Buy TP23.95, UOBKH Buy TP21.80. MKHOP -0.8% to 0.61 despite CPO Jan +0.6% midday to ~RM4,436. TOPMIX untraded. AME flat 1.26. CVIEW +0.4% to 2.80 on 2,500 (cum-dividend last day). SKBSHUT -0.6% to 0.85. MBMR -0.4% to 4.73. KIPREIT flat 0.86. Watchlist: CARLSBG 13.10 (+2.0%, 272,300), ALLIANZ 19.46 (-0.7%), CTOS 0.43 (+1.2% on 10.3m, avoid), FOCUSP 0.485 flat."
+  },
+  {
+   "date": "2026-11-13",
+   "week_start": "2026-11-09",
+   "budget_credited": 0,
+   "budget_note": "RM500 already credited Mon 9 Nov; next credit Mon 16 Nov",
+   "cash_before": 807.5,
+   "trades": [],
+   "cash_after": 807.5,
+   "closes": {
+    "0302": {
+     "price": 0.35,
+     "chg_pct": 0.0,
+     "volume": 0
+    },
+    "5319": {
+     "price": 0.61,
+     "chg_pct": 0.0,
+     "volume": 32800
+    },
+    "5293": {
+     "price": 1.27,
+     "chg_pct": 0.79,
+     "volume": 37000
+    },
+    "5049": {
+     "price": 2.71,
+     "chg_pct": -3.21,
+     "volume": 7300
+    },
+    "7115": {
+     "price": 0.83,
+     "chg_pct": -2.35,
+     "volume": 325500
+    },
+    "3255": {
+     "price": 13.54,
+     "chg_pct": -2.45,
+     "volume": 511800
+    },
+    "5983": {
+     "price": 4.77,
+     "chg_pct": 0.85,
+     "volume": 87600
+    },
+    "5280": {
+     "price": 0.855,
+     "chg_pct": -0.58,
+     "volume": 274600
+    }
+   },
+   "holdings_mtm": {
+    "0302": {
+     "shares": 500,
+     "avg_cost": 0.35,
+     "close": 0.35,
+     "mv": 175.0,
+     "cost": 175.0,
+     "unrealised": 0.0,
+     "unrealised_pct": 0.0,
+     "day_chg_pct": 0.0,
+     "day_pnl": 0.0,
+     "note": "untraded today (vol 0); last done 0.35"
+    },
+    "5319": {
+     "shares": 300,
+     "avg_cost": 0.635,
+     "close": 0.61,
+     "mv": 183.0,
+     "cost": 190.5,
+     "unrealised": -7.5,
+     "unrealised_pct": -3.94,
+     "day_chg_pct": 0.0,
+     "day_pnl": 0.0
+    },
+    "5293": {
+     "shares": 400,
+     "avg_cost": 1.295,
+     "close": 1.27,
+     "mv": 508.0,
+     "cost": 518.0,
+     "unrealised": -10.0,
+     "unrealised_pct": -1.93,
+     "day_chg_pct": 0.79,
+     "day_pnl": 4.0
+    },
+    "5049": {
+     "shares": 100,
+     "avg_cost": 2.66,
+     "close": 2.71,
+     "mv": 271.0,
+     "cost": 266.0,
+     "unrealised": 5.0,
+     "unrealised_pct": 1.88,
+     "day_chg_pct": -3.21,
+     "day_pnl": -9.0,
+     "note": "ex-dividend 8 sen today; ex-adjusted move -0.01 (-0.36%); RM8.00 receivable"
+    },
+    "7115": {
+     "shares": 300,
+     "avg_cost": 0.865,
+     "close": 0.83,
+     "mv": 249.0,
+     "cost": 259.5,
+     "unrealised": -10.5,
+     "unrealised_pct": -4.05,
+     "day_chg_pct": -2.35,
+     "day_pnl": -6.0
+    },
+    "3255": {
+     "shares": 100,
+     "avg_cost": 13.14,
+     "close": 13.54,
+     "mv": 1354.0,
+     "cost": 1314.0,
+     "unrealised": 40.0,
+     "unrealised_pct": 3.04,
+     "day_chg_pct": -2.45,
+     "day_pnl": -34.0
+    },
+    "5983": {
+     "shares": 100,
+     "avg_cost": 4.75,
+     "close": 4.77,
+     "mv": 477.0,
+     "cost": 475.0,
+     "unrealised": 2.0,
+     "unrealised_pct": 0.42,
+     "day_chg_pct": 0.85,
+     "day_pnl": 4.0
+    },
+    "5280": {
+     "shares": 600,
+     "avg_cost": 0.855,
+     "close": 0.855,
+     "mv": 513.0,
+     "cost": 513.0,
+     "unrealised": 0.0,
+     "unrealised_pct": 0.0,
+     "day_chg_pct": -0.58,
+     "day_pnl": -3.0
+    }
+   },
+   "day_pnl_total": -44.0,
+   "portfolio_market_value": 3730.0,
+   "cash": 807.5,
+   "portfolio_total": 4537.5,
+   "invested_cost": 3711.0,
+   "unrealised_pnl": 19.0,
+   "realised_pnl_to_date": 18.5,
+   "total_contributed": 4500,
+   "pnl_vs_contributed": 37.5,
+   "pnl_vs_contributed_pct": 0.83,
+   "pnl_incl_cview_div_receivable": 45.5,
+   "pending_entitlements": "CVIEW 8 sen x 100 = RM8.00 (went ex 13 Nov; entitled; credit on payment date)",
+   "fbm_klci": {
+    "close": 1582.59,
+    "chg": -3.37,
+    "chg_pct": -0.21,
+    "source": "Yahoo ^KLSE + Investors Chronicle FTSE BM KLCI tearsheet; range 1,579.66-1,588.10, intraday low = new 52-wk low, testing HLIB 1,579 support; 5th straight loss; foreign net selling, Nvidia/AI jitters (HLIB via Business Today)"
+   },
+   "price_source": "Yahoo Finance .KL chart data cross-checked with KLSE Screener stock pages (all 8 match), fetched ~17:41 MYT 13 Nov 2026 after close",
+   "moneylens_refresh": "Top 20 reused from 9 Nov check of the 8 Nov Sunday refresh (weekly; next refresh Sun 15 Nov)",
+   "decision": "HOLD, no trade. Cash RM807.50. Waiting for Sunday 15 Nov MoneyLens refresh and Mon 16 Nov RM500 credit (cash then RM1,307.50). CARLSBG 13.14 (+0.3%) = RM1,314/lot, still RM6.50 above next week cash and its Q3 (~25 Nov) still pending. CVIEW went ex 8 sen: entitled RM8. No sells: SKBSHUT drop on volume has no announcement behind it.",
+   "notes": "HEIM -2.4% to 13.54 on 511,800 (profit-taking after Thu +4.2% on upgrades; still +3.0% vs cost). CVIEW -3.2% to 2.71 on ex-dividend 8 sen (ex-adjusted -0.4%). SKBSHUT -2.4% to 0.83 on 325,500 (~6x Thu), no Bursa announcement found; construction sector weak; AGM 27 Nov (record 20 Nov). AME +0.8% to 1.27. MBMR +0.8% to 4.77. KIPREIT -0.6% to 0.855 (back to cost). MKHOP flat 0.61 on 32,800 despite CPO Jan ~RM4,440 (+~4% this week). TOPMIX untraded 2nd day. Watchlist: CARLSBG 13.14 (+0.3%, 252,900)."
   }
  ],
- "last_updated": "2026-11-12",
- "latest_portfolio_total": 4581.5
+ "last_updated": "2026-11-13",
+ "latest_portfolio_total": 4537.5
 }

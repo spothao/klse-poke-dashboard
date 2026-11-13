@@ -1,4 +1,4 @@
-preview.png
-preview-*.png
 __pycache__/
-fit-report.json
+# Ledger data lives in the MoneyLens DB; never commit it to this public repo.
+*.json
+preview*.png

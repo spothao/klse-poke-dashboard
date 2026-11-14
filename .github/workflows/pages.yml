@@ -1,64 +1,57 @@
-name: Deploy GitHub Pages
+name: Publish screensaver to Pages
+
+# Copies screensaver.png (and a one-image index page) to GitHub Pages. It never
+# renders and never commits: the image is rendered from the MoneyLens database by
+# spothao/moneylens's "Paper ledgers" workflow, which pushes it to main. The old
+# workflow re-rendered from stale data/ files on every push and could overwrite
+# the database render; that is gone.
+#
+# Both URLs keep working:
+#   https://raw.githubusercontent.com/spothao/klse-poke-dashboard/main/screensaver.png
+#   https://spothao.github.io/klse-poke-dashboard/screensaver.png
 
 on:
   push:
     branches: [main]
+    paths: [screensaver.png]
   workflow_dispatch:
 
 permissions:
-  contents: write
+  contents: read
   pages: write
   id-token: write
 
 concurrency:
   group: pages
-  cancel-in-progress: false
+  cancel-in-progress: true
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    timeout-minutes: 5
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - uses: actions/checkout@v4
-
-      - uses: actions/setup-python@v5
         with:
-          python-version: "3.12"
+          persist-credentials: false
 
-      - name: Install screensaver dependencies
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y fonts-dejavu-core
-          pip install pillow
-
-      - name: Generate screensaver.png
-        run: python3 generate_screensaver.py
-
-      - name: Commit screensaver.png if it changed
-        if: github.ref == 'refs/heads/main'
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add screensaver.png
-          if git diff --cached --quiet; then
-            echo "screensaver.png unchanged"
-          else
-            git commit -m "Update screensaver.png [skip ci]"
-            git push origin "HEAD:${GITHUB_REF_NAME}"
-          fi
-
-      - name: Stage site
+      - name: Stage screensaver.png
         run: |
           mkdir site
-          cp *.html site/
           cp screensaver.png site/
           touch site/.nojekyll
+          cat > site/index.html <<'HTML'
+          <!doctype html>
+          <html><head><meta charset="utf-8"><meta http-equiv="refresh" content="900">
+          <meta name="viewport" content="width=device-width,initial-scale=1">
+          <title>KLSE paper trading</title>
+          <style>html,body{margin:0;background:#fff}img{display:block;width:100%;height:auto}</style>
+          </head><body><img src="screensaver.png" alt="Paper-trading screensaver"></body></html>
+          HTML
 
       - uses: actions/configure-pages@v5
-        with:
-          enablement: true
 
       - uses: actions/upload-pages-artifact@v3
         with:

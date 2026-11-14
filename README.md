@@ -1,55 +1,52 @@
 # KLSE Poke Dashboard
 
-A static, high-contrast e-ink dashboard for a Boox Poke 5 (6-inch, 1072×1448). It is split into one-screen pages so nothing scrolls.
+A black-on-white screensaver image (1072×1448) for a Boox Poke 5, showing the two
+KLSE **paper-trading** portfolios (MoneyLens top-20 and KLSE Screener). No real
+orders are ever placed.
 
-Live site: https://spothao.github.io/klse-poke-dashboard/
-
-| Page | URL |
-| --- | --- |
-| Overview | https://spothao.github.io/klse-poke-dashboard/ |
-| Comparison (1/3) | https://spothao.github.io/klse-poke-dashboard/compare.html |
-| Comparison (2/3) | https://spothao.github.io/klse-poke-dashboard/compare-2.html |
-| Comparison (3/3) | https://spothao.github.io/klse-poke-dashboard/compare-3.html |
-| MoneyLens holdings | https://spothao.github.io/klse-poke-dashboard/moneylens.html |
-| Screener holdings | https://spothao.github.io/klse-poke-dashboard/screener.html |
-| Watchlist (1/2) | https://spothao.github.io/klse-poke-dashboard/watchlist.html |
-| Watchlist (2/2) | https://spothao.github.io/klse-poke-dashboard/watchlist-2.html |
-| **Screensaver image** | https://spothao.github.io/klse-poke-dashboard/screensaver.png |
-
-Each page has large Prev / Home / Next buttons, a Last updated line in MYT, and reloads every 15 minutes. No JavaScript is required. Tables that would overflow a Poke screen are split (for example `watchlist-2.html`).
-
-Prices come from Yahoo Finance (`CODE.KL`); if Yahoo is unavailable, the generator uses the ledger’s last close and marks it with `*`.
-
-## Rebuild
+The image is served from two places; both stay current:
 
 ```bash
-python3 build.py
-python3 generate_screensaver.py   # produces screensaver.png (requires Pillow)
-```
-
-`build.py` reads `/workspace/papertrade/ledger.json`, `/workspace/papertrade-screener/ledger.json`, and `comparison.md` if present, then writes the HTML pages.
-
-`generate_screensaver.py` produces a black-on-white `screensaver.png` suitable for the Poke 5. Termux can download it with:
-
-```bash
+# Termux on the Boox
 curl -L -o /sdcard/Pictures/screensaver.png \
   https://raw.githubusercontent.com/spothao/klse-poke-dashboard/main/screensaver.png
 ```
 
-To check that every page fits 360×480, 400×530, and 1072×1448 CSS pixels:
+- Pages: https://spothao.github.io/klse-poke-dashboard/screensaver.png (and a
+  one-image page at https://spothao.github.io/klse-poke-dashboard/ that reloads
+  every 15 minutes)
+
+The old HTML pages (`compare.html`, `moneylens.html`, `watchlist.html`, …) are
+gone: they were built from ledger copies in `data/` that went stale.
+
+## How it is updated
+
+Nothing in this repo renders on its own any more; the image is pushed here by the
+**Paper ledgers** workflow in `spothao/moneylens`:
+
+1. Each weekday after the close, the two paper-trading bots commit their ledger
+   JSON to the `paper-data` branch of `spothao/moneylens`.
+2. That workflow upserts both ledgers into the MoneyLens Postgres database
+   (`papertrading_paperledgersnapshot`), then exports the newest row per bot.
+   It also re-renders on weekdays at 09:00, 13:00 and 18:45 MYT.
+3. It checks out this repo, runs `generate_screensaver.py` on the two exports,
+   and commits `screensaver.png` to main only if the image changed (with a
+   fine-grained token scoped to this repo).
+4. That push runs `.github/workflows/pages.yml` here, which only copies
+   `screensaver.png` to GitHub Pages.
+
+The database URL stays in moneylens's GitHub secrets; this public repo holds no
+ledger data. The Tolino e-reader pages (which include real portfolios) are
+rendered and stored privately in `spothao/moneylens`, never here.
+
+## Run it locally
 
 ```bash
-node measure_viewports.mjs index.html compare.html compare-2.html compare-3.html moneylens.html screener.html watchlist.html watchlist-2.html
+pip install pillow   # and DejaVu fonts (fonts-dejavu-core) for the intended look
+ML_LEDGER=moneylens.json SC_LEDGER=screener.json OUTPUT=screensaver.png \
+  python3 generate_screensaver.py
 ```
 
-To rebuild and push any change to the HTML pages:
-
-```bash
-./publish.sh
-```
-
-Do not commit credentials or ledger files.
-
-`comparison.md` holds the Friday weekly write-up (plain paragraphs under a date heading). `build.py` renders it on the comparison summary page.
-
-To publish after a rebuild when `gh` is not logged in, follow [README-publish.md](README-publish.md).
+`ML_LEDGER` and `SC_LEDGER` are required; the script handles both ledger shapes
+(MoneyLens: `holdings` list, `history[]`, `latest_portfolio_total`; Screener:
+`holdings` dict, `daily[]`, `total_contributed`).

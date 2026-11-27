@@ -43,7 +43,7 @@ cp /workspace/papertrade/ledger.json /workspace/poke-dashboard/data/moneylens-le
 cp /workspace/papertrade-screener/ledger.json /workspace/poke-dashboard/data/screener-ledger.json
 ```
 
-Do not generate or push `screensaver.png` from this box. The **Deploy GitHub Pages** workflow (`.github/workflows/pages.yml`) runs `generate_screensaver.py` after checkout, deploys the PNG with the HTML pages, and commits `screensaver.png` back to `main` as `github-actions[bot]` only when the image changed, using `[skip ci]` so that commit does not retrigger the workflow.
+Do not generate or push `screensaver.png` from this box when you are only updating `data/*.json` or `generate_screensaver.py`. The **Generate screensaver** workflow (`.github/workflows/pages.yml`) runs `generate_screensaver.py` when those files (or the workflow itself) change, and commits `screensaver.png` back to `main` as `github-actions[bot]` only when the image changed, using `[skip ci]`. GitHub Pages is published directly from the `main` branch, so HTML and PNG updates go live without an Actions `deploy-pages` job. A screensaver-only push (for example from MoneyLens `paper-ledgers.yml`) does not rerun this workflow.
 
 To test the script locally (optional):
 
@@ -84,13 +84,12 @@ Set `mcpDetails.description` to a short plain-language sentence about the push.
 
 ## 5. Wait for GitHub Pages and the screensaver
 
-The workflow `.github/workflows/pages.yml` deploys every `*.html` file and `screensaver.png` from `main`. After the last content push (not the later `[skip ci]` PNG commit):
+GitHub Pages deploys automatically from the `main` branch (`/` source). After the last content push:
 
 1. Wait about 60–90 seconds.
-2. Call `actions_list` on `user-GitHub-xai` with `method: list_workflow_runs`, `owner: spothao`, `repo: klse-poke-dashboard`.
-3. Confirm the latest **Deploy GitHub Pages** run for the new commit SHA has `status: completed` and `conclusion: success`.
-4. If it failed, call `actions_list` with `method: list_workflow_jobs` and `resource_id` set to the run id, then `get_job_logs` with `return_content: true` for the failed job id. Fix and push again.
-5. After a successful run, confirm a follow-up commit `Update screensaver.png [skip ci]` by `github-actions[bot]` when the image changed, and that it did **not** start another workflow run.
+2. Confirm the latest **pages build and deployment** run for the new commit SHA has `status: completed` and `conclusion: success`.
+3. If you pushed `data/*.json` or `generate_screensaver.py`, also confirm the **Generate screensaver** workflow completed successfully. When the image changed, `github-actions[bot]` will add a follow-up `Update screensaver.png [skip ci]` commit, which triggers another Pages build but does not retrigger the generator.
+4. If a workflow failed, inspect the job logs, fix, and push again.
 
 ## 6. Verify the live URLs
 

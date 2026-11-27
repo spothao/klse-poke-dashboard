@@ -1,25 +1,24 @@
-name: Deploy GitHub Pages
+name: Generate screensaver
 
 on:
   push:
     branches: [main]
+    paths:
+      - "generate_screensaver.py"
+      - "data/**"
+      - ".github/workflows/pages.yml"
   workflow_dispatch:
 
 permissions:
   contents: write
-  pages: write
-  id-token: write
 
 concurrency:
-  group: pages
+  group: generate-screensaver
   cancel-in-progress: false
 
 jobs:
-  deploy:
+  generate:
     runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - uses: actions/checkout@v4
 
@@ -48,21 +47,3 @@ jobs:
             git commit -m "Update screensaver.png [skip ci]"
             git push origin "HEAD:${GITHUB_REF_NAME}"
           fi
-
-      - name: Stage site
-        run: |
-          mkdir site
-          cp *.html site/
-          cp screensaver.png site/
-          touch site/.nojekyll
-
-      - uses: actions/configure-pages@v5
-        with:
-          enablement: true
-
-      - uses: actions/upload-pages-artifact@v3
-        with:
-          path: site
-
-      - id: deployment
-        uses: actions/deploy-pages@v4
